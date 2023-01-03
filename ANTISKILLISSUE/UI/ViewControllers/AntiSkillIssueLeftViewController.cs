@@ -27,6 +27,10 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
     internal class AntiSkillIssueLeftViewController : BSMLResourceViewController //no way! its a legendary view controller! super rare!
     {
         public override string ResourceName => string.Join(".", GetType().Namespace, GetType().Name) + ".bsml";
+        private int _StartSecondsTime;
+        private int _EndSecondsTime;
+        private int _StartMinuitesTime;
+        private int _EndMinuitesTime;
 
         [UIAction("Click")]
         private void ButtonClicked()
@@ -39,13 +43,51 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         private SliderSetting StartTimeSlider;
 
         [UIValue("start-time-value")]
-        private string StartTimeValue;
+        private string StartTimeValue => GetStartTimeValue();
+
 
         [UIComponent("end-time-slider")]
         private SliderSetting EndTimeSlider;
 
         [UIValue("end-time-value")]
-        private string EndTimeValue;
+        private string EndTimeValue => GetEndTimeValue();
+
+
+        private string GetStartTimeValue()
+        {
+            _StartSecondsTime = 32; //Default Value <3
+            if (_StartSecondsTime >= 60)
+            {
+                _StartSecondsTime = _StartSecondsTime - 60;
+                _StartMinuitesTime++;
+
+            }
+            else
+            { 
+                return _StartSecondsTime + "s"; 
+            
+            }
+            return _StartMinuitesTime + "m " + _StartSecondsTime + "S";
+            
+        }
+
+        private string GetEndTimeValue()
+        {
+            _EndSecondsTime = 32; //Default Value <3
+            if (_EndSecondsTime >= 60)
+            {
+                _EndSecondsTime = _EndSecondsTime - 60;
+                _EndMinuitesTime++;
+
+            }
+            else
+            {
+                return _EndSecondsTime + "s";
+
+            }
+            return _EndMinuitesTime + "m " + _EndSecondsTime + "S";
+
+        }
 
     }
 }

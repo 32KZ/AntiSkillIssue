@@ -59,26 +59,24 @@
 							<slider-setting id='start-time-slider'
 											value ='start-time-value'
 											show-buttons='true'
-											on-change='Click'
-											apply-on-change='true'
-											bind-value='true'
 											text='Start Slider'
 											increment='.1'
 											min='0'
-											max='10'>
+											max='10'
+											integer-only='true'
+											>
 							</slider-setting>
 						</horizontal>
 						<horizontal preferred-height='5' bg='panel-top' pad-left='10' pad-right='10' pad-top='5' horizontal-fit='PreferredSize'>
 							<slider-setting id='end-time-slider' 
 											value ='end-time-value'
 											show-buttons='true'
-											on-change='Click'
-											apply-on-change='true'
-											bind-value='true'
 											text='End Slider'
 											increment='.1'
 											min='0'
-											max='10'>
+											max='10'
+											integer-only='true'
+											>
 							</slider-setting>
 						</horizontal>
 					</modifier-container>
