@@ -30,6 +30,16 @@ i Decided to make a mod for Beatsaber For my Computer Science Alevel Project.
 
 Great idea 🥶
 
+## Known Issues
+
+-Barely Works
+
+-Creates new ViewControllers and FlowCoordinators each time the Settings Menu is loaded (memory leak)
+
+-Doesnt Dismiss ~SoloPlayMenuFlowCoordinator Creating a Softlock and Broken Results UI
+
+-unfinished Results UI
+
 ## Credits
 
 MatrikMoon - Teaching me Most of what i Know
