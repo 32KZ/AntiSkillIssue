@@ -1,0 +1,11 @@
+﻿<vertical child-control-height='false' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
+	<horizontal bg='panel-top' pad-left='0' pad-right='0' horizontal-fit='PreferredSize'>
+		<text id= 'cover-image' text='~cover-image' align='Left' font-size='6'></text>
+		<text id= 'song-name'  text='~song-name' align='Center' font-size='6'></text>
+		<text id= 'song-length' text='~song-length' align='Right' font-size='6'></text>
+	</horizontal>
+	<horizontal bg='round-rect-panel' id='splash-background' pads='2'>
+		<text text='Play num'/>
+		<button text='Results' font-size='3' on-click='results-button'/>
+	</horizontal>
+</vertical>

@@ -1,0 +1,7 @@
+﻿[*.cs]
+
+# IDE0005: Using directive is unnecessary.
+dotnet_diagnostic.IDE0005.severity = silent
+
+# CS1566: Error reading resource 'AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers.AntiSkillIssueRightViewController' -- 'Could not find file 'C:\Users\dando\source\repos\AntiSkillIssue\ANTISKILLISSUE\UI\ViewControllers\BSMLViewController1 - Copy.bsml'.'
+dotnet_diagnostic.CS1566.severity = none
