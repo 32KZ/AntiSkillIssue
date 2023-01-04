@@ -122,12 +122,6 @@
     <None Include=".editorconfig" />
     <EmbeddedResource Include="ANTISKILLISSUE\UI\ViewControllers\ASITabMenu.bsml" />
     <EmbeddedResource Include="ANTISKILLISSUE\UI\ViewControllers\ResultsViewController.bsml" />
-    <EmbeddedResource Include="ANTISKILLISSUE\UI\ViewControllers\BSMLViewController1.bsml">
-      <DependentUpon>AntiSkillIssueLeftViewController.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ANTISKILLISSUE\UI\ViewControllers\BSMLViewController1 - Copy.bsml">
-      <DependentUpon>AntiSkillIssueRightViewController.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ANTISKILLISSUE\UI\ViewControllers\AntiSkillIssueLeftViewController.bsml" />
     <EmbeddedResource Include="ANTISKILLISSUE\UI\ViewControllers\AntiSkillIssueRightViewController.bsml" />
     <EmbeddedResource Include="ANTISKILLISSUE\UI\ViewControllers\ASITabMenuFAIL.bsml" />
