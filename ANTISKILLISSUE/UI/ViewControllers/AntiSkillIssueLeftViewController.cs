@@ -43,51 +43,63 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         private SliderSetting StartTimeSlider;
 
         [UIValue("start-time-value")]
-        private string StartTimeValue => GetStartTimeValue();
+        public string StartTimeValue
+        {
+            get
+            {
+                return this.StartTimeValue;
+            }
+            set 
+            {
+                if (value != this.StartTimeValue)
+                { 
+                    this.StartTimeValue = value;
+                    NotifyPropertyChanged();
+                }
+
+            }
+            
+        }
 
 
         [UIComponent("end-time-slider")]
         private SliderSetting EndTimeSlider;
 
         [UIValue("end-time-value")]
-        private string EndTimeValue => GetEndTimeValue();
-
-
-        private string GetStartTimeValue()
+        public string EndTimeValue
         {
-            _StartSecondsTime = 32; //Default Value <3
-            if (_StartSecondsTime >= 60)
+            get
             {
-                _StartSecondsTime = _StartSecondsTime - 60;
-                _StartMinuitesTime++;
+                return this.EndTimeValue;
+            }
+            set
+            {
+                if (value != this.EndTimeValue)
+                {
+                    this.EndTimeValue = value;
+                    NotifyPropertyChanged();
+                }
 
             }
-            else
-            { 
-                return _StartSecondsTime + "s"; 
-            
-            }
-            return _StartMinuitesTime + "m " + _StartSecondsTime + "S";
-            
+
         }
 
-        private string GetEndTimeValue()
-        {
-            _EndSecondsTime = 32; //Default Value <3
-            if (_EndSecondsTime >= 60)
-            {
-                _EndSecondsTime = _EndSecondsTime - 60;
-                _EndMinuitesTime++;
-
-            }
-            else
-            {
-                return _EndSecondsTime + "s";
-
-            }
-            return _EndMinuitesTime + "m " + _EndSecondsTime + "S";
-
-        }
+        //private static string timecalc()
+        //{
+        //_StartSecondsTime = 32; //Default Value <3
+        //    if (_StartSecondsTime >= 60)
+        //    {
+        //        _StartSecondsTime = _StartSecondsTime - 60;
+        //        _StartMinuitesTime++;
+        //
+        //    }
+        //    else
+        //    {
+        //        return _StartSecondsTime + "s";
+        //
+        //    }
+        //return _StartMinuitesTime + "m " + _StartSecondsTime + "s";
+        //}
 
     }
 }
