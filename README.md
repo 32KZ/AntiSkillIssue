@@ -66,4 +66,4 @@ Great idea 🥶
 
 [32KZ](https://www.Github.com/32KZ) - Figuring out how to make mods, Running them, Developing them, programing this, ect
 
-BSMG #pc-mod-dev - Checked the pins and Found  the BSPIA4 Unity Runtime Editor. super cool 😎
+[BSMG](https://discord.gg/beatsabermods) #pc-mod-dev - Checked the pins and Found  the BSPIA4 Unity Runtime Editor. super cool 😎
