@@ -52,12 +52,18 @@ Great idea 🥶
 
 -Creates new ViewControllers and FlowCoordinators each time the Settings Menu is loaded (memory leak)
 
--Doesnt Dismiss ~SoloPlayMenuFlowCoordinator Creating a Softlock and Broken Results UI
+-in the Tab Menu, the results button Doesnt Dismiss ~SoloPlayMenuFlowCoordinator Creating a Softlock and Broken Results UI
 
--unfinished Results UI
+-Unfinished Results UI
+
+-No integration with Beatsaviour so far (Yet)
+
+-Does not save data to any Directory (Yet)
 
 ## Credits
 
-MatrikMoon - Teaching me Most of what i Know
+[MatrikMoon](https://www.Github.com/MatrikMoon/) - Teaching me Most of what i Know when it comes to Modding the game, but mainly ViewControllers and FlowCoordinators, as well as the didFinishEvent.
 
-32KZ - Figuring out how to make mods, Running them, Deloping them, programing this, ect
+[32KZ](https://www.Github.com/32KZ) - Figuring out how to make mods, Running them, Developing them, programing this, ect
+
+BSMG #pc-mod-dev - Checked the pins and Found  the BSPIA4 Unity Runtime Editor. super cool 😎
