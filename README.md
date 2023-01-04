@@ -6,11 +6,17 @@ My Discord is 32KZ#8255. Please message me 😭 😂
 - None (ish)
 
 ## Planed Features
-- Take replay inforamtion from BeatSaviour For Display in a UI of my Creation 🙌 https://github.com/Mystogan98/BeatSaviorData
+- Take replay information from [BeatSaviour](https://github.com/Mystogan98/BeatSaviorData) For Display in a UI of my Creation 🙌 the UI is To contain:
 
-- Save important Replay Data in "UserData/AntiSkillIssue/$Songname/" For future reference
+  - Tabs For the following: Pre-Swing & Post-Swing, Accuracy, Timing Dependence, Velocity
+  
+  - Each tab has a nested Left and Right tab to Display information Per hand for better Data Viewage
 
-- Some more features i CBA to write RN
+- Save important Replay Data in "UserData/AntiSkillIssue/$Songname/" For future use
+
+- Automatic Deletion of aformentioned replay data on command, or after a time set in the Settings Menu
+
+- Per level, Recommend most Effective values in comparason to your actual data, eg Velocity based on selected level NJS and BPM. 
 
 ## How To Use
 
@@ -19,7 +25,7 @@ My Discord is 32KZ#8255. Please message me 😭 😂
 2> Go to Step 1 and continue
 
 ## Versions
-for BS 1.20.0 and on
+All releases for BS 1.20.0 and on
 
 
 ## About
