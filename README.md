@@ -20,9 +20,19 @@ My Discord is 32KZ#8255. Please message me 😭 😂
 
 ## How To Use
 
-1> Suffer
+1> Set a Score for review
 
-2> Go to Step 1 and continue
+2> Go to the ASI tab menu in the Song selection Menu under "Mods > ASI"
+
+3> Select the latest Play (top)
+
+4> Press the results Button to take you to the main UI
+
+5> By Clicking through the implemented tabs, you can look at information from that play, and what to change to improve. 
+
+6> Ajust the Start time Slider and End time Slider to review a more specific time range in the song
+
+7> Refer to Features for other Functionality. 
 
 ## Versions
 All releases for BS 1.20.0 and on
