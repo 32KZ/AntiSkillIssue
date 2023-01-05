@@ -39,49 +39,26 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
         }
 
-        [UIComponent("start-time-slider")]
-        private SliderSetting StartTimeSlider;
+        [UIComponent("lower_threshold_slider")]
+        private SliderSetting Lower_Threshold_Slider;
 
-        [UIValue("start-time-value")]
-        public string StartTimeValue
+        [UIValue("lower_threshold_value")]
+        private float Lower_Threshold_Value
         {
             get
             {
-                return this.StartTimeValue;
-            }
-            set 
-            {
-                if (value != this.StartTimeValue)
-                { 
-                    this.StartTimeValue = value;
-                    NotifyPropertyChanged();
-                }
-
-            }
-            
-        }
-
-
-        [UIComponent("end-time-slider")]
-        private SliderSetting EndTimeSlider;
-
-        [UIValue("end-time-value")]
-        public string EndTimeValue
-        {
-            get
-            {
-                return this.EndTimeValue;
+                return PluginConfig.Instance.lower_threshold;
             }
             set
             {
-                if (value != this.EndTimeValue)
-                {
-                    this.EndTimeValue = value;
-                    NotifyPropertyChanged();
-                }
-
+                PluginConfig.Instance.lower_threshold = value;
             }
-
+        }
+        [UIAction("set_lower_threshold")]
+        private void Set_Lower_Threshold(float value)
+        {
+            Lower_Threshold_Value = value;
+            NotifyPropertyChanged();
         }
 
         //private static string timecalc()

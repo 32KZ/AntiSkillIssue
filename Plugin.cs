@@ -188,7 +188,6 @@ namespace AntiSkillIssue
             _AntiSkillIssueFlowCoordinator.DidFinishEvent -= _AntiSkillIssueFlowCoordinator_DidFinishEvent;
             // DISCONNECT DELEGATION TO STOP MULTIPLE CALLS
             _mainFlowCoordinator.DismissFlowCoordinator(_AntiSkillIssueFlowCoordinator);
-
             #region _AntiSkillIssueFlowCoordinator_DidFinishEvent() Summary
             //when the did finish event is called for the _AntiSkillIssueFlowCoordinator, 
             //Dissmiss the _AntiSkillIssueFlowCoordinator from the _mainFlowCoordinator.

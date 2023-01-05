@@ -19,6 +19,13 @@ namespace AntiSkillIssue.ANTISKILLISSUE.Configuration
     internal class PluginConfig
     {
         public virtual bool isCoolMod { get; set; } = true;
+        public static PluginConfig Instance
+        {
+            get; set;
+        }
+        public float lower_threshold { get; set; } = 1f;
+        public float upper_threshold { get; set; } = 100f;
+
     }
 }
 
