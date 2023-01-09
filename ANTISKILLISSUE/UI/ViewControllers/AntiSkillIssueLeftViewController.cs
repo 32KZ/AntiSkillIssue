@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,9 @@ using IPA;
 using IPA.Config;
 using IPA.Config.Stores;
 using IPALogger = IPA.Logging.Logger;
+using BeatSaberMarkupLanguage;
+using BeatSaberMarkupLanguage.Parser;
+using BeatSaberMarkupLanguage.GameplaySetup;
 using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.ViewControllers;
 using BeatSaberMarkupLanguage.Components.Settings;
@@ -21,6 +25,8 @@ using AntiSkillIssue.ANTISKILLISSUE.Configuration;
 using AntiSkillIssue.ANTISKILLISSUE.Installers;
 using AntiSkillIssue.ANTISKILLISSUE.UI.FlowCoordinators;
 using AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers;
+
+
 
 namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 {
@@ -31,6 +37,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         private int _EndSecondsTime;
         private int _StartMinuitesTime;
         private int _EndMinuitesTime;
+        
 
         [UIAction("Click")]
         private void ButtonClicked()
@@ -39,27 +46,23 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
         }
 
-        [UIComponent("lower_threshold_slider")]
-        private SliderSetting Lower_Threshold_Slider;
+        [UIComponent("start-time-slider")]
+        private SliderSetting startTimeSlider;
 
-        [UIValue("lower_threshold_value")]
-        private float Lower_Threshold_Value
+        [UIValue("volume-slider")]
+        private float volume = 1f;
+
+        [UIAction("volume-slider")]
+        private void SetVolume(float newVolume)
         {
-            get
-            {
-                return PluginConfig.Instance.lower_threshold;
-            }
-            set
-            {
-                PluginConfig.Instance.lower_threshold = value;
-            }
+            volume = newVolume;
+            // Set the volume of the music here using the newVolume value
+            
         }
-        [UIAction("set_lower_threshold")]
-        private void Set_Lower_Threshold(float value)
-        {
-            Lower_Threshold_Value = value;
-            NotifyPropertyChanged();
-        }
+
+        
+
+
 
         //private static string timecalc()
         //{

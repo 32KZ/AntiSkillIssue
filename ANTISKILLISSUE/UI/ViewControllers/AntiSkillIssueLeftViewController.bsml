@@ -22,29 +22,17 @@
 							<text text='Left!'/>
 						</horizontal>
 						<horizontal preferred-height='5' bg='panel-top' pad-left='10' pad-right='10' pad-top='5' horizontal-fit='PreferredSize'>
-							<!--<slider-setting id='start-time-slider'
-											value ='start-time-value'
+							<slider-setting id='start-time-slider'
+											value='volume-slider'
 											show-buttons='true'
-											on-change='Click'
-											apply-on-change='true'
 											bind-value='true'
 											text='Start Slider'
-											increment='.1'
+											increment='0.01'
 											min='0'
-											max='10'>
-							</slider-setting> -->
-						
-						<slider-setting 
-							id='lower_threshold_slider' 
-							value ='lower_threshold_value' 
-							show-buttons='true' 
-							on-change='set_lower_threshold' 
-							apply-on-change='true'
-							bind-value='true' text='Lower Threshold' 
-							increment='1' min='1' max='100' >
-							
-						</slider-setting>
-							
+											max='1'>
+							</slider-setting>  
+
+
 						</horizontal>
 						<horizontal preferred-height='5' bg='panel-top' pad-left='10' pad-right='10' pad-top='5' horizontal-fit='PreferredSize'>
 							<text text='Placeholder'/>
