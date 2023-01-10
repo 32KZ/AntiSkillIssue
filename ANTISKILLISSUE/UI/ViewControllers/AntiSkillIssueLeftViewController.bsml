@@ -16,8 +16,15 @@
 		<tab tab-name='Time Selector' tags='tabs'>
 			<modifier-container child-expand-width='true' spacing='1' >
 				<horizontal preferred-height='20' bg='panel-top' pad-left='10' pad-right='10' horizontal-fit='PreferredSize'>
-					<text text='Use these Sliders to Select a smaller section of the Map to review!' />
+					<horizontal>
+						<text text='Use these Sliders to Select a smaller section of the Map to review!' />
+					</horizontal>
+					
 					<text text='all data on following tabs will change accordingly.' />
+					
+				</horizontal>
+				<horizontal>
+					
 				</horizontal>
 				<!--Start Time Slider -->
 			<horizontal preferred-height='12' pad-left='10' pad-right='10' pad-top='5' horizontal-fit='PreferredSize'>
