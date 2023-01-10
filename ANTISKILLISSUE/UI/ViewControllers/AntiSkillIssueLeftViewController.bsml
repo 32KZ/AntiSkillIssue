@@ -10,6 +10,51 @@
 	
 	Code Dump end -->
 	<horizontal preferred-width='100' preferred-height='60' pad-top='6'>
+
+		<!-- Pre-Swing and Post-Swing -->
+
+		<tab tab-name='Time Selector' tags='tabs'>
+			<modifier-container child-expand-width='true' spacing='1' >
+				<horizontal preferred-height='20' bg='panel-top' pad-left='10' pad-right='10' horizontal-fit='PreferredSize'>
+					<text text='Use these Sliders to Select a smaller section of the Map to review!' />
+					<text text='all data on following tabs will change accordingly.' />
+				</horizontal>
+				<!--Start Time Slider -->
+			<horizontal preferred-height='12' pad-left='10' pad-right='10' pad-top='5' horizontal-fit='PreferredSize'>
+				<slider-setting id='start-time-slider'
+								value='start-slider'
+								show-buttons='true'
+								bind-value='true'
+								text='Start Slider'
+								increment='0.01'
+								min='0'
+								max='600'
+								hover-hint='Where in the song to start Reviewing'>
+				</slider-setting>
+			</horizontal>
+		<!--Start Time Slider END-->
+
+			<!--End Time Slider -->
+			<horizontal preferred-height='12' pad-left='10' pad-right='10' pad-top='5' horizontal-fit='PreferredSize'>
+				<slider-setting id='end-time-slider'
+								value='end-slider'
+								show-buttons='true'
+								bind-value='true'
+								text='End Slider'
+								increment='0.01'
+								min='0'
+								max='600'
+								hover-hint='Where in the song to Stop Reviewing'>
+				</slider-setting>
+			</horizontal>
+			<!--End Time Slider END-->
+				
+			</modifier-container>
+		</tab>
+				
+		<!-- Pre-Swing and Post-Swing END-->
+		
+		
 		<!-- Pre-Swing and Post-Swing -->
 		
 		<tab tab-name='Pre-S/Post-S' tags='tabs'>
@@ -21,22 +66,6 @@
 						<horizontal preferred-height='20' bg='panel-top' pad-left='10' pad-right='10' horizontal-fit='PreferredSize'>
 							<text text='Left!'/>
 						</horizontal>
-						<horizontal preferred-height='5' bg='panel-top' pad-left='10' pad-right='10' pad-top='5' horizontal-fit='PreferredSize'>
-							
-
-
-						</horizontal>
-						<horizontal preferred-height='5' bg='panel-top' pad-left='10' pad-right='10' pad-top='5' horizontal-fit='PreferredSize'>
-							<slider-setting id='start-time-slider'
-											value='volume-slider'
-											show-buttons='true'
-											bind-value='true'
-											text='Start Slider'
-											increment='0.01'
-											min='0'
-											max='1'>
-							</slider-setting>
-						</horizontal>
 					</modifier-container>
 				</tab>
 				<!-- Pre-Swing and Post-Swing Right Main-->
@@ -44,12 +73,6 @@
 					<modifier-container child-expand-width='true' spacing='1' >
 						<horizontal preferred-height='20' bg='panel-top' pad-left='10' pad-right='10' horizontal-fit='PreferredSize'>
 							<text text='Right!'/>
-						</horizontal>
-						<horizontal preferred-height='5' bg='panel-top' pad-left='10' pad-right='10' pad-top='5' horizontal-fit='PreferredSize'>
-							<text text='Placeholder'/>
-						</horizontal>
-						<horizontal preferred-height='5' bg='panel-top' pad-left='10' pad-right='10' pad-top='5' horizontal-fit='PreferredSize'>
-							<text text='Placeholder'/>	
 						</horizontal>
 					</modifier-container>
 				</tab>

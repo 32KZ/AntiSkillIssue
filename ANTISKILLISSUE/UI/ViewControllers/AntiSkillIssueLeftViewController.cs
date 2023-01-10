@@ -49,18 +49,30 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         [UIComponent("start-time-slider")]
         private SliderSetting startTimeSlider;
 
-        [UIValue("volume-slider")]
-        private float volume = 1f;
+        [UIValue("start-slider")]
+        private float StartTime = 1f;
 
-        [UIAction("volume-slider")]
-        private void SetVolume(float newVolume)
+        [UIAction("start-slider")]
+        private void SetStartTime(float newStartTime)
         {
-            volume = newVolume;
-            // Set the volume of the music here using the newVolume value
+            StartTime = newStartTime;
+            // Set the new value of the slider on Change
             
         }
+        [UIComponent("end-time-slider")]
+        private SliderSetting endTimeSlider;
 
-        
+        [UIValue("end-slider")]
+        private float endTime = 1f;
+
+        [UIAction("end-slider")]
+        private void SetEndTime(float newEndTime)
+        {
+            endTime = newEndTime;
+            // Set the new value of the slider on Change
+
+        }
+
 
 
 
