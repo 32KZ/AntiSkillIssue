@@ -31,3 +31,10 @@ C:\Users\dando\source\repos\AntiSkillIssue\obj\Debug\AntiSkillIssue.dll
 C:\Users\dando\source\repos\AntiSkillIssue\obj\Debug\AntiSkillIssue.pdb
 C:\Users\dando\Desktop\AntiSkillIssueReleaseVersions\AntiSkillIssue.dll
 C:\Users\dando\Desktop\AntiSkillIssueReleaseVersions\AntiSkillIssue.pdb
+C:\Users\32KZ\Desktop\Desktop\AntiSkillIssueReleaseVersions\AntiSkillIssue.dll
+C:\Users\32KZ\Desktop\Desktop\AntiSkillIssueReleaseVersions\AntiSkillIssue.pdb
+C:\Users\32KZ\Desktop\MyStuff\Repos\AntiSkillIssue\obj\Debug\AntiSkillIssue.csproj.AssemblyReference.cache
+C:\Users\32KZ\Desktop\MyStuff\Repos\AntiSkillIssue\obj\Debug\AntiSkillIssue.csproj.CoreCompileInputs.cache
+C:\Users\32KZ\Desktop\MyStuff\Repos\AntiSkillIssue\obj\Debug\AntiSkillIssue.csproj.CopyComplete
+C:\Users\32KZ\Desktop\MyStuff\Repos\AntiSkillIssue\obj\Debug\AntiSkillIssue.dll
+C:\Users\32KZ\Desktop\MyStuff\Repos\AntiSkillIssue\obj\Debug\AntiSkillIssue.pdb
