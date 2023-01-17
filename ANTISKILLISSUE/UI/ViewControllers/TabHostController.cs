@@ -32,17 +32,19 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
         internal static IPALogger Log { get; private set; }
         internal static TabHostController instance;
-        private IPreviewBeatmapLevel _currentLevel;
+        //public string _SongName = IPreviewBeatmapLevel.songName;
+
         private MainFlowCoordinator _mainFlowCoordinator;
         private ResultsFlowCoordinator _ResultsFlowCoordinator;
         
+        
 
         [UIValue("song-name")]
-        private string _SongName = "SongnamegoesHere ";
+        private string _SongName = "Placeholder";
         [UIValue("cover-image")]
-        private string _CoverImage = "CoverHere ";
+        private string _CoverImage = "Cover ";
         [UIValue("song-length")]
-        private string _SongLength = "LengthHere ";
+        private string _SongLength = "Length ";
 
 
         public void Init(IPALogger logger)

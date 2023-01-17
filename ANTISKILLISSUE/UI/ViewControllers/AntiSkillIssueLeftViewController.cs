@@ -33,10 +33,12 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
     internal class AntiSkillIssueLeftViewController : BSMLResourceViewController //no way! its a legendary view controller! super rare!
     {
         public override string ResourceName => string.Join(".", GetType().Namespace, GetType().Name) + ".bsml";
+        internal static IPALogger Log { get; private set; }
         private int _StartSecondsTime;
         private int _EndSecondsTime;
         private int _StartMinuitesTime;
         private int _EndMinuitesTime;
+        
         
 
         [UIAction("Click")]
@@ -68,7 +70,9 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         [UIAction("end-slider")]
         private void SetEndTime(float newEndTime)
         {
+            
             endTime = newEndTime;
+            
             // Set the new value of the slider on Change
 
         }
