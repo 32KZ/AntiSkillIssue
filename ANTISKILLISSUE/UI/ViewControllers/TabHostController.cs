@@ -38,12 +38,12 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
         private MainFlowCoordinator _mainFlowCoordinator;
         private ResultsFlowCoordinator _ResultsFlowCoordinator;
-        private SoloFreePlayFlowCoordinator _CurrentFlowCoordinator;
-
+        private SoloFreePlayFlowCoordinator _SoloFreePlayFlowCoordinator;
+        private MainMenuViewController _mainMenuViewController;
 
 
         [UIValue("song-name")]
-        private string _SongName = "Songname";//yeah songName;
+        private string _SongName = "Songname";// songName;
         [UIValue("cover-image")]
         private string _CoverImage = "Cover "; //private img coverImage = cover.Image
         [UIValue("song-length")]
@@ -88,26 +88,19 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             Log.Info("ResultsPageClicked() Ran!");
 
 
-
-            //Set our Current flow coordinator to the first SoloFreePlatFlowCoordinator, the Solo Play Screen. 
-           
-            _CurrentFlowCoordinator = Resources.FindObjectsOfTypeAll<SoloFreePlayFlowCoordinator>().First();
-            Log.Info("ResultsPageClicked() Ran!");
-            //Define the Coordinators
+            _SoloFreePlayFlowCoordinator = Resources.FindObjectsOfTypeAll<SoloFreePlayFlowCoordinator>().First();
+            Log.Info("Set CurrentFlow Coordinator to SolofreeplayCoordinator.First");
+            
             _mainFlowCoordinator = Resources.FindObjectsOfTypeAll<MainFlowCoordinator>().First();
-            Log.Info("ResultsPageClicked() Ran!");
+            Log.Info("Set MainflowCoordinator");
+
             _ResultsFlowCoordinator = BeatSaberUI.CreateFlowCoordinator<ResultsFlowCoordinator>();
-            //make sure the _ResultsFlowCoordinator Knows that is Parent Coordinator is this Current/last Coordinator
             _ResultsFlowCoordinator._ResultsParentFlowCoordinator = _mainFlowCoordinator;
-            Log.Info("ResultsPageClicked() Ran!");
-            //Since the Current FlowCoordinator is active, and HMUI has marked it as a HMUI Flow Coordinator, we SHOULD >
-            // > be able to present this _ResultsFlowCoordinator Directly To the First SoloFreePlayFlowCoordinator, as that should be the solo menu.
-            // > this allows us to effectively Swap Out What menu is displayed. 
+            Log.Info("Created Flow Coordinator and set parent");
+
             _mainFlowCoordinator.PresentFlowCoordinator(_ResultsFlowCoordinator);
-            Log.Info("ResultsPageClicked() Ran!");
-            // Presenting the FlowCoordinator to the main Flow Coordinator causes a softlock since SoloMenu stays active at the same time.
-            // we have to make it more of a chain instead of a tree. this way, we can work back up it. | VVVV Normal Method
-            //_ResultsFlowCoordinator._ResultsParentFlowCoordinator.PresentFlowCoordinator(_ResultsFlowCoordinator);
+            Log.Info("Presented FlowCoordinator");
+
             _ResultsFlowCoordinator.DidFinishEvent += _ResultsFlowCoordinator_DidFinishEvent;
 
         }
