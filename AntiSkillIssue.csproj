@@ -46,14 +46,14 @@
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="BeatSaviorData, Version=2.1.14.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="BSML, Version=1.6.8.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="BS_Utils, Version=1.12.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="JDFixer">
-      <HintPath>$(BeatSaberDir)\Plugins\JDFixer.dll</HintPath>
+    <Reference Include="BeatmapCore">
+      <HintPath>C:\Users\32KZ\Desktop\BSLegacyLauncher\BSLegacyLauncher\Installed Versions\Beat Saber 1.25.1\Beat Saber_Data\Managed\BeatmapCore.dll</HintPath>
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="BeatSaviorData, Version=2.1.14.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="BSML, Version=1.6.8.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="BS_Utils, Version=1.12.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="RuntimeUnityEditor.BSIPA4">
       <HintPath>..\..\..\BSLegacyLauncher\BSLegacyLauncher\Installed Versions\Beat Saber 1.25.1\Plugins\RuntimeUnityEditor.BSIPA4.dll</HintPath>
     </Reference>
