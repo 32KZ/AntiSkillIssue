@@ -87,6 +87,12 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         [UIValue("end-slider")]
         private float endTime = 1f;
 
+        [UIValue("notes-selected")]
+        private int NotesSlected = 0;
+
+        [UIValue("duration-selected")]
+        private int DurationSelected = 0;
+
         //
 
         // TAB2 : PRESWING POST SWING (%)
@@ -109,8 +115,41 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         private int AverageRightPostSwing = 100;
 
 
+        // TAB3: accuracy
+        // T3: UIVALUES
+
+        // T3: LEFT
+        [UIValue("average-left-accuracy")]
+        private int AverageLeftAccuracy = 15;
 
 
+        // T3: RIGHT
+        [UIValue("average-right-accuracy")]
+        private int AverageRightAccuracy = 15;
+
+        // TAB 4 : TIME DEPENDENCY
+        // T4: UIVALUES
+        // T4: LEFT
+        [UIValue("average-left-timing-dependence")]
+        private float AverageLeftTimingDependence = 0f;
+
+        [UIValue("average-left-timing-deviation")]
+        private float AverageLeftTimingDeviation = 0f;
+        // T4: RIGHT
+        [UIValue("average-right-timing-dependence")]
+        private float AverageRightTimingDependence = 0f;
+
+        [UIValue("average-right-timing-deviation")]
+        private float AverageRightTimingDeviation = 0f;
+
+        // TAB 5 : VELOCITY
+        // T5: UIVALUES
+        // T5: LEFT
+        [UIValue("average-left-velocity")]
+        private float AverageLeftVelocity = 80f;
+        // T5: RIGHT
+        [UIValue("average-right-velocity")]
+        private float AverageRightVelocity = 80f;
 
         //private static string timecalc()
         //{

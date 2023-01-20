@@ -72,13 +72,13 @@
 						<horizontal preferred-height='20' bg='panel-top' pad-left='10' pad-right='10' horizontal-fit='PreferredSize'>
 							<text text='Left!'/>
 						</horizontal>
-						<horizontal pad='2'>
-							<text text='Average Left PreSwing:'/>
+						<horizontal pad='1'>
+							<text text='Average PreSwing'/>
 							<clickable-text text='~average-left-pre-swing'  default-color='#ff0000'  highlight-color='#ff2222' on-click='Click'/>
 							
 						</horizontal>
-						<horizontal pad='2'>
-							<text text='Average Left PostSwing:'/>
+						<horizontal pad='1'>
+							<text text='Average PostSwing'/>
 							<clickable-text text='~average-left-post-swing'  default-color='#ff0000'  highlight-color='#ff2222' on-click='Click'/>
 							
 						</horizontal>
@@ -90,13 +90,15 @@
 						<horizontal preferred-height='20' bg='panel-top' pad-left='10' pad-right='10' horizontal-fit='PreferredSize'>
 							<text text='Right!'/>
 						</horizontal>
-							<horizontal pad='2'>
-								<text text='Average Right PreSwing:'/>
+							<horizontal pad='1'>
+								<text text='Average PreSwing'/>
 								<clickable-text text='~average-right-pre-swing'  default-color='#1122ff'  highlight-color='#3344ff' on-click='Click'/>
+								
 							</horizontal>
-							<horizontal pad='2'>
-								<text text='Average Right PostSwing:'/>
+							<horizontal pad='1'>
+								<text text='Average PostSwing'/>
 								<clickable-text text='~average-right-post-swing'  default-color='#1122ff'  highlight-color='#3344ff' on-click='Click'/>
+								
 							</horizontal>
 					</modifier-container>
 				</tab>
@@ -118,7 +120,11 @@
 						<horizontal preferred-height='20' bg='panel-top' pad-left='10' pad-right='10' horizontal-fit='PreferredSize'>
 							<text text='Left!'/>
 						</horizontal>
+						<horizontal>
+							<text text='Average Accuracy '/>
+							<clickable-text text='~average-left-accuracy'  default-color='#ff0000'  highlight-color='#ff2222' on-click='Click'/>
 
+						</horizontal>
 					</modifier-container>
 				</tab>
 				<!-- Accuracy Right Main-->
@@ -126,6 +132,11 @@
 					<modifier-container child-expand-width='true' spacing='1' >
 						<horizontal preferred-height='20' bg='panel-top' pad-left='10' pad-right='10' horizontal-fit='PreferredSize'>
 							<text text='Right!'/>
+						</horizontal>
+						<horizontal>
+							<text text='Average Accuracy '/>
+							<clickable-text text='~average-right-accuracy'  default-color='#1122ff'  highlight-color='#3344ff' on-click='Click'/>
+
 						</horizontal>
 					</modifier-container>
 				</tab>
