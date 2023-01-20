@@ -31,7 +31,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.FlowCoordinators //Find Directory
 	{
 		public event Action DidFinishEvent; // create action called DidFinishEvent for going back in the menu
 		private MainFlowCoordinator _ResultsMainFlowCoordinator;     //mark _ResultsMainFlowCoordinator as the MainFlowCoordinator 
-		public FlowCoordinator _ResultsParentFlowCoordinator;
+		public MainFlowCoordinator _ResultsParentFlowCoordinator;
 		private ResultsViewController _ResultsViewController; //this is external to this CS file. we do not need to define it on the contrary.
 		private ResultsLeftViewController _ResultsLeftViewController;   //^^
 		private ResultsRightViewController _ResultsRightViewController; //^^
@@ -43,7 +43,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.FlowCoordinators //Find Directory
 			SetTitle("ASI: Results");
 			showBackButton = true;
 
-			_ResultsViewController = BeatSaberUI.CreateViewController<ResultsViewController>();
+            _ResultsViewController = BeatSaberUI.CreateViewController<ResultsViewController>();
 			_ResultsLeftViewController = BeatSaberUI.CreateViewController<ResultsLeftViewController>();
 			_ResultsRightViewController = BeatSaberUI.CreateViewController<ResultsRightViewController>();
 			ProvideInitialViewControllers(_ResultsViewController, _ResultsLeftViewController, _ResultsRightViewController);
@@ -55,8 +55,9 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.FlowCoordinators //Find Directory
 		protected override void BackButtonWasPressed(ViewController topViewController)
 		{
 			_ResultsParentFlowCoordinator?.DismissFlowCoordinator(this);
+			
 			DidFinishEvent.Invoke();
-		}
+        }
 	}
 
 

@@ -1,6 +1,4 @@
-﻿<vertical child-control-height='false' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
-	<tab-selector tab-tag='tabs'/>
-	<!-- Code Dump
+﻿<!-- Code Dump
 	
 	Colored Clickable Text:
 	
@@ -9,9 +7,13 @@
 	
 	
 	Code Dump end -->
+
+<vertical child-control-height='false' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
+	<tab-selector tab-tag='tabs'/>
+
 	<horizontal preferred-width='100' preferred-height='60' pad-top='6'>
 
-		<!-- Pre-Swing and Post-Swing -->
+		<!-- Start and End Times Sliders  -->
 
 		<tab tab-name='Time Selector' tags='tabs'>
 			<modifier-container child-expand-width='true' spacing='2' >
@@ -29,9 +31,9 @@
 								show-buttons='true'
 								bind-value='true'
 								text='Start Slider'
-								increment='0.01'
+								increment='1'
 								min='0'
-								max='600'
+								max='~song-length'
 								hover-hint='Where in the song to start Reviewing'>
 				</slider-setting>
 			</horizontal>
@@ -44,9 +46,9 @@
 								show-buttons='true'
 								bind-value='true'
 								text='End Slider'
-								increment='0.01'
+								increment='1'
 								min='0'
-								max='600'
+								max='~song-length'
 								hover-hint='Where in the song to Stop Reviewing'>
 				</slider-setting>
 			</horizontal>
@@ -55,8 +57,9 @@
 			</modifier-container>
 		</tab>
 				
-		<!-- Pre-Swing and Post-Swing END-->
-		
+		<!-- Start and End Times Sliders END-->
+
+		<!-- DIV -->
 		
 		<!-- Pre-Swing and Post-Swing -->
 		
@@ -69,6 +72,16 @@
 						<horizontal preferred-height='20' bg='panel-top' pad-left='10' pad-right='10' horizontal-fit='PreferredSize'>
 							<text text='Left!'/>
 						</horizontal>
+						<horizontal pad='1'>
+							<text text='Average PreSwing'/>
+							<clickable-text text='~average-left-pre-swing'  default-color='#ff0000'  highlight-color='#ff2222' on-click='Click'/>
+							
+						</horizontal>
+						<horizontal pad='1'>
+							<text text='Average PostSwing'/>
+							<clickable-text text='~average-left-post-swing'  default-color='#ff0000'  highlight-color='#ff2222' on-click='Click'/>
+							
+						</horizontal>
 					</modifier-container>
 				</tab>
 				<!-- Pre-Swing and Post-Swing Right Main-->
@@ -77,13 +90,27 @@
 						<horizontal preferred-height='20' bg='panel-top' pad-left='10' pad-right='10' horizontal-fit='PreferredSize'>
 							<text text='Right!'/>
 						</horizontal>
+							<horizontal pad='1'>
+								<text text='Average PreSwing'/>
+								<clickable-text text='~average-right-pre-swing'  default-color='#1122ff'  highlight-color='#3344ff' on-click='Click'/>
+								
+							</horizontal>
+							<horizontal pad='1'>
+								<text text='Average PostSwing'/>
+								<clickable-text text='~average-right-post-swing'  default-color='#1122ff'  highlight-color='#3344ff' on-click='Click'/>
+								
+							</horizontal>
 					</modifier-container>
 				</tab>
 			</modifier-container>
 		</tab>
+		
 		<!-- Pre-Swing and Post-Swing END-->
+
+		<!-- DIV -->
 		
 		<!-- Accuracy -->
+		
 		<tab tab-name='Accuracy' tags='tabs'>
 			<tab-selector tab-tag='SCT2' preferred-height='5' pad-top='-20' />
 			<modifier-container child-expand-width='true' spacing='5' >
@@ -93,7 +120,11 @@
 						<horizontal preferred-height='20' bg='panel-top' pad-left='10' pad-right='10' horizontal-fit='PreferredSize'>
 							<text text='Left!'/>
 						</horizontal>
+						<horizontal>
+							<text text='Average Accuracy '/>
+							<clickable-text text='~average-left-accuracy'  default-color='#ff0000'  highlight-color='#ff2222' on-click='Click'/>
 
+						</horizontal>
 					</modifier-container>
 				</tab>
 				<!-- Accuracy Right Main-->
@@ -102,13 +133,22 @@
 						<horizontal preferred-height='20' bg='panel-top' pad-left='10' pad-right='10' horizontal-fit='PreferredSize'>
 							<text text='Right!'/>
 						</horizontal>
+						<horizontal>
+							<text text='Average Accuracy '/>
+							<clickable-text text='~average-right-accuracy'  default-color='#1122ff'  highlight-color='#3344ff' on-click='Click'/>
+
+						</horizontal>
 					</modifier-container>
 				</tab>
 			</modifier-container>
 		</tab>
+		
 		<!-- Accuracy END -->
 		
+		<!-- DIV -->
+		
 		<!-- Timing Dependence -->
+		
 		<tab tab-name='Pre-S/Post-S' tags='tabs'>
 			<tab-selector tab-tag='SCT3' preferred-height='5' pad-top='-20' />
 			<modifier-container child-expand-width='true' spacing='5' >
@@ -131,9 +171,11 @@
 				</tab>
 			</modifier-container>
 		</tab>
+		
 		<!-- Timing Dependence END-->
 
-
+		<!-- DIV -->
+		
 		<!-- Velocity -->
 
 		<tab tab-name='Velocity' tags='tabs'>
@@ -158,6 +200,9 @@
 				</tab>
 			</modifier-container>
 		</tab>
+		
 		<!-- Velocity END-->
+
+		<!-- DIV -->
 	</horizontal>
 </vertical>

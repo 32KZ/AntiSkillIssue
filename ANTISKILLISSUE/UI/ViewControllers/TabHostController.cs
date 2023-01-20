@@ -19,11 +19,13 @@ using BeatSaberMarkupLanguage.GameplaySetup;
 using BeatSaberMarkupLanguage.MenuButtons;
 using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.ViewControllers;
+using BeatSaviorData;
 using AntiSkillIssue.ANTISKILLISSUE;
 using AntiSkillIssue.ANTISKILLISSUE.Configuration;
 using AntiSkillIssue.ANTISKILLISSUE.Installers;
 using AntiSkillIssue.ANTISKILLISSUE.UI.FlowCoordinators;
 using AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers;
+using TMPro;
 
 namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 {
@@ -32,17 +34,20 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
         internal static IPALogger Log { get; private set; }
         internal static TabHostController instance;
-        private IPreviewBeatmapLevel _currentLevel;
-        private MainFlowCoordinator _mainFlowCoordinator;
-        private ResultsFlowCoordinator _ResultsFlowCoordinator;
         
 
+        private MainFlowCoordinator _mainFlowCoordinator;
+        private ResultsFlowCoordinator _ResultsFlowCoordinator;
+        private SoloFreePlayFlowCoordinator _SoloFreePlayFlowCoordinator;
+        private MainMenuViewController _mainMenuViewController;
+
+
         [UIValue("song-name")]
-        private string _SongName = "SongnamegoesHere ";
+        private string _SongName = "Songname";// songName;
         [UIValue("cover-image")]
-        private string _CoverImage = "CoverHere ";
+        private string _CoverImage = "Cover "; //private img coverImage = cover.Image
         [UIValue("song-length")]
-        private string _SongLength = "LengthHere ";
+        private string _SongLength = "Length ";// toString(song.Length)
 
 
         public void Init(IPALogger logger)
@@ -82,24 +87,20 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         {
             Log.Info("ResultsPageClicked() Ran!");
 
-            
-            
-            //Find the Currently active Flow Coordinator ("SoloPlayMenuFlowCoordinator" || ~"CampaignMenuFlowCoordinator" according to REPL)
-            FlowCoordinator CurrentFlowCoordinator = _mainFlowCoordinator.YoungestChildFlowCoordinatorOrSelf();
 
-            //Define the Coordinators
+            _SoloFreePlayFlowCoordinator = Resources.FindObjectsOfTypeAll<SoloFreePlayFlowCoordinator>().First();
+            Log.Info("Set CurrentFlow Coordinator to SolofreeplayCoordinator.First");
+            
             _mainFlowCoordinator = Resources.FindObjectsOfTypeAll<MainFlowCoordinator>().First();
-            _ResultsFlowCoordinator = BeatSaberUI.CreateFlowCoordinator<ResultsFlowCoordinator>();
-            //make sure the _ResultsFlowCoordinator Knows that is Parent Coordinator is this Current/last Coordinator
-            _ResultsFlowCoordinator._ResultsParentFlowCoordinator = CurrentFlowCoordinator;
+            Log.Info("Set MainflowCoordinator");
 
-            //Since the Current FlowCoordinator is active, and HMUI has marked it as a HMUI Flow Coordinator, we SHOULD >
-            // > be able to present this _ResultsFlowCoordinator Directly To the youngest FlowCoordinator, as that should be the solo menu.
-            // > this allows us to effectively Swap Out What menu is displayed. 
-            CurrentFlowCoordinator.PresentFlowCoordinator(_ResultsFlowCoordinator);
-            // Presenting the FlowCoordinator to the main Flow Coordinator causes a softlock since SoloMenu stays active at the same time.
-            // we have to make it more of a chain instead of a tree. this way, we can work back up it. | VVVV Normal Method
-            //_ResultsFlowCoordinator._ResultsParentFlowCoordinator.PresentFlowCoordinator(_ResultsFlowCoordinator);
+            _ResultsFlowCoordinator = BeatSaberUI.CreateFlowCoordinator<ResultsFlowCoordinator>();
+            _ResultsFlowCoordinator._ResultsParentFlowCoordinator = _mainFlowCoordinator;
+            Log.Info("Created Flow Coordinator and set parent");
+
+            _mainFlowCoordinator.PresentFlowCoordinator(_ResultsFlowCoordinator);
+            Log.Info("Presented FlowCoordinator");
+
             _ResultsFlowCoordinator.DidFinishEvent += _ResultsFlowCoordinator_DidFinishEvent;
 
         }
@@ -109,7 +110,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             _ResultsFlowCoordinator.DidFinishEvent -= _ResultsFlowCoordinator_DidFinishEvent;
             Log.Info("ASI _ResultsFlowCoordinator_DidFinishEvent; Ran!");
 
-            //_mainFlowCoordinator.DismissFlowCoordinator(_ResultsFlowCoordinator);
+            
 
             #region _AntiSkillIssueFlowCoordinator_DidFinishEvent() Summary
             //when the did finish event is called for the _AntiSkillIssueFlowCoordinator, 
