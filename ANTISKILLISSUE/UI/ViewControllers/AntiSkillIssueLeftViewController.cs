@@ -39,7 +39,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         private int _StartMinuitesTime;
         private int _EndMinuitesTime;
         
-        
+        //UI ACTIONS *
 
         [UIAction("Click")]
         private void ButtonClicked()
@@ -48,34 +48,66 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
         }
 
-        [UIComponent("start-time-slider")]
-        private SliderSetting startTimeSlider;
-
-        [UIValue("start-slider")]
-        private float StartTime = 1f;
-
+        // TAB1 : START AND END SLIDERS
+        // T1: UI ACTIONS
         [UIAction("start-slider")]
         private void SetStartTime(float newStartTime)
         {
             StartTime = newStartTime;
             // Set the new value of the slider on Change
-            
-        }
-        [UIComponent("end-time-slider")]
-        private SliderSetting endTimeSlider;
 
-        [UIValue("end-slider")]
-        private float endTime = 1f;
+        }
 
         [UIAction("end-slider")]
         private void SetEndTime(float newEndTime)
         {
-            
+
             endTime = newEndTime;
-            
+
             // Set the new value of the slider on Change
 
         }
+
+        // T1: UI COMPONENTS
+
+        [UIComponent("start-time-slider")]
+        private SliderSetting startTimeSlider;
+
+        [UIComponent("end-time-slider")]
+        private SliderSetting endTimeSlider;
+
+        // T1: UI VALUES
+
+        [UIValue("song-length")]
+        private float SongLength =59f; //will be value taken from songdata
+
+        [UIValue("start-slider")]
+        private float StartTime = 1f;
+
+        [UIValue("end-slider")]
+        private float endTime = 1f;
+
+        //
+
+        // TAB2 : PRESWING POST SWING (%)
+
+        // T2: UI VALUES
+        // T2: LEFT
+
+        [UIValue("average-left-pre-swing")]
+        private int AverageLeftPreSwing   = 100;
+
+        [UIValue("average-left-post-swing")]
+        private int AverageLeftPostSwing  = 100;
+
+        // T2: RIGHT
+
+        [UIValue("average-right-pre-swing")]
+        private int AverageRightPreSwing  = 100;
+
+        [UIValue("average-right-post-swing")]
+        private int AverageRightPostSwing = 100;
+
 
 
 
