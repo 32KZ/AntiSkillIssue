@@ -42,7 +42,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.FlowCoordinators //Find Directory
 
 		protected override void DidActivate(bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling)
 		{
-			SetTitle("ASI: Settings");
+			SetTitle("ASI: BeatSavior Score Review");
 			showBackButton = true;
 
 			_AntiSkillIssueViewController = BeatSaberUI.CreateViewController<AntiSkillIssueViewController>();

@@ -34,10 +34,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
     {
         public override string ResourceName => string.Join(".", GetType().Namespace, GetType().Name) + ".bsml";
         internal static IPALogger Log { get; private set; }
-        private int _StartSecondsTime;
-        private int _EndSecondsTime;
-        private int _StartMinuitesTime;
-        private int _EndMinuitesTime;
+        
         
         //UI ACTIONS *
 
@@ -79,7 +76,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         // T1: UI VALUES
 
         [UIValue("song-length")]
-        private float SongLength =59f; //will be value taken from songdata
+        private float SongLength = 59f; //will be value taken from songdata
 
         [UIValue("start-slider")]
         private float StartTime = 1f;
@@ -92,6 +89,9 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
         [UIValue("duration-selected")]
         private int DurationSelected = 0;
+
+        [UIValue("bpm-changes")]
+        private int BPMChanges = 0;
 
         //
 
@@ -131,26 +131,37 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         // T4: UIVALUES
         // T4: LEFT
         [UIValue("average-left-timing-dependence")]
-        private float AverageLeftTimingDependence = 0f;
+        private string AverageLeftTimingDependence = "0.00" + "TD";
 
         [UIValue("average-left-timing-deviation")]
-        private float AverageLeftTimingDeviation = 0f;
+        private string AverageLeftTimingDeviation = "120" + "ms";
+
         // T4: RIGHT
         [UIValue("average-right-timing-dependence")]
-        private float AverageRightTimingDependence = 0f;
+        private string AverageRightTimingDependence = "0.00" + "TD";
 
         [UIValue("average-right-timing-deviation")]
-        private float AverageRightTimingDeviation = 0f;
+        private string AverageRightTimingDeviation = "120" + "ms";
 
         // TAB 5 : VELOCITY
         // T5: UIVALUES
         // T5: LEFT
         [UIValue("average-left-velocity")]
         private float AverageLeftVelocity = 80f;
+
+        [UIValue("recommended-left-velocity")]
+        private float RecommendedLeftVelocity = 65f;
         // T5: RIGHT
         [UIValue("average-right-velocity")]
         private float AverageRightVelocity = 80f;
 
+        [UIValue("recommended-right-velocity")]
+        private float RecommendedRightVelocity = 65f;
+
+        //private int _StartSecondsTime;
+        //private int _EndSecondsTime;
+        //private int _StartMinuitesTime;
+        //private int _EndMinuitesTime;
         //private static string timecalc()
         //{
         //_StartSecondsTime = 32; //Default Value <3

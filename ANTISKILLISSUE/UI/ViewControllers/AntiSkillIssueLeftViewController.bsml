@@ -149,7 +149,7 @@
 		
 		<!-- Timing Dependence -->
 		
-		<tab tab-name='Pre-S/Post-S' tags='tabs'>
+		<tab tab-name='Timing Dependence' tags='tabs'>
 			<tab-selector tab-tag='SCT3' preferred-height='5' pad-top='-20' />
 			<modifier-container child-expand-width='true' spacing='5' >
 				<!-- Timing Dependence Left Main-->
@@ -158,7 +158,14 @@
 						<horizontal preferred-height='20' bg='panel-top' pad-left='10' pad-right='10' horizontal-fit='PreferredSize'>
 							<text text='Left!'/>
 						</horizontal>
-
+						<horizontal pad='1'>
+							<text text='Average T-Dependence'/>
+							<clickable-text text='~average-left-timing-dependence'  default-color='#ff0000'  highlight-color='#ff2222' on-click='Click'/>
+						</horizontal>
+						<horizontal pad='1'>
+							<text text='Average T-Deviation'/>
+							<clickable-text text='~average-left-timing-deviation'  default-color='#ff0000'  highlight-color='#ff2222' on-click='Click' hover-hint='Deviation between the times of note cut, and sound played. (UR)'/>
+						</horizontal>
 					</modifier-container>
 				</tab>
 				<!-- Timing Dependence Right Main-->
@@ -166,6 +173,14 @@
 					<modifier-container child-expand-width='true' spacing='1' >
 						<horizontal preferred-height='20' bg='panel-top' pad-left='10' pad-right='10' horizontal-fit='PreferredSize'>
 							<text text='Right!'/>
+						</horizontal>
+						<horizontal pad='1'>
+							<text text='Average T-Dependence'/>
+							<clickable-text text='~average-right-timing-dependence'  default-color='#1122ff'  highlight-color='#3344ff' on-click='Click'/>
+						</horizontal>
+						<horizontal pad='1'>
+							<text text='Average T-Deviation'/>
+							<clickable-text text='~average-right-timing-deviation'  default-color='#1122ff'  highlight-color='#3344ff' on-click='Click' hover-hint='Deviation between the times of note cut, and sound played. (UR)'/>
 						</horizontal>
 					</modifier-container>
 				</tab>
@@ -187,7 +202,14 @@
 						<horizontal preferred-height='20' bg='panel-top' pad-left='10' pad-right='10' horizontal-fit='PreferredSize'>
 							<text text='Left!'/>
 						</horizontal>
-
+						<horizontal pad='1'>
+							<text text='Average Velocity'/>
+							<clickable-text text='~average-left-velocity'  default-color='#ff0000'  highlight-color='#ff2222' on-click='Click'/>
+						</horizontal>
+						<horizontal pad='1'>
+							<text text='Recomended Velocity'/>
+							<clickable-text text='~recommended-left-velocity'  default-color='#ff0000'  highlight-color='#ff2222' on-click='Click' hover-hint='For Maximised Control, aim for this swing speed.'/>
+						</horizontal>
 					</modifier-container>
 				</tab>
 				<!-- Velocity Right Main-->
@@ -195,6 +217,14 @@
 					<modifier-container child-expand-width='true' spacing='1' >
 						<horizontal preferred-height='20' bg='panel-top' pad-left='10' pad-right='10' horizontal-fit='PreferredSize'>
 							<text text='Right!'/>
+						</horizontal>
+						<horizontal pad='1'>
+							<text text='Average Velocity'/>
+							<clickable-text text='~average-right-velocity'  default-color='#1122ff'  highlight-color='#3344ff' on-click='Click'/>
+						</horizontal>
+						<horizontal pad='1'>
+							<text text='Recomended Velocity'/>
+							<clickable-text text='~recommended-right-velocity'  default-color='#1122ff'  highlight-color='#3344ff' on-click='Click' hover-hint='For Maximised Control, aim for this swing speed.'/>
 						</horizontal>
 					</modifier-container>
 				</tab>
