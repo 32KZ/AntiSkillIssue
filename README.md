@@ -6,7 +6,7 @@ My Discord is 32KZ#8255. Please message me 😭 😂
 - Funky UI
 
 ## Planed Features
-- Take replay information from [BeatSaviour](https://github.com/Mystogan98/BeatSaviorData) Found in Appdata For Display in a UI of my Creation 🙌 the UI is To contain:
+- Take replay information from [BeatSavior](https://github.com/Mystogan98/BeatSaviorData) Found in Appdata For Display in a UI of my Creation 🙌 the UI is To contain:
 
   - Tabs For the following: Start & End Review Sliders , Pre-Swing & Post-Swing, Accuracy, Timing Dependence, Velocity
   
