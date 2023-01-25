@@ -7,5 +7,6 @@
 	</horizontal>
 	<horizontal bg='round-rect-panel' id='splash-background' pad='8'>
 		<text text='~user-uuid'/>
+		<button id ='get-uuid-button' text='text1' on-click='get-user-uuid'/>
 	</horizontal>
 </vertical>

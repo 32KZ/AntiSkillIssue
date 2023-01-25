@@ -25,20 +25,47 @@ using AntiSkillIssue.ANTISKILLISSUE.Configuration;
 using AntiSkillIssue.ANTISKILLISSUE.Installers;
 using AntiSkillIssue.ANTISKILLISSUE.UI.FlowCoordinators;
 using AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers;
+using BeatSaberMarkupLanguage.Tags;
 
 namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 {
 	internal class AntiSkillIssueRightViewController : BSMLResourceViewController //no way! its a legendary view controller! super rare!
 	{
 		public override string ResourceName => string.Join(".", GetType().Namespace, GetType().Name) + ".bsml";
+        internal static IPALogger Log { get; private set; }
 
 
-		[UIValue("user-uuid")]
-		private string UserUUID = "0";
+		[UIComponent("get-uuid-button")]
+		ButtonTag button1;
 
-		public static getUserUUID(string newUUID);
+        [UIValue("user-uuid")]
+		private string UserUUID = null;
+
+		[UIAction("get-user-uuid")]
+		public void getUserUUID() //null reference. step through me.
 		{
-		StreamReader read = new StreamReader();
+			UserUUID = "0";
+            try 
+			{ 
+			StreamReader read = new StreamReader("C:\\AppData\\Roaming\\Beat Savior Data\\TextText.txt");
+			string TestValue = read.ReadLine();
+			UserUUID = TestValue;
+			NotifyPropertyChanged(nameof(UserUUID));
+			Log.Info(TestValue);
+			read.Close(); 
+			}
+			catch 
+			{
+			UserUUID = "default val";
+			Log.Info($"{UserUUID}");
+			}
+			return;
+			
 	    }
 
 	}
+
+	
+
+
+}
