@@ -35,7 +35,6 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         public override string ResourceName => string.Join(".", GetType().Namespace, GetType().Name) + ".bsml";
         internal static IPALogger Log { get; private set; }
         
-        
         //UI ACTIONS *
 
         [UIAction("Click")]
@@ -44,12 +43,17 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             Console.WriteLine("Button was clicked!");
 
         }
+        //dynamic value
+        [UIValue("dynamic-value")]
+        private float DynamicValue;
 
         // TAB1 : START AND END SLIDERS
         // T1: UI ACTIONS
         [UIAction("start-slider")]
         private void SetStartTime(float newStartTime)
         {
+            DynamicValue = StartTime;
+            NotifyPropertyChanged("dynamic-value");
             StartTime = newStartTime;
             // Set the new value of the slider on Change
 

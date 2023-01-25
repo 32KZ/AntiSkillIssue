@@ -16,12 +16,16 @@
 		<!-- Start and End Times Sliders  -->
 
 		<tab tab-name='Time Selector' tags='tabs'>
-			<modifier-container child-expand-width='true' spacing='2' >
+			<modifier-container child-expand-width='true' spacing='1' >
 				<horizontal  pad-left='10' pad-right='10' horizontal-fit='PreferredSize'>
 					<text text='Use these Sliders to Select a smaller section of the Map to review!' />
 				</horizontal>	
 				<horizontal pad-left='10' pad-right='10' horizontal-fit='PreferredSize'>
 					<text text='all data on following tabs will change accordingly.' />
+				</horizontal>
+				<horizontal>
+					<text text='Start Value test: '/>
+					<text text='~dynamic-value'/>
 				</horizontal>
 			
 				<!--Start Time Slider -->
