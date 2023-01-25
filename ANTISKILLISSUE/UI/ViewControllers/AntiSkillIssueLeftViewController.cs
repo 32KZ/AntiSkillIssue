@@ -55,7 +55,6 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             DynamicValue = StartTime;
             NotifyPropertyChanged("dynamic-value");
             StartTime = newStartTime;
-            // Set the new value of the slider on Change
 
         }
 
@@ -64,8 +63,6 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         {
 
             endTime = newEndTime;
-
-            // Set the new value of the slider on Change
 
         }
 

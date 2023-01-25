@@ -3,6 +3,7 @@ using SiraUtil.Zenject;
 using HarmonyLib;
 using HMUI;
 using System;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,17 +25,47 @@ using AntiSkillIssue.ANTISKILLISSUE.Configuration;
 using AntiSkillIssue.ANTISKILLISSUE.Installers;
 using AntiSkillIssue.ANTISKILLISSUE.UI.FlowCoordinators;
 using AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers;
+using BeatSaberMarkupLanguage.Tags;
 
 namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 {
 	internal class AntiSkillIssueRightViewController : BSMLResourceViewController //no way! its a legendary view controller! super rare!
 	{
 		public override string ResourceName => string.Join(".", GetType().Namespace, GetType().Name) + ".bsml";
-		[UIValue("right-text-data")]
-		private string exampleRightText = " Right Settings Lol2";
+        internal static IPALogger Log { get; private set; }
+
+
+		[UIComponent("get-uuid-button")]
+		ButtonTag button1;
+
+        [UIValue("user-uuid")]
+		private string UserUUID = null;
+
+		[UIAction("get-user-uuid")]
+		public void getUserUUID() //null reference. step through me.
+		{
+			UserUUID = "0";
+            try 
+			{ 
+			StreamReader read = new StreamReader("C:\\AppData\\Roaming\\Beat Savior Data\\TextText.txt");
+			string TestValue = read.ReadLine();
+			UserUUID = TestValue;
+			NotifyPropertyChanged(nameof(UserUUID));
+			Log.Info(TestValue);
+			read.Close(); 
+			}
+			catch 
+			{
+			UserUUID = "default val";
+			Log.Info($"{UserUUID}");
+			}
+			return;
+			
+	    }
 
 	}
 
-    
+	
+
 
 }
