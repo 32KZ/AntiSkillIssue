@@ -3,6 +3,7 @@ using SiraUtil.Zenject;
 using HarmonyLib;
 using HMUI;
 using System;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,11 +31,14 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 	internal class AntiSkillIssueRightViewController : BSMLResourceViewController //no way! its a legendary view controller! super rare!
 	{
 		public override string ResourceName => string.Join(".", GetType().Namespace, GetType().Name) + ".bsml";
-		[UIValue("right-text-data")]
-		private string exampleRightText = " Right Settings Lol2";
+
+
+		[UIValue("user-uuid")]
+		private string UserUUID = "0";
+
+		public static getUserUUID(string newUUID);
+		{
+		StreamReader read = new StreamReader();
+	    }
 
 	}
-
-    
-
-}

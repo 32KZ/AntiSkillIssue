@@ -51,7 +51,6 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         private void SetStartTime(float newStartTime)
         {
             StartTime = newStartTime;
-            // Set the new value of the slider on Change
 
         }
 
@@ -60,8 +59,6 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         {
 
             endTime = newEndTime;
-
-            // Set the new value of the slider on Change
 
         }
 
