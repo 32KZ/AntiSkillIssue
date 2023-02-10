@@ -35,37 +35,37 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         internal static IPALogger Log { get; private set; }
 
 
-		[UIComponent("get-uuid-button")]
-		ButtonTag button1;
+		//[UIComponent("get-uuid-button")]
+		//ButtonTag button1;
 
         [UIValue("user-uuid")]
 		private string UserUUID = null;
 
 		[UIAction("get-user-uuid")]
-		public void getUserUUID() //null reference. step through me.
+        private void getUserUUID() //null reference. step through me.
 		{
-			UserUUID = "0";
+            
+            UserUUID = "0";
 
-            string _myFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            Log.Info("_myFilePath:"+_myFilePath);
-            try 
-			{ 
-			StreamReader read = new StreamReader(_myFilePath+"Roaming\\Beat Savior Data\\TextText.txt");
-			string TestValue = read.ReadLine();
-			UserUUID = TestValue;
-			NotifyPropertyChanged(nameof(UserUUID));
-			Log.Info(TestValue);
-			read.Close();
-			
-			}
-			catch 
-			{
-			UserUUID = "default val";
-			Log.Info(UserUUID);
-			}
-			return;
-			
-	    }
+            // string _myFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            //Log.Info("_myFilePath:" + _myFilePath);
+            //try
+            //{
+            //    StreamReader read = new StreamReader(_myFilePath + "Roaming\\Beat Savior Data\\TextText.txt");
+            //    string TestValue = read.ReadLine();
+            //    UserUUID = TestValue;
+            //    NotifyPropertyChanged(nameof(UserUUID));
+            //    Log.Info(TestValue);
+            //    read.Close();
+            //
+            //}
+            //catch
+            //{
+            //    UserUUID = "default val";
+            //    Log.Info(UserUUID);
+            //}
+
+        }
 
 	}
 
