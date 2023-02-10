@@ -45,19 +45,23 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 		public void getUserUUID() //null reference. step through me.
 		{
 			UserUUID = "0";
+
+            string _myFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            Log.Info("_myFilePath:"+_myFilePath);
             try 
 			{ 
-			StreamReader read = new StreamReader("C:\\AppData\\Roaming\\Beat Savior Data\\TextText.txt");
+			StreamReader read = new StreamReader(_myFilePath+"Roaming\\Beat Savior Data\\TextText.txt");
 			string TestValue = read.ReadLine();
 			UserUUID = TestValue;
 			NotifyPropertyChanged(nameof(UserUUID));
 			Log.Info(TestValue);
-			read.Close(); 
+			read.Close();
+			
 			}
 			catch 
 			{
 			UserUUID = "default val";
-			Log.Info($"{UserUUID}");
+			Log.Info(UserUUID);
 			}
 			return;
 			
