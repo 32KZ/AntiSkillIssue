@@ -33,65 +33,134 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
     {
         public override string ResourceName => string.Join(".", GetType().Namespace, GetType().Name) + ".bsml";
 
-        public void Init()
+        #region INIT
+        [Init]
+        private void Init()
         {
             SetSessions();
-            cell thirdCell = new cell(sessionName: "03-03-0003", sessionDetails: "3kb");
-            sessions.Add(thirdCell);
+            SetPlays();
+            SessionCell UniversalCell1 = new SessionCell(sessionName: "03-03-0003", sessionDetails: "3kb");
+            PlayCell UniversalCell2 = new PlayCell(playName: "03-03-0003", playDetails: "3kb");
+            Sessions.Add(UniversalCell1);
+            Plays.Add(UniversalCell2);
             sessionList?.tableView.ReloadData();
+            playsList?.tableView.ReloadData();
 
         }
+        #endregion
 
-        //Reload Button
-        [UIComponent("reload-button")]
-        private ButtonTag ReloadButton;
 
-        //Session list itself
+        #region Reload Buttons Components
+        //Reload Buttons
+        [UIComponent("session-reload-button")]
+        private ButtonTag SessionReloadButton;
+
+        [UIComponent("plays-reload-button")]
+        private ButtonTag PlaysReloadButton;
+        //-=-=
+        #endregion
+
+
+        #region List Components
+        //UI lists
         [UIComponent("session-list")]
         public CustomCellListTableData sessionList;
 
-        //Content of the list
+        [UIComponent("plays-list")]
+        public CustomCellListTableData playsList;
+        //-=-=
+        #endregion
+
+
+        #region List Contents UIValue
+        //Contents of the lists
         [UIValue("sessions")]
-        public List<object> sessions = new List<object>();
+        public List<object> Sessions = new List<object>();
+
+        [UIValue("plays")]
+        public List<object> Plays = new List<object>();
+        //-=-=
+        #endregion
 
 
-        //to be ran when session clicked on.
+        #region Selected List Items
+        //to be ran when Session clicked on.
         [UIAction("session-selected")]
         public void SessionSelected()
         {
-            AntiSkillIssue.Plugin.Log.Info("Session Selected!");
+            Plugin.Log.Info("Session Selected!");
         }
 
+        //to be ran when Play clicked on.
+        [UIAction("play-selected")]
+        public void PlaySelected()
+        {
+            Plugin.Log.Info("Play Selected!");
+        }
+        #endregion
 
-        public void SetSessions() //called from reload button
+
+        #region SetSessions
+        public void SetSessions() //called from Sessions-Reload-Button
         {
 
-            if (sessions != null)
+            if (Sessions != null)
             {
-                cell SecondCell = new cell(sessionName: "01-01-0001", sessionDetails: "2KB");
-                this.sessions.Add(SecondCell);
+                SessionCell SessionsCell1 = new SessionCell(sessionName: "01-01-0001", sessionDetails: "2KB");
+                this.Sessions.Add(SessionsCell1);
                 sessionList?.tableView.ReloadData(); //reload the custom list
 
                 
             }
             else
             {
-                this.sessions.Clear();
-                cell FirstCell = new cell(sessionName: "00-00-0000", sessionDetails: "1KB");
-                this.sessions.Add(FirstCell);
+                this.Sessions.Clear();
+                SessionCell SessionsCell1 = new SessionCell(sessionName: "00-00-0000", sessionDetails: "1KB");
+                this.Sessions.Add(SessionsCell1);
 
                 sessionList?.tableView.ReloadData(); //reload the custom list
             }
 
-            cell BonusCell = new cell(sessionName: "0x-0x-000x", sessionDetails: "xKB");
-            this.sessions.Add(BonusCell);
+            SessionCell testCell = new SessionCell(sessionName: "0x-0x-000x", sessionDetails: "xKB");
+            this.Sessions.Add(testCell);
             sessionList?.tableView.ReloadData(); //reload the custom list
 
 
         }
-    }
+        #endregion
 
-    internal class cell
+
+        #region SetPlays
+        public void SetPlays() //called from Plays-Reload-Button
+        {
+
+            if (Plays != null)
+            {
+                PlayCell PlaysCell1 = new PlayCell(playName: "01-01-0001", playDetails: "2KB");
+                this.Plays.Add(PlaysCell1);
+                playsList?.tableView.ReloadData(); //reload the custom list
+
+
+            }
+            else
+            {
+                this.Plays.Clear();
+                PlayCell PlaysCell1 = new PlayCell(playName: "00-00-0000", playDetails: "1KB");
+                this.Plays.Add(PlaysCell1);
+
+                playsList?.tableView.ReloadData(); //reload the custom list
+            }
+
+            PlayCell BonusCell = new PlayCell(playName: "0x-0x-000x", playDetails: "xKB");
+            this.Plays.Add(BonusCell);
+            playsList?.tableView.ReloadData(); //reload the custom list
+
+
+        }
+#endregion
+    }
+    #region Cell Classes
+    internal class SessionCell
     {
         [UIValue("session-name")]
         private string sessionName = "0"; 
@@ -99,11 +168,28 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         [UIValue("session-details")]
         private string sessionDetails = "1";
 
-        public cell(string sessionName, string sessionDetails)
+        public SessionCell(string sessionName, string sessionDetails)
         {
             this.sessionName = sessionName;
             this.sessionDetails = sessionDetails;
         }
+
     }
 
+    internal class PlayCell
+    {
+        [UIValue("play-name")]
+        private string playName = "0";
+
+        [UIValue("play-details")]
+        private string playDetails = "1";
+
+        public PlayCell(string playName, string playDetails)
+        {
+            this.playName = playName;
+            this.playDetails = playDetails;
+        }
+
+    }
+    #endregion
 }

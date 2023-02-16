@@ -2,41 +2,89 @@
 <vertical child-control-height='false'
           xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
           xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
+	<!--Reload Buttons-->
 	<horizontal>
-		<button text='CTRL+R' id='reload-button' align='Center' on-click='SetSessions'/>
+		<button text=' ⟳ ' id='session-reload-button' align='Left' pad='3' pad-left='6' on-click='SetSessions'/>
+		<button text=' ⟳ ' id='plays-reload-button' align='Right'  pad='3' pad-right='6' on-click='SetPlays'/>
+	
 	</horizontal>
 	
 	<!--Session Viewer Custom List -->
-	<horizontal>
-		<text text='Custom List'/>
+	<horizontal horizontal-fit='PreferredSize' pad='1'>
+		<vertical pad='3' vertical-fit='PreferredSize'>
+			<horizontal>
+				<custom-list visible-cells='8' 
+							show-scrollbar='true' 
+							stick-scrolling='true' 
+							cell-size='8' id='session-list' 
+							data='sessions' 
+							select-cell='session-selected'
+							align='Left'
+							active='true'
+							pad='5'>
 		
-		<custom-list visible-cells='8' 
-					show-scrollbar='true' 
-					stick-scrolling='true' 
-					cell-size='8' id='session-list' 
-					data='sessions' 
-					select-cell='session-selected'
-					active='true'>
-		
-			<stack>
-				<vertical bg='panel-top' pad='2' preferred-height='3'>
-					<horizontal pad='2' horizontal-fit='PreferredSize'>
-					<!--Session Name As file Name, as that is the date. -->
-					<text text='~session-name' font-size='4' align='Left'/>
-					</horizontal>
+					<stack>
+						<vertical pad-bottom='12'>
 					
-					<horizontal>
-						<!--Session Details as the ammount of lines in file -1. (Playcount, excluding first line.) -->
-						<text text='~session-details' font-size='4' align='Right' pad='1'/>
-					</horizontal>
-
-				</vertical>
-			</stack>
-		</custom-list>
-		<text text='---'/>
+							<vertical bg='panel-top' pad='1' preferred-height='10'>
+								<horizontal pad='4'  horizontal-fit='PreferredSize'>
+								<!--Session Name As file Name, as that is the date. -->
+								<text text='~session-name' font-size='4' align='Left'/>
+								</horizontal>
+					
+								<horizontal>
+									<!--Session Details as the ammount of lines in file -1. (Playcount, excluding first line.) -->
+									<text text='~session-details' font-size='4' align='Right' pad='4'/>
+								</horizontal>
+						
+							</vertical>
+						</vertical>
+					</stack>
+				</custom-list>
+			</horizontal>
+			<horizontal>
+				<text text='CL1'/>
+			</horizontal>
+		</vertical>
 	<!--Session Viewer Custom List END-->
-	</horizontal>
 
+	<!--Plays Viewer Custom List -->
+	<vertical>
+		<horizontal>
+				<custom-list visible-cells='8' 
+							show-scrollbar='true' 
+							stick-scrolling='true' 
+							cell-size='8' id='plays-list' 
+							data='plays' 
+							select-cell='play-selected'
+							align='Right'
+							active='true'
+							pad='5'>
+					<!-- Start of Stack (List) -->
+					<stack>
+						<vertical pad-bottom='12'>
+				
+							<vertical bg='panel-top' pad='1' preferred-height='10'>
+								<horizontal pad='4'  horizontal-fit='PreferredSize'>
+								<!--Session Name As file Name, as that is the date. -->
+								<text text='~play-name' font-size='4' align='Left'/>
+								</horizontal>
+					
+								<horizontal>
+									<!--Session Details as the ammount of lines in file -1. (Playcount, excluding first line.) -->
+									<text text='~play-details' font-size='4' align='Right' pad='4'/>
+							</horizontal>
+						
+							</vertical>
+						</vertical>
+					</stack>
+					<!-- End of Stack (List) -->
+				</custom-list>
+		</horizontal>
+	</vertical>
+	<!--Plays Viewer Custom List END-->
+	</horizontal>
 	
 	
 </vertical>
+
