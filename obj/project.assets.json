@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    ".NETFramework,Version=v4.8": {
+    ".NETFramework,Version=v4.8.1": {
       "BeatSaberModdingTools.Tasks/2.0.0-beta1": {
         "type": "package",
         "dependencies": {
@@ -185,7 +185,7 @@
         }
       }
     },
-    ".NETFramework,Version=v4.8/win": {
+    ".NETFramework,Version=v4.8.1/win": {
       "BeatSaberModdingTools.Tasks/2.0.0-beta1": {
         "type": "package",
         "dependencies": {
@@ -355,7 +355,7 @@
         }
       }
     },
-    ".NETFramework,Version=v4.8/win-x64": {
+    ".NETFramework,Version=v4.8.1/win-x64": {
       "BeatSaberModdingTools.Tasks/2.0.0-beta1": {
         "type": "package",
         "dependencies": {
@@ -525,7 +525,7 @@
         }
       }
     },
-    ".NETFramework,Version=v4.8/win-x86": {
+    ".NETFramework,Version=v4.8.1/win-x86": {
       "BeatSaberModdingTools.Tasks/2.0.0-beta1": {
         "type": "package",
         "dependencies": {
@@ -1026,7 +1026,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    ".NETFramework,Version=v4.8": [
+    ".NETFramework,Version=v4.8.1": [
       "BeatSaberModdingTools.Tasks >= 2.0.0-beta1"
     ]
   },
@@ -1048,20 +1048,20 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net48"
+        "net481"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net48": {
+        "net481": {
           "projectReferences": {}
         }
       }
     },
     "frameworks": {
-      "net48": {
+      "net481": {
         "dependencies": {
           "BeatSaberModdingTools.Tasks": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",

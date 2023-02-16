@@ -2,11 +2,41 @@
 <vertical child-control-height='false'
           xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
           xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
-
-	
 	<horizontal>
-		<text text='Settings go here kekw'/>
+		<button text='CTRL+R' id='reload-button' align='Center' on-click='SetSessions'/>
 	</horizontal>
+	
+	<!--Session Viewer Custom List -->
+	<horizontal>
+		<text text='Custom List'/>
+		
+		<custom-list visible-cells='8' 
+					show-scrollbar='true' 
+					stick-scrolling='true' 
+					cell-size='8' id='session-list' 
+					data='sessions' 
+					select-cell='session-selected'
+					active='true'>
+		
+			<stack>
+				<vertical bg='panel-top' pad='2' preferred-height='3'>
+					<horizontal pad='2' horizontal-fit='PreferredSize'>
+					<!--Session Name As file Name, as that is the date. -->
+					<text text='~session-name' font-size='4' align='Left'/>
+					</horizontal>
+					
+					<horizontal>
+						<!--Session Details as the ammount of lines in file -1. (Playcount, excluding first line.) -->
+						<text text='~session-details' font-size='4' align='Right' pad='1'/>
+					</horizontal>
+
+				</vertical>
+			</stack>
+		</custom-list>
+		<text text='---'/>
+	<!--Session Viewer Custom List END-->
+	</horizontal>
+
 	
 	
 </vertical>
