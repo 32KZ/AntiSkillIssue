@@ -6,7 +6,7 @@
 		<text text='ASI: UserData' align='Center' font-size='10'/>
 	</horizontal>
 	<horizontal bg='round-rect-panel' id='splash-background' pad='8'>
+		<button text='text1' on-click='get-user-uuid'/>
 		<text text='~user-uuid'/>
-		<button id ='get-uuid-button' text='text1' on-click='get-user-uuid'/>
 	</horizontal>
 </vertical>
