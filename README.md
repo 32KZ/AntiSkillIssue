@@ -3,7 +3,7 @@ My Discord is 32KZ#8255. Please message me 😭 😂
 
 ## Current Features
 
-- Funky UI
+- slightly less than useless UI
 
 ## Planed Features
 - Take replay information from [BeatSavior](https://github.com/Mystogan98/BeatSaviorData) Found in Appdata For Display in a UI of my Creation 🙌 the UI is To contain:
@@ -22,9 +22,11 @@ My Discord is 32KZ#8255. Please message me 😭 😂
 
 2> Go to the ASI Menu Button under the Mods Section.
 
-3> Select the latest Play, Or whatever one you want.
+3> Select the Session in question
 
-4> By Clicking through the implemented tabs, you can look at information from that play, and what to change to improve. 
+4> Select the score from that session. (then look at the tabs on the left)
+
+5> By Clicking through the tabs, you can look at information from that play, and what to change to improve. 
 
 5> Ajust the Start time Slider and End time Slider to review a more specific time range in the song
 
@@ -48,17 +50,17 @@ Great idea 🥶
 
 -Creates new ViewControllers and FlowCoordinators each time the Menu is loaded (memory leak)
 
--in the Tab Menu, the results button Doesnt Dismiss ~SoloPlayMenuFlowCoordinator Creating a Softlock and Broken Results UI
+-in the Tab Menu, the results button Doesnt Dismiss ~SoloPlayMenuFlowCoordinator Creating a Softlock and Broken Results UI (to be depreciateed  before testing starts)
 
--Unfinished Results UI
+-No File reading form %appdata%/Beat savior data
 
--No integration with Beatsaviour so far (Yet)
-
--Does not save data to any Directory (Yet)
+-Custom List Items overlap Slightly
 
 ## Credits
 
 [MatrikMoon](https://www.Github.com/MatrikMoon/) - Teaching me Most of what i Know when it comes to Modding the game, but mainly ViewControllers and FlowCoordinators, as well as the didFinishEvent.
+
+[RedBrumbler](https://github.com/RedBrumbler) - Teached me how to make a Custom list, as well as a Normal List. TYSM
 
 [32KZ](https://www.Github.com/32KZ) - Figuring out how to make mods, Running them, Developing them, programing this, ect
 
