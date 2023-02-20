@@ -1,0 +1,5 @@
+
+*.csproj
+obj/AntiSkillIssue.csproj.nuget.dgspec.json
+obj/AntiSkillIssue.csproj.nuget.g.props
+obj/project.nuget.cache

@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    ".NETFramework,Version=v4.8.1": {
+    ".NETFramework,Version=v4.8": {
       "BeatSaberModdingTools.Tasks/2.0.0-beta1": {
         "type": "package",
         "dependencies": {
@@ -20,10 +20,14 @@
           "System.Xaml"
         ],
         "compile": {
-          "lib/net472/_._": {}
+          "lib/net472/_._": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/net472/Microsoft.Build.Framework.dll": {}
+          "lib/net472/Microsoft.Build.Framework.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "Microsoft.Build.Tasks.Core/16.5.0": {
@@ -50,10 +54,14 @@
           "System.Xml.Linq"
         ],
         "compile": {
-          "lib/net472/_._": {}
+          "lib/net472/_._": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/net472/Microsoft.Build.Tasks.Core.dll": {}
+          "lib/net472/Microsoft.Build.Tasks.Core.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "Microsoft.Build.Utilities.Core/16.5.0": {
@@ -67,46 +75,66 @@
           "System.Configuration"
         ],
         "compile": {
-          "lib/net472/_._": {}
+          "lib/net472/_._": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/net472/Microsoft.Build.Utilities.Core.dll": {}
+          "lib/net472/Microsoft.Build.Utilities.Core.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "Microsoft.VisualStudio.Setup.Configuration.Interop/1.16.30": {
         "type": "package",
         "compile": {
-          "lib/net35/_._": {}
+          "lib/net35/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net35/Microsoft.VisualStudio.Setup.Configuration.Interop.dll": {}
+          "lib/net35/Microsoft.VisualStudio.Setup.Configuration.Interop.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Newtonsoft.Json/13.0.2": {
         "type": "package",
         "compile": {
-          "lib/net45/Newtonsoft.Json.dll": {}
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/Newtonsoft.Json.dll": {}
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Buffers/4.4.0": {
         "type": "package",
         "compile": {
-          "ref/netstandard2.0/_._": {}
+          "ref/netstandard2.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/System.Buffers.dll": {}
+          "lib/netstandard2.0/System.Buffers.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Collections.Immutable/1.5.0": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/_._": {}
+          "lib/netstandard2.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/System.Collections.Immutable.dll": {}
+          "lib/netstandard2.0/System.Collections.Immutable.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Diagnostics.Process/4.3.0": {
@@ -144,10 +172,14 @@
           "System.Runtime.CompilerServices.Unsafe": "4.5.2"
         },
         "compile": {
-          "lib/netstandard2.0/_._": {}
+          "lib/netstandard2.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/System.Memory.dll": {}
+          "lib/netstandard2.0/System.Memory.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Numerics.Vectors/4.4.0": {
@@ -157,10 +189,14 @@
           "mscorlib"
         ],
         "compile": {
-          "ref/net46/_._": {}
+          "ref/net46/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net46/System.Numerics.Vectors.dll": {}
+          "lib/net46/System.Numerics.Vectors.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Resources.Extensions/4.6.0": {
@@ -169,32 +205,44 @@
           "System.Memory": "4.5.3"
         },
         "compile": {
-          "ref/netstandard2.0/_._": {}
+          "ref/netstandard2.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/System.Resources.Extensions.dll": {}
+          "lib/netstandard2.0/System.Resources.Extensions.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Runtime.CompilerServices.Unsafe/4.5.2": {
         "type": "package",
         "compile": {
-          "ref/netstandard2.0/_._": {}
+          "ref/netstandard2.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll": {}
+          "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Threading.Tasks.Dataflow/4.9.0": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/_._": {}
+          "lib/netstandard2.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/System.Threading.Tasks.Dataflow.dll": {}
+          "lib/netstandard2.0/System.Threading.Tasks.Dataflow.dll": {
+            "related": ".xml"
+          }
         }
       }
     },
-    ".NETFramework,Version=v4.8.1/win": {
+    ".NETFramework,Version=v4.8/win": {
       "BeatSaberModdingTools.Tasks/2.0.0-beta1": {
         "type": "package",
         "dependencies": {
@@ -213,10 +261,14 @@
           "System.Xaml"
         ],
         "compile": {
-          "lib/net472/_._": {}
+          "lib/net472/_._": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/net472/Microsoft.Build.Framework.dll": {}
+          "lib/net472/Microsoft.Build.Framework.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "Microsoft.Build.Tasks.Core/16.5.0": {
@@ -243,10 +295,14 @@
           "System.Xml.Linq"
         ],
         "compile": {
-          "lib/net472/_._": {}
+          "lib/net472/_._": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/net472/Microsoft.Build.Tasks.Core.dll": {}
+          "lib/net472/Microsoft.Build.Tasks.Core.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "Microsoft.Build.Utilities.Core/16.5.0": {
@@ -260,46 +316,66 @@
           "System.Configuration"
         ],
         "compile": {
-          "lib/net472/_._": {}
+          "lib/net472/_._": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/net472/Microsoft.Build.Utilities.Core.dll": {}
+          "lib/net472/Microsoft.Build.Utilities.Core.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "Microsoft.VisualStudio.Setup.Configuration.Interop/1.16.30": {
         "type": "package",
         "compile": {
-          "lib/net35/_._": {}
+          "lib/net35/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net35/Microsoft.VisualStudio.Setup.Configuration.Interop.dll": {}
+          "lib/net35/Microsoft.VisualStudio.Setup.Configuration.Interop.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Newtonsoft.Json/13.0.2": {
         "type": "package",
         "compile": {
-          "lib/net45/Newtonsoft.Json.dll": {}
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/Newtonsoft.Json.dll": {}
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Buffers/4.4.0": {
         "type": "package",
         "compile": {
-          "ref/netstandard2.0/_._": {}
+          "ref/netstandard2.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/System.Buffers.dll": {}
+          "lib/netstandard2.0/System.Buffers.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Collections.Immutable/1.5.0": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/_._": {}
+          "lib/netstandard2.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/System.Collections.Immutable.dll": {}
+          "lib/netstandard2.0/System.Collections.Immutable.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Diagnostics.Process/4.3.0": {
@@ -323,10 +399,14 @@
           "System.Runtime.CompilerServices.Unsafe": "4.5.2"
         },
         "compile": {
-          "lib/netstandard2.0/_._": {}
+          "lib/netstandard2.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/System.Memory.dll": {}
+          "lib/netstandard2.0/System.Memory.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Numerics.Vectors/4.4.0": {
@@ -336,10 +416,14 @@
           "mscorlib"
         ],
         "compile": {
-          "ref/net46/_._": {}
+          "ref/net46/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net46/System.Numerics.Vectors.dll": {}
+          "lib/net46/System.Numerics.Vectors.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Resources.Extensions/4.6.0": {
@@ -348,32 +432,44 @@
           "System.Memory": "4.5.3"
         },
         "compile": {
-          "ref/netstandard2.0/_._": {}
+          "ref/netstandard2.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/System.Resources.Extensions.dll": {}
+          "lib/netstandard2.0/System.Resources.Extensions.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Runtime.CompilerServices.Unsafe/4.5.2": {
         "type": "package",
         "compile": {
-          "ref/netstandard2.0/_._": {}
+          "ref/netstandard2.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll": {}
+          "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Threading.Tasks.Dataflow/4.9.0": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/_._": {}
+          "lib/netstandard2.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/System.Threading.Tasks.Dataflow.dll": {}
+          "lib/netstandard2.0/System.Threading.Tasks.Dataflow.dll": {
+            "related": ".xml"
+          }
         }
       }
     },
-    ".NETFramework,Version=v4.8.1/win-x64": {
+    ".NETFramework,Version=v4.8/win-x64": {
       "BeatSaberModdingTools.Tasks/2.0.0-beta1": {
         "type": "package",
         "dependencies": {
@@ -392,10 +488,14 @@
           "System.Xaml"
         ],
         "compile": {
-          "lib/net472/_._": {}
+          "lib/net472/_._": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/net472/Microsoft.Build.Framework.dll": {}
+          "lib/net472/Microsoft.Build.Framework.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "Microsoft.Build.Tasks.Core/16.5.0": {
@@ -422,10 +522,14 @@
           "System.Xml.Linq"
         ],
         "compile": {
-          "lib/net472/_._": {}
+          "lib/net472/_._": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/net472/Microsoft.Build.Tasks.Core.dll": {}
+          "lib/net472/Microsoft.Build.Tasks.Core.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "Microsoft.Build.Utilities.Core/16.5.0": {
@@ -439,46 +543,66 @@
           "System.Configuration"
         ],
         "compile": {
-          "lib/net472/_._": {}
+          "lib/net472/_._": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/net472/Microsoft.Build.Utilities.Core.dll": {}
+          "lib/net472/Microsoft.Build.Utilities.Core.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "Microsoft.VisualStudio.Setup.Configuration.Interop/1.16.30": {
         "type": "package",
         "compile": {
-          "lib/net35/_._": {}
+          "lib/net35/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net35/Microsoft.VisualStudio.Setup.Configuration.Interop.dll": {}
+          "lib/net35/Microsoft.VisualStudio.Setup.Configuration.Interop.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Newtonsoft.Json/13.0.2": {
         "type": "package",
         "compile": {
-          "lib/net45/Newtonsoft.Json.dll": {}
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/Newtonsoft.Json.dll": {}
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Buffers/4.4.0": {
         "type": "package",
         "compile": {
-          "ref/netstandard2.0/_._": {}
+          "ref/netstandard2.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/System.Buffers.dll": {}
+          "lib/netstandard2.0/System.Buffers.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Collections.Immutable/1.5.0": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/_._": {}
+          "lib/netstandard2.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/System.Collections.Immutable.dll": {}
+          "lib/netstandard2.0/System.Collections.Immutable.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Diagnostics.Process/4.3.0": {
@@ -502,10 +626,14 @@
           "System.Runtime.CompilerServices.Unsafe": "4.5.2"
         },
         "compile": {
-          "lib/netstandard2.0/_._": {}
+          "lib/netstandard2.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/System.Memory.dll": {}
+          "lib/netstandard2.0/System.Memory.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Numerics.Vectors/4.4.0": {
@@ -515,10 +643,14 @@
           "mscorlib"
         ],
         "compile": {
-          "ref/net46/_._": {}
+          "ref/net46/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net46/System.Numerics.Vectors.dll": {}
+          "lib/net46/System.Numerics.Vectors.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Resources.Extensions/4.6.0": {
@@ -527,32 +659,44 @@
           "System.Memory": "4.5.3"
         },
         "compile": {
-          "ref/netstandard2.0/_._": {}
+          "ref/netstandard2.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/System.Resources.Extensions.dll": {}
+          "lib/netstandard2.0/System.Resources.Extensions.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Runtime.CompilerServices.Unsafe/4.5.2": {
         "type": "package",
         "compile": {
-          "ref/netstandard2.0/_._": {}
+          "ref/netstandard2.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll": {}
+          "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Threading.Tasks.Dataflow/4.9.0": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/_._": {}
+          "lib/netstandard2.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/System.Threading.Tasks.Dataflow.dll": {}
+          "lib/netstandard2.0/System.Threading.Tasks.Dataflow.dll": {
+            "related": ".xml"
+          }
         }
       }
     },
-    ".NETFramework,Version=v4.8.1/win-x86": {
+    ".NETFramework,Version=v4.8/win-x86": {
       "BeatSaberModdingTools.Tasks/2.0.0-beta1": {
         "type": "package",
         "dependencies": {
@@ -571,10 +715,14 @@
           "System.Xaml"
         ],
         "compile": {
-          "lib/net472/_._": {}
+          "lib/net472/_._": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/net472/Microsoft.Build.Framework.dll": {}
+          "lib/net472/Microsoft.Build.Framework.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "Microsoft.Build.Tasks.Core/16.5.0": {
@@ -601,10 +749,14 @@
           "System.Xml.Linq"
         ],
         "compile": {
-          "lib/net472/_._": {}
+          "lib/net472/_._": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/net472/Microsoft.Build.Tasks.Core.dll": {}
+          "lib/net472/Microsoft.Build.Tasks.Core.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "Microsoft.Build.Utilities.Core/16.5.0": {
@@ -618,46 +770,66 @@
           "System.Configuration"
         ],
         "compile": {
-          "lib/net472/_._": {}
+          "lib/net472/_._": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/net472/Microsoft.Build.Utilities.Core.dll": {}
+          "lib/net472/Microsoft.Build.Utilities.Core.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "Microsoft.VisualStudio.Setup.Configuration.Interop/1.16.30": {
         "type": "package",
         "compile": {
-          "lib/net35/_._": {}
+          "lib/net35/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net35/Microsoft.VisualStudio.Setup.Configuration.Interop.dll": {}
+          "lib/net35/Microsoft.VisualStudio.Setup.Configuration.Interop.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Newtonsoft.Json/13.0.2": {
         "type": "package",
         "compile": {
-          "lib/net45/Newtonsoft.Json.dll": {}
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/Newtonsoft.Json.dll": {}
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Buffers/4.4.0": {
         "type": "package",
         "compile": {
-          "ref/netstandard2.0/_._": {}
+          "ref/netstandard2.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/System.Buffers.dll": {}
+          "lib/netstandard2.0/System.Buffers.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Collections.Immutable/1.5.0": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/_._": {}
+          "lib/netstandard2.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/System.Collections.Immutable.dll": {}
+          "lib/netstandard2.0/System.Collections.Immutable.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Diagnostics.Process/4.3.0": {
@@ -681,10 +853,14 @@
           "System.Runtime.CompilerServices.Unsafe": "4.5.2"
         },
         "compile": {
-          "lib/netstandard2.0/_._": {}
+          "lib/netstandard2.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/System.Memory.dll": {}
+          "lib/netstandard2.0/System.Memory.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Numerics.Vectors/4.4.0": {
@@ -694,10 +870,14 @@
           "mscorlib"
         ],
         "compile": {
-          "ref/net46/_._": {}
+          "ref/net46/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net46/System.Numerics.Vectors.dll": {}
+          "lib/net46/System.Numerics.Vectors.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Resources.Extensions/4.6.0": {
@@ -706,28 +886,40 @@
           "System.Memory": "4.5.3"
         },
         "compile": {
-          "ref/netstandard2.0/_._": {}
+          "ref/netstandard2.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/System.Resources.Extensions.dll": {}
+          "lib/netstandard2.0/System.Resources.Extensions.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Runtime.CompilerServices.Unsafe/4.5.2": {
         "type": "package",
         "compile": {
-          "ref/netstandard2.0/_._": {}
+          "ref/netstandard2.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll": {}
+          "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Threading.Tasks.Dataflow/4.9.0": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/_._": {}
+          "lib/netstandard2.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/System.Threading.Tasks.Dataflow.dll": {}
+          "lib/netstandard2.0/System.Threading.Tasks.Dataflow.dll": {
+            "related": ".xml"
+          }
         }
       }
     }
@@ -1092,43 +1284,43 @@
     }
   },
   "projectFileDependencyGroups": {
-    ".NETFramework,Version=v4.8.1": [
+    ".NETFramework,Version=v4.8": [
       "BeatSaberModdingTools.Tasks >= 2.0.0-beta1",
       "Newtonsoft.Json >= 13.0.2"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\dando\\.nuget\\packages\\": {}
+    "C:\\Users\\32KZ\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\dando\\source\\repos\\AntiSkillIssue\\AntiSkillIssue.csproj",
+      "projectUniqueName": "C:\\Users\\32KZ\\Desktop\\MyStuff\\Repos\\AntiSkillIssue\\AntiSkillIssue.csproj",
       "projectName": "AntiSkillIssue",
-      "projectPath": "C:\\Users\\dando\\source\\repos\\AntiSkillIssue\\AntiSkillIssue.csproj",
-      "packagesPath": "C:\\Users\\dando\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dando\\source\\repos\\AntiSkillIssue\\obj\\",
+      "projectPath": "C:\\Users\\32KZ\\Desktop\\MyStuff\\Repos\\AntiSkillIssue\\AntiSkillIssue.csproj",
+      "packagesPath": "C:\\Users\\32KZ\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\32KZ\\Desktop\\MyStuff\\Repos\\AntiSkillIssue\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "configFilePaths": [
-        "C:\\Users\\dando\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\32KZ\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net481"
+        "net48"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net481": {
+        "net48": {
           "projectReferences": {}
         }
       }
     },
     "frameworks": {
-      "net481": {
+      "net48": {
         "dependencies": {
           "BeatSaberModdingTools.Tasks": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
