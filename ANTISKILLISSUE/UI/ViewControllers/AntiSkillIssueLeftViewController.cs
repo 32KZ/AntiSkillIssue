@@ -159,26 +159,6 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         [UIValue("recommended-right-velocity")]
         private float RecommendedRightVelocity = 65f;
 
-        //private int _StartSecondsTime;
-        //private int _EndSecondsTime;
-        //private int _StartMinuitesTime;
-        //private int _EndMinuitesTime;
-        //private static string timecalc()
-        //{
-        //_StartSecondsTime = 32; //Default Value <3
-        //    if (_StartSecondsTime >= 60)
-        //    {
-        //        _StartSecondsTime = _StartSecondsTime - 60;
-        //        _StartMinuitesTime++;
-        //
-        //    }
-        //    else
-        //    {
-        //        return _StartSecondsTime + "s";
-        //
-        //    }
-        //return _StartMinuitesTime + "m " + _StartSecondsTime + "s";
-        //}
 
     }
 }

@@ -39,12 +39,6 @@ namespace AntiSkillIssue
         internal static Plugin Instance { get; private set; } 
         internal static IPALogger Log { get; private set; }
 
-        //[UIValue("song-name")]
-        //private string _SongName = "SongnamegoesHere";
-        //[UIValue("cover-image")]
-        //private string _CoverImage = "CoverHere";
-        //[UIValue("song-length")]
-        //private string _SongLength = "LengthHere";
 
         
 

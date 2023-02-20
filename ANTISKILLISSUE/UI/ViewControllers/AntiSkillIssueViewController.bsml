@@ -10,13 +10,13 @@
 	</horizontal>
 	
 	<!--Session Viewer Custom List -->
-	<horizontal horizontal-fit='PreferredSize' pad='1'>
-		<vertical pad='3' vertical-fit='PreferredSize'>
+	<horizontal pad='1'>
+		<vertical pad='3'>
 			<horizontal>
-				<custom-list visible-cells='8' 
+				<custom-list visible-cells='4' 
 							show-scrollbar='true' 
 							stick-scrolling='true' 
-							cell-size='8' id='session-list' 
+							cell-size='14' id='session-list' 
 							data='sessions' 
 							select-cell='session-selected'
 							align='Left'
@@ -24,37 +24,31 @@
 							pad='5'>
 		
 					<stack>
-						<vertical pad-bottom='12'>
-					
-							<vertical bg='panel-top' pad='1' preferred-height='10'>
-								<horizontal pad='4'  horizontal-fit='PreferredSize'>
-								<!--Session Name As file Name, as that is the date. -->
-								<text text='~session-name' font-size='4' align='Left'/>
-								</horizontal>
-					
-								<horizontal>
-									<!--Session Details as the ammount of lines in file -1. (Playcount, excluding first line.) -->
-									<text text='~session-details' font-size='4' align='Right' pad='4'/>
-								</horizontal>
+						<vertical bg='panel-top' pad='2'>
+							<horizontal pad='2'>
+							<!--Session Name As file Name, as that is the date. -->
+							<text text='~session-name' font-size='5' align='Left'/>
+							</horizontal>
+				
+							<horizontal pad='2'>
+								<!--Session Details as the FileSize -->
+								<text text='~session-size' font-size='4' align='Right' pad='4'/>
+							</horizontal>
 						
-							</vertical>
 						</vertical>
 					</stack>
 				</custom-list>
-			</horizontal>
-			<horizontal>
-				<text text='CL1'/>
 			</horizontal>
 		</vertical>
 	<!--Session Viewer Custom List END-->
 
 	<!--Plays Viewer Custom List -->
-	<vertical>
+	<vertical pad='3'>
 		<horizontal>
-				<custom-list visible-cells='8' 
+				<custom-list visible-cells='4' 
 							show-scrollbar='true' 
 							stick-scrolling='true' 
-							cell-size='8' id='plays-list' 
+							cell-size='18' id='plays-list' 
 							data='plays' 
 							select-cell='play-selected'
 							align='Right'
@@ -62,20 +56,27 @@
 							pad='5'>
 					<!-- Start of Stack (List) -->
 					<stack>
-						<vertical pad-bottom='12'>
-				
-							<vertical bg='panel-top' pad='1' preferred-height='10'>
-								<horizontal pad='4'  horizontal-fit='PreferredSize'>
-								<!--Session Name As file Name, as that is the date. -->
-								<text text='~play-name' font-size='4' align='Left'/>
-								</horizontal>
-					
-								<horizontal>
-									<!--Session Details as the ammount of lines in file -1. (Playcount, excluding first line.) -->
-									<text text='~play-details' font-size='4' align='Right' pad='4'/>
+						<vertical bg='panel-top' pad='2'>
+							<horizontal pad='2'>
+								<!--play Name As songName per line -->
+								<text text='~song-artist' font-size='5' align='Left' />
+								<text text=' - ' font-size='5' align='Left' />
+								<text text='~play-name' pad='2' font-size='5' align='Left'/>
+									
 							</horizontal>
-						
-							</vertical>
+					
+							<horizontal pad='2'>
+								<!-- Song mapper -->
+								<text text='~song-mapper' font-size='4' align='Left'/>
+								
+							</horizontal>
+								
+							<horizontal pad='2'>
+								<!-- Difficulty , play duration -->
+								<text text='~song-difficulty' pad='2' font-size='4' align='Left'/>
+								<text text='~play-duration' pad='2' font-size='4' align='Right'/>
+							</horizontal>
+								
 						</vertical>
 					</stack>
 					<!-- End of Stack (List) -->

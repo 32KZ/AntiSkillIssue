@@ -82,6 +82,15 @@
           "lib/net35/Microsoft.VisualStudio.Setup.Configuration.Interop.dll": {}
         }
       },
+      "Newtonsoft.Json/13.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        }
+      },
       "System.Buffers/4.4.0": {
         "type": "package",
         "compile": {
@@ -266,6 +275,15 @@
           "lib/net35/Microsoft.VisualStudio.Setup.Configuration.Interop.dll": {}
         }
       },
+      "Newtonsoft.Json/13.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        }
+      },
       "System.Buffers/4.4.0": {
         "type": "package",
         "compile": {
@@ -436,6 +454,15 @@
           "lib/net35/Microsoft.VisualStudio.Setup.Configuration.Interop.dll": {}
         }
       },
+      "Newtonsoft.Json/13.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        }
+      },
       "System.Buffers/4.4.0": {
         "type": "package",
         "compile": {
@@ -604,6 +631,15 @@
         },
         "runtime": {
           "lib/net35/Microsoft.VisualStudio.Setup.Configuration.Interop.dll": {}
+        }
+      },
+      "Newtonsoft.Json/13.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {}
         }
       },
       "System.Buffers/4.4.0": {
@@ -786,6 +822,36 @@
         "lib/net35/Microsoft.VisualStudio.Setup.Configuration.Interop.xml",
         "microsoft.visualstudio.setup.configuration.interop.1.16.30.nupkg.sha512",
         "microsoft.visualstudio.setup.configuration.interop.nuspec"
+      ]
+    },
+    "Newtonsoft.Json/13.0.2": {
+      "sha512": "R2pZ3B0UjeyHShm9vG+Tu0EBb2lC8b0dFzV9gVn50ofHXh9Smjk6kTn7A/FdAsC8B5cKib1OnGYOXxRBz5XQDg==",
+      "type": "package",
+      "path": "newtonsoft.json/13.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "README.md",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/net6.0/Newtonsoft.Json.dll",
+        "lib/net6.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.3/Newtonsoft.Json.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.xml",
+        "lib/netstandard2.0/Newtonsoft.Json.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.xml",
+        "newtonsoft.json.13.0.2.nupkg.sha512",
+        "newtonsoft.json.nuspec",
+        "packageIcon.png"
       ]
     },
     "System.Buffers/4.4.0": {
@@ -1027,7 +1093,8 @@
   },
   "projectFileDependencyGroups": {
     ".NETFramework,Version=v4.8.1": [
-      "BeatSaberModdingTools.Tasks >= 2.0.0-beta1"
+      "BeatSaberModdingTools.Tasks >= 2.0.0-beta1",
+      "Newtonsoft.Json >= 13.0.2"
     ]
   },
   "packageFolders": {
@@ -1068,6 +1135,10 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[2.0.0-beta1, )"
+          },
+          "Newtonsoft.Json": {
+            "target": "Package",
+            "version": "[13.0.2, )"
           }
         }
       }
