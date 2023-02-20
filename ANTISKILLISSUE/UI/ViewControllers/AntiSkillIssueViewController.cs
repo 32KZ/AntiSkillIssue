@@ -235,7 +235,6 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         {
             Plugin.Log.Info($"{PlayName}"+" In Session "+$"{PlayPath}"+ " , As Line " + $"{PlayLine}"+".");
             AntiSkillIssueLeftViewController.ImportPlayData(newPlayPath:PlayPath, newPlayLine:PlayLine, newPlayName:PlayName);
-            //Plugin.Invoke(CallbackEvent);
         }
 
         #region timeFormatter

@@ -35,7 +35,9 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         public override string ResourceName => string.Join(".", GetType().Namespace, GetType().Name) + ".bsml";
         internal static IPALogger Log { get; private set; }
 
-
+        #region Default Variables
+        private string ourSongName = "blank";
+        #endregion Default Variables
 
 
         #region UNIVERSAL UI ACTIONS
@@ -75,7 +77,6 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         }
         #endregion T1: UI ACTIONS
 
-
         #region T1: UI COMPONENTS
 
 
@@ -90,16 +91,26 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         #region T1: UI VALUES
 
         [UIValue("selected-song-name")]
-        private string SongName { get; set; }        
+        public string SongName 
+        
+        
+        {
+            get => this.ourSongName;
+            set
+            {
+                this.ourSongName = value;
+                this.NotifyPropertyChanged();
+            }
+        }
 
         [UIValue("song-length")]
         private float SongLength; //will be values taken from songdata
 
         [UIValue("start-slider")]
-        private float StartTime;
+        private float StartTime =0f;
 
         [UIValue("end-slider")]
-        private float EndTime;
+        private float EndTime =60f;
 
         [UIValue("notes-selected")]
         private int NotesSlected;
@@ -219,14 +230,12 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         public static void ImportPlayData(string newPlayPath, int newPlayLine, string newPlayName) 
         {
             WorkingPlay workingPlay = new WorkingPlay(newPlayPath: newPlayPath, newPlayLine:newPlayLine, newPlayName: newPlayName);
+            string SongName = workingPlay.myPlayName;
+
             Plugin.Log.Info("WorkingPlay Created Successfully!");
-            AntiSkillIssueLeftViewController.SongName = workingPlay.myPlayName;
+            
+            
 
-        }
-
-        public AntiSkillIssueLeftViewController(string songName) 
-        {
-            SongName = songName ;
         }
 
         
