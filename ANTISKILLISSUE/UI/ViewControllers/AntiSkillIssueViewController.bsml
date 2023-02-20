@@ -5,8 +5,6 @@
 	<!--Reload Buttons-->
 	<horizontal>
 		<button text=' ⟳ ' id='session-reload-button' align='Left' pad='3' pad-left='6' on-click='SetSessions'/>
-		<button text=' ⟳ ' id='plays-reload-button' align='Right'  pad='3' pad-right='6' on-click='SetPlays'/>
-	
 	</horizontal>
 	
 	<!--Session Viewer Custom List -->
@@ -45,7 +43,7 @@
 	<!--Plays Viewer Custom List -->
 	<vertical pad='3'>
 		<horizontal>
-				<custom-list visible-cells='4' 
+				<custom-list visible-cells='3' 
 							show-scrollbar='true' 
 							stick-scrolling='true' 
 							cell-size='18' id='plays-list' 

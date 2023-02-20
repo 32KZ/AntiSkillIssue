@@ -111,10 +111,14 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
                                        newSessionName: OurSessionName,
                                        newSessionSize: OurSessionSize + "b"
                                                 );
+                if (Session.SessionName.Length == 10)
+                {
+                    this.Sessions.Add(Session);
 
-                this.Sessions.Add(Session);
+                    Plugin.Log.Info("New " + $"{Session.SessionName}" + " cell's path: " + $"{Session.MyPath}");
+                }
+                else { Plugin.Log.Info("The " + $"{Session.SessionName}" + " Is not 00-00-0000 Format. Excluded.");}
                 
-                Plugin.Log.Info("New "+$"{Session.SessionName}"+ " cell's path: "+ $"{Session.MyPath}");
                 
                 #region Summary~
 
@@ -144,7 +148,6 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         {
             string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Beat Savior Data"; //Set the CD
 
-            string OverridePath = path + @"\2022-12-30.bsd";
             this.Plays.Clear();
 
 
@@ -161,10 +164,31 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
                 {
                     Play play = JsonConvert.DeserializeObject<Play>(line);
 
+                    #region Clean Data
+
+                    //Song Duration
                     float temp = float.Parse(play.songDuration) * 1000;
                     int temp2 = Convert.ToInt32(temp) / 1000;
                     play.songDurationFormatted = TimeCalculator(MyValue:temp2);
-                    
+
+                    //Song Name (Length Limit)
+                    if (play.songName.Length >=14)
+                    {
+                        play.songName = play.songName.Substring(0, 13)+"...";
+                    }
+                    //Song Artist (Length Limit)
+                    if (play.songArtist.Length >= 11)
+                    {
+                        play.songArtist = play.songArtist.Substring(0, 10) + "...";
+                    }
+                    //Song Mapper (length Limit)
+                    if (play.songMapper.Length >= 14)
+                    {
+                        play.songMapper = play.songMapper.Substring(0, 13) + "...";
+                    }
+                    //Song Difficulty (Capitalise)
+
+                    #endregion Clean Data
 
                     this.Plays.Add(play);
                     playsList?.tableView.ReloadData(); //reload the custom list
