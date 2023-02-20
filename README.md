@@ -5,6 +5,8 @@ My Discord is 32KZ#8255. Please message me 😭 😂
 
 - slightly less than useless UI
 
+- File reading from %appdata%/Beat savior data to a custom list for sessions and Plays. Formatted Correctly so its Useable.
+
 ## Planed Features
 - Take replay information from [BeatSavior](https://github.com/Mystogan98/BeatSaviorData) Found in Appdata For Display in a UI of my Creation 🙌 the UI is To contain:
 
@@ -46,15 +48,11 @@ Great idea 🥶
 
 ## Known Issues
 
--Barely Works
+-Somewhat Works
 
 -Creates new ViewControllers and FlowCoordinators each time the Menu is loaded (memory leak)
 
--in the Tab Menu, the results button Doesnt Dismiss ~SoloPlayMenuFlowCoordinator Creating a Softlock and Broken Results UI (to be depreciateed  before testing starts)
-
--No File reading form %appdata%/Beat savior data
-
--Custom List Items overlap Slightly
+- Custom Cells may or maynot Recycle
 
 ## Credits
 
@@ -62,6 +60,8 @@ Great idea 🥶
 
 [RedBrumbler](https://github.com/RedBrumbler) - Teached me how to make a Custom list, as well as a Normal List. TYSM
 
+[Redageddon](https://github.com/Redageddon) & [Top_Cat](https://github.com/Top-Cat) - Taught me how to Assign UIValues Properly through getters and setters. 👏
+
 [32KZ](https://www.Github.com/32KZ) - Figuring out how to make mods, Running them, Developing them, programing this, ect
 
-[BSMG](https://discord.gg/beatsabermods) #pc-mod-dev - Checked the pins and Found  the BSPIA4 Unity Runtime Editor. super cool 😎
+[BSMG](https://discord.gg/beatsabermods) #pc-mod-dev - Checked the pins and Found  the BSPIA4 Unity Runtime Editor. super cool 😎 super wonderful community filled with Super smart and Creative People.
