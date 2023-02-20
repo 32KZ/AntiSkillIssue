@@ -34,8 +34,12 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
     {
         public override string ResourceName => string.Join(".", GetType().Namespace, GetType().Name) + ".bsml";
         internal static IPALogger Log { get; private set; }
-        
-        //UI ACTIONS *
+
+
+
+
+        #region UNIVERSAL UI ACTIONS
+
 
         [UIAction("Click")]
         private void ButtonClicked()
@@ -47,14 +51,18 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         [UIValue("dynamic-value")]
         private float DynamicValue;
 
-        // TAB1 : START AND END SLIDERS
-        // T1: UI ACTIONS
+        #endregion UNIVERSAL UI ACTIONS
+
+        #region TAB 1 : START AND END SLIDERS
+
+        #region T1: UI ACTIONS
+
         [UIAction("start-slider")]
         private void SetStartTime(float newStartTime)
         {
             DynamicValue = StartTime;
-            NotifyPropertyChanged("dynamic-value");
             StartTime = newStartTime;
+            NotifyPropertyChanged("dynamic-value");
 
         }
 
@@ -62,11 +70,14 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         private void SetEndTime(float newEndTime)
         {
 
-            endTime = newEndTime;
+            EndTime = newEndTime;
 
         }
+        #endregion T1: UI ACTIONS
 
-        // T1: UI COMPONENTS
+
+        #region T1: UI COMPONENTS
+
 
         [UIComponent("start-time-slider")]
         private SliderSetting startTimeSlider;
@@ -74,40 +85,48 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         [UIComponent("end-time-slider")]
         private SliderSetting endTimeSlider;
 
-        // T1: UI VALUES
+        #endregion T1: UI COMPONENTS
+
+        #region T1: UI VALUES
+
+        [UIValue("selected-song-name")]
+        private string SongName { get; set; }        
 
         [UIValue("song-length")]
-        private float SongLength = 59f; //will be value taken from songdata
+        private float SongLength; //will be values taken from songdata
 
         [UIValue("start-slider")]
-        private float StartTime = 1f;
+        private float StartTime;
 
         [UIValue("end-slider")]
-        private float endTime = 1f;
+        private float EndTime;
 
         [UIValue("notes-selected")]
-        private int NotesSlected = 0;
+        private int NotesSlected;
 
         [UIValue("duration-selected")]
-        private int DurationSelected = 0;
+        private int DurationSelected;
 
         [UIValue("bpm-changes")]
-        private int BPMChanges = 0;
+        private int BPMChanges;
+        #endregion T1: UI VALUES
 
-        //
+        #endregion TAB 1 : START AND END SLIDERS
 
-        // TAB2 : PRESWING POST SWING (%)
+        #region TAB 2 : PRESWING POST SWING (%)
 
-        // T2: UI VALUES
-        // T2: LEFT
+        #region T2: UI VALUES
 
+        #region T2: LEFT
+        
         [UIValue("average-left-pre-swing")]
         private int AverageLeftPreSwing   = 100;
 
         [UIValue("average-left-post-swing")]
         private int AverageLeftPostSwing  = 100;
 
-        // T2: RIGHT
+        #endregion T2: LEFT
+        #region T2: RIGHT
 
         [UIValue("average-right-pre-swing")]
         private int AverageRightPreSwing  = 100;
@@ -115,50 +134,121 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         [UIValue("average-right-post-swing")]
         private int AverageRightPostSwing = 100;
 
+        #endregion T2: LEFT
 
-        // TAB3: accuracy
-        // T3: UIVALUES
+        #endregion T2: UI VALUES
 
-        // T3: LEFT
+        #endregion TAB 2 : PRESWING POST SWING (%)
+
+        #region TAB 3 : Acc
+
+        #region T3: UIVALUES
+
+
+        #region T3: LEFT
+        
         [UIValue("average-left-accuracy")]
         private int AverageLeftAccuracy = 15;
 
+        #endregion T3: LEFT
 
-        // T3: RIGHT
+        #region T3: RIGHT
+        
         [UIValue("average-right-accuracy")]
         private int AverageRightAccuracy = 15;
+        #endregion T3: RIGHT
 
-        // TAB 4 : TIME DEPENDENCY
-        // T4: UIVALUES
-        // T4: LEFT
+        #endregion T3: UIVALUES
+
+        #endregion TAB 3 : Acc
+
+        #region TAB 4 : TIME DEPENDENCY
+
+        #region T4: UIVALUES
+
+        #region T4: LEFT
         [UIValue("average-left-timing-dependence")]
         private string AverageLeftTimingDependence = "0.00" + "TD";
 
         [UIValue("average-left-timing-deviation")]
         private string AverageLeftTimingDeviation = "120" + "ms";
+        #endregion T4: LEFT
 
-        // T4: RIGHT
+        #region T4: RIGHT
+        
         [UIValue("average-right-timing-dependence")]
         private string AverageRightTimingDependence = "0.00" + "TD";
 
         [UIValue("average-right-timing-deviation")]
         private string AverageRightTimingDeviation = "120" + "ms";
 
-        // TAB 5 : VELOCITY
-        // T5: UIVALUES
-        // T5: LEFT
+        #endregion T4: RIGHT
+
+        #endregion T4: UIVALUES
+
+        #endregion TAB 4 : TIME DEPENDENCY
+
+        #region TAB 5 : VELOCITY
+
+        #region T5: UIVALUES
+
+        #region T5: LEFT
+        
         [UIValue("average-left-velocity")]
         private float AverageLeftVelocity = 80f;
 
         [UIValue("recommended-left-velocity")]
         private float RecommendedLeftVelocity = 65f;
-        // T5: RIGHT
+
+        #endregion T5: LEFT
+
+        #region T5: RIGHT
+        
         [UIValue("average-right-velocity")]
         private float AverageRightVelocity = 80f;
 
         [UIValue("recommended-right-velocity")]
         private float RecommendedRightVelocity = 65f;
 
+        #endregion T5: RIGHT
 
+        #endregion T5: UIVALUES
+
+        #endregion TAB 5 : VELOCITY
+
+        public static void ImportPlayData(string newPlayPath, int newPlayLine, string newPlayName) 
+        {
+            WorkingPlay workingPlay = new WorkingPlay(newPlayPath: newPlayPath, newPlayLine:newPlayLine, newPlayName: newPlayName);
+            Plugin.Log.Info("WorkingPlay Created Successfully!");
+            AntiSkillIssueLeftViewController.SongName = workingPlay.myPlayName;
+
+        }
+
+        public AntiSkillIssueLeftViewController(string songName) 
+        {
+            SongName = songName ;
+        }
+
+        
     }
+
+    public class WorkingPlay 
+    {
+        public string myPlayName { get; set; }
+        public string myPlayPath { get; set; }
+        public int myPlayLine { get; set; }
+
+        public WorkingPlay(string newPlayPath, int newPlayLine, string newPlayName) 
+        {
+            myPlayName = newPlayName;
+            myPlayPath = newPlayPath;
+            myPlayLine = newPlayLine; 
+        
+        }
+    
+    }
+
+
 }
+
+

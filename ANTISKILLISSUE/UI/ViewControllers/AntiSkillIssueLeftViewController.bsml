@@ -24,8 +24,8 @@
 					<text text='all data on following tabs will change accordingly.' />
 				</horizontal>
 				<horizontal>
-					<text text='Start Value test: '/>
-					<text text='~dynamic-value'/>
+					<text text='Currently Selected Play: '/>
+					<text text='~selected-song-name'/>
 				</horizontal>
 			
 				<!--Start Time Slider -->

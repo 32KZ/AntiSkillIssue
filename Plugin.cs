@@ -35,7 +35,7 @@ namespace AntiSkillIssue
         private AntiSkillIssueFlowCoordinator _AntiSkillIssueFlowCoordinator;
         private MainFlowCoordinator _mainFlowCoordinator;
         private ResultsFlowCoordinator _ResultsFlowCoordinator;
-        private IPreviewBeatmapLevel _currentLevel;
+        
         internal static Plugin Instance { get; private set; } 
         internal static IPALogger Log { get; private set; }
 

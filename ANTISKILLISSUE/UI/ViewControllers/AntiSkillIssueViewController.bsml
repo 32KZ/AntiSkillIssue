@@ -58,7 +58,7 @@
 							<horizontal pad='2'>
 								<!--play Name As songName per line -->
 								<text text='~song-artist' font-size='5' align='Left' />
-								<text text=' - ' font-size='5' align='Left' />
+								<text text='~delimiter' font-size='5' align='Left' />
 								<text text='~play-name' pad='2' font-size='5' align='Left'/>
 									
 							</horizontal>

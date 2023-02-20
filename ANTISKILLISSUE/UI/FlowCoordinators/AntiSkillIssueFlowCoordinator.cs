@@ -49,6 +49,8 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.FlowCoordinators //Find Directory
 			_AntiSkillIssueLeftViewController = BeatSaberUI.CreateViewController<AntiSkillIssueLeftViewController>();
 			_AntiSkillIssueRightViewController = BeatSaberUI.CreateViewController<AntiSkillIssueRightViewController>();
 			ProvideInitialViewControllers(_AntiSkillIssueViewController, _AntiSkillIssueLeftViewController, _AntiSkillIssueRightViewController);
+			_AntiSkillIssueViewController.SetSessions(); //Auto Populate the Sessions List.
+			_AntiSkillIssueViewController.SetPlays(SessionPath:null, Override:"!null, Override!"); //Enqueue a dummy to make it clear of the UI purpose.
 		}
 
 		protected override void BackButtonWasPressed(ViewController topViewController)

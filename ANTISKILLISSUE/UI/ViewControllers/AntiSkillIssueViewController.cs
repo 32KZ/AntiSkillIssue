@@ -73,7 +73,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         [UIAction("session-selected")]
         public void SessionSelected(TableView sessionList,Session Sessions )
         {
-            SetPlays(SessionPath: Sessions.MyPath);
+            SetPlays(SessionPath: Sessions.MyPath, Override:null);
             Plugin.Log.Info("Session Selected!");
         }
 
@@ -81,12 +81,12 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         [UIAction("play-selected")]
         public void PlaySelected(TableView playList, Play Plays)
         {
-            SetPlaysData();
-            Plugin.Log.Info("Play Selected!");
+            SetPlaysData(PlayPath: Plays.playPath, PlayLine:Plays.playLine, PlayName:Plays.songName);
         }
         #endregion
 
 
+        
         #region SetSessions
         public void SetSessions() //called from Sessions-Reload-Button
         {
@@ -115,9 +115,9 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
                 {
                     this.Sessions.Add(Session);
 
-                    Plugin.Log.Info("New " + $"{Session.SessionName}" + " cell's path: " + $"{Session.MyPath}");
+                    Plugin.Log.Info("New Session " + $"{Session.SessionName}" + " Cell's path: " + $"{Session.MyPath}");
                 }
-                else { Plugin.Log.Info("The " + $"{Session.SessionName}" + " Is not 00-00-0000 Format. Excluded.");}
+                else { Plugin.Log.Info("The File " + $"{Session.SessionName}" + " Is not 00-00-0000 Format. Excluded.");}
                 
                 
                 #region Summary~
@@ -144,73 +144,98 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
 
         #region SetPlays
-        public void SetPlays(string SessionPath)                      //called from Plays-Reload-Button or session list.
+        public void SetPlays(string SessionPath , string Override) //called from ASIFlowCoordinator / SessionList.
         {
             string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Beat Savior Data"; //Set the CD
 
             this.Plays.Clear();
 
-
-            StreamReader reader = File.OpenText(SessionPath);
-            int x = 0;
-            string line;
-            while ((line = reader.ReadLine()) != null)
+            if (Override != null)
             {
-                if (x == 0)
-                {
-                    x++;
-                }
-                else
-                {
-                    Play play = JsonConvert.DeserializeObject<Play>(line);
+                
+                Play OverridePlay = new Play(   newSongName: "Each BSD Session",
+                                                newPlayPath:path,
+                                                newSongDuration:"3m 32s",
+                                                newSongArtist:"Plays In",
+                                                newSongMapper:"Go here!",
+                                                newDelimiter:" "); //use of delimiter allows me to write a dummy cell.
 
-                    #region Clean Data
-
-                    //Song Duration
-                    float temp = float.Parse(play.songDuration) * 1000;
-                    int temp2 = Convert.ToInt32(temp) / 1000;
-                    play.songDurationFormatted = TimeCalculator(MyValue:temp2);
-
-                    //Song Name (Length Limit)
-                    if (play.songName.Length >=14)
-                    {
-                        play.songName = play.songName.Substring(0, 13)+"...";
-                    }
-                    //Song Artist (Length Limit)
-                    if (play.songArtist.Length >= 11)
-                    {
-                        play.songArtist = play.songArtist.Substring(0, 10) + "...";
-                    }
-                    //Song Mapper (length Limit)
-                    if (play.songMapper.Length >= 14)
-                    {
-                        play.songMapper = play.songMapper.Substring(0, 13) + "...";
-                    }
-                    //Song Difficulty (Capitalise)
-
-                    #endregion Clean Data
-
-                    this.Plays.Add(play);
-                    playsList?.tableView.ReloadData(); //reload the custom list
-                    Plugin.Log.Info("2New " + $"{play.songName}" + " cell's path: " + $"{play.playPath}");
-
-                    //Console.WriteLine(play.trackers);
-                    x++;
-                    
-
-                }
-
+                this.Plays.Add(OverridePlay);
+                Override = null;
             }
-            reader.Close();                         // CLOSE READER
+            else
+            {
+
+                this.Plays.Clear();
+                StreamReader reader = File.OpenText(SessionPath);
+                int x = 1;
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    if (x == 1) //Line number as int32, not index.
+                    {
+                        x++;
+                    }
+                    else
+                    {
+                        Play play = JsonConvert.DeserializeObject<Play>(line);
+                        play.playPath = SessionPath;
+                        play.playLine = x;
+                        Plugin.Log.Info("New Play " + $"{play.songName}" + " Cell's path: " + $"{play.playPath}");
+
+                        #region Clean Data
+
+                        //Song Duration
+                        float temp = float.Parse(play.songDuration) * 1000;
+                        int temp2 = Convert.ToInt32(temp) / 1000;
+                        play.songDurationFormatted = TimeCalculator(MyValue: temp2);
+
+                        //Song Name (Length Limit)
+                        if (play.songName.Length >= 14)
+                        {
+                            play.songName = play.songName.Substring(0, 13) + "...";
+                        }
+                        //Song Artist (Length Limit)
+                        if (play.songArtist.Length >= 11)
+                        {
+                            play.songArtist = play.songArtist.Substring(0, 10) + "...";
+                        }
+                        //Song Mapper (length Limit)
+                        if (play.songMapper.Length >= 14)
+                        {
+                            play.songMapper = play.songMapper.Substring(0, 13) + "...";
+                        }
+                        //Song Difficulty (Capitalise)
+
+
+                        //Delimiter active.
+                        play.delimiter= " - ";
+
+
+                        #endregion Clean Data
+
+                        this.Plays.Add(play);
+                        playsList?.tableView.ReloadData(); //reload the custom list
+                        x++; //Next line Num
+
+
+                    }
+
+                }
+
+                reader.Close();                         // CLOSE READER
+                
+            }
+
             playsList?.tableView.ReloadData();      //reload the custom list
-
-
         }
         #endregion
 
-        private static void SetPlaysData() 
+        private static void SetPlaysData(string PlayPath, int PlayLine, string PlayName) 
         {
-            Plugin.Log.Info("ran");
+            Plugin.Log.Info($"{PlayName}"+" In Session "+$"{PlayPath}"+ " , As Line " + $"{PlayLine}"+".");
+            AntiSkillIssueLeftViewController.ImportPlayData(newPlayPath:PlayPath, newPlayLine:PlayLine, newPlayName:PlayName);
+            //Plugin.Invoke(CallbackEvent);
         }
 
         #region timeFormatter
@@ -296,7 +321,8 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         public class Play
         {
             public string playPath { get; set; }
-            
+            public int playLine { get; set; }
+
             [UIValue("play-name")]
             public string songName { get; set; }
 
@@ -312,8 +338,10 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
             [UIValue("song-mapper")]
             public string songMapper { get; set; }
+            [UIValue("delimiter")]
+            public string delimiter { get; set; }
 
-            
+
 
             //public
             //    Dictionary<string, (
@@ -326,16 +354,17 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             //        Dictionary<string, (int, float, int, int[], float, float[], float)>     //Note tracker
             //        )> trackers
             //{ get; set; } //i think its ABSOLUTELY HILARIOUS that i have to comment
-                          //A Fucking Type.
-                          //TRIPLE NESTED DICTIONARIES. WHAT. THE. FUCK.
-        
-            public Play(string newPlayPath, string newSongName, string newSongDuration, string newSongArtist, string newSongMapper)
+            //A Fucking Type.
+            //TRIPLE NESTED DICTIONARIES. WHAT. THE. FUCK.
+
+            public Play(string newPlayPath, string newSongName, string newSongDuration, string newSongArtist, string newSongMapper, string newDelimiter)
             {
                 playPath = newPlayPath;
                 songName = newSongName;
                 songDuration = newSongDuration;
                 songArtist = newSongArtist;
                 songMapper = newSongMapper;
+                delimiter = newDelimiter;
 
 
             }
