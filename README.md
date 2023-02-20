@@ -58,7 +58,7 @@ Great idea 🥶
 
 [MatrikMoon](https://www.Github.com/MatrikMoon/) - Teaching me Most of what i Know when it comes to Modding the game, but mainly ViewControllers and FlowCoordinators, as well as the didFinishEvent.
 
-[RedBrumbler](https://github.com/RedBrumbler) - Teached me how to make a Custom list, as well as a Normal List. TYSM
+[RedBrumbler](https://github.com/RedBrumbler) - Taught me how to make a Custom list, as well as a Normal List. TYSM
 
 [Redageddon](https://github.com/Redageddon) & [Top_Cat](https://github.com/Top-Cat) - Taught me how to Assign UIValues Properly through getters and setters. 👏
 
