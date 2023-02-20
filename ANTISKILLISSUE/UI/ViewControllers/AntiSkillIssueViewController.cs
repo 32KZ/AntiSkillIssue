@@ -71,15 +71,17 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         #region Selected List Items
         //to be ran when Session clicked on.
         [UIAction("session-selected")]
-        public void SessionSelected()
+        public void SessionSelected(TableView sessionList,Session Sessions )
         {
-            SetPlays();
+            SetPlays(SessionPath: Sessions.MyPath);
+            Plugin.Log.Info("Session Selected!");
         }
 
         //to be ran when Play clicked on.
         [UIAction("play-selected")]
-        public void PlaySelected()
+        public void PlaySelected(TableView playList, Play Plays)
         {
+            SetPlaysData();
             Plugin.Log.Info("Play Selected!");
         }
         #endregion
@@ -92,7 +94,6 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
             string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Beat Savior Data"; //Set the CD
             string[] fileNames = Directory.GetFiles(path);                              //get the directories of all the files in CD
-            string OverridePath = path + @"\2022-12-30.bsd";
 
             foreach (string fileName in fileNames)                                   // for every file in dir, as fileName,
 
@@ -112,7 +113,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
                                                 );
 
                 this.Sessions.Add(Session);
-                sessionList?.tableView.ReloadData(); //adds cool adding waterfall effect for shits and giggles
+                
                 Plugin.Log.Info("New "+$"{Session.SessionName}"+ " cell's path: "+ $"{Session.MyPath}");
                 
                 #region Summary~
@@ -133,7 +134,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
                 #endregion Summary~
             }
-
+        sessionList?.tableView.ReloadData();
         }
         #endregion
 
@@ -147,7 +148,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             this.Plays.Clear();
 
 
-            StreamReader reader = File.OpenText(OverridePath);//Session Path
+            StreamReader reader = File.OpenText(SessionPath);
             int x = 0;
             string line;
             while ((line = reader.ReadLine()) != null)
@@ -183,8 +184,12 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         }
         #endregion
 
-       
+        private static void SetPlaysData() 
+        {
+            Plugin.Log.Info("ran");
+        }
 
+        #region timeFormatter
         private static string TimeCalculator(float MyValue)
         {
             int MinuitesTime = 0;
@@ -196,6 +201,9 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             
             return MinuitesTime + "m " + MyValue + "s";
         }
+        #endregion timeFormatter
+
+
 
         #region Cell / Session and Play Classes
 
