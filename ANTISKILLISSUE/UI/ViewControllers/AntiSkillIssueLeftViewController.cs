@@ -25,8 +25,7 @@ using AntiSkillIssue.ANTISKILLISSUE.Configuration;
 using AntiSkillIssue.ANTISKILLISSUE.Installers;
 using AntiSkillIssue.ANTISKILLISSUE.UI.FlowCoordinators;
 using AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers;
-
-
+using TMPro;
 
 namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 {
@@ -35,10 +34,13 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         public override string ResourceName => string.Join(".", GetType().Namespace, GetType().Name) + ".bsml";
         internal static IPALogger Log { get; private set; }
 
+<<<<<<< Updated upstream
         #region Default Variables
         private string ourSongName = "blank";
         #endregion Default Variables
 
+=======
+>>>>>>> Stashed changes
 
         #region UNIVERSAL UI ACTIONS
 
@@ -72,13 +74,15 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         private void SetEndTime(float newEndTime)
         {
 
-            EndTime = newEndTime;
+            endTime = newEndTime;
 
         }
         #endregion T1: UI ACTIONS
 
         #region T1: UI COMPONENTS
 
+        [UIComponent("song-selected-text")]
+        private string SelectedSongText;
 
         [UIComponent("start-time-slider")]
         private SliderSetting startTimeSlider;
@@ -91,6 +95,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         #region T1: UI VALUES
 
         [UIValue("selected-song-name")]
+<<<<<<< Updated upstream
         public string SongName 
         
         
@@ -102,24 +107,34 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
                 this.NotifyPropertyChanged();
             }
         }
+=======
+        private string SongName = "SongName";
+>>>>>>> Stashed changes
 
         [UIValue("song-length")]
-        private float SongLength; //will be values taken from songdata
+        private float SongLength = 121f; //will be values taken from songdata
 
         [UIValue("start-slider")]
+<<<<<<< Updated upstream
         private float StartTime =0f;
 
         [UIValue("end-slider")]
         private float EndTime =60f;
+=======
+        private float StartTime = 0;
+
+        [UIValue("end-slider")]
+        private float endTime = 58;
+>>>>>>> Stashed changes
 
         [UIValue("notes-selected")]
-        private int NotesSlected;
+        private int NotesSlected = 32;
 
         [UIValue("duration-selected")]
-        private int DurationSelected;
+        private int DurationSelected = 59;
 
         [UIValue("bpm-changes")]
-        private int BPMChanges;
+        private int BPMChanges = 0;
         #endregion T1: UI VALUES
 
         #endregion TAB 1 : START AND END SLIDERS
@@ -234,18 +249,26 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
             Plugin.Log.Info("WorkingPlay Created Successfully!");
             
+<<<<<<< Updated upstream
             
 
         }
 
+=======
+
+
+        }
+>>>>>>> Stashed changes
         
     }
 
     public class WorkingPlay 
     {
+        
         public string myPlayName { get; set; }
-        public string myPlayPath { get; set; }
         public int myPlayLine { get; set; }
+        public string myPlayPath { get; set; }
+        
 
         public WorkingPlay(string newPlayPath, int newPlayLine, string newPlayName) 
         {
