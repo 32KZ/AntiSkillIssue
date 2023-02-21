@@ -34,13 +34,18 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         public override string ResourceName => string.Join(".", GetType().Namespace, GetType().Name) + ".bsml";
         internal static IPALogger Log { get; private set; }
 
-<<<<<<< Updated upstream
         #region Default Variables
         private string ourSongName = "blank";
         #endregion Default Variables
 
-=======
->>>>>>> Stashed changes
+        #region import variables
+
+        public string CurrentPlayName;
+        public string CurrentSPlayPath;
+        public string CurrentPlayLine;
+
+        #endregion import variables
+
 
         #region UNIVERSAL UI ACTIONS
 
@@ -95,10 +100,9 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         #region T1: UI VALUES
 
         [UIValue("selected-song-name")]
-<<<<<<< Updated upstream
-        public string SongName 
-        
-        
+        public string SongName
+
+
         {
             get => this.ourSongName;
             set
@@ -107,25 +111,17 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
                 this.NotifyPropertyChanged();
             }
         }
-=======
-        private string SongName = "SongName";
->>>>>>> Stashed changes
+
+
 
         [UIValue("song-length")]
         private float SongLength = 121f; //will be values taken from songdata
 
         [UIValue("start-slider")]
-<<<<<<< Updated upstream
-        private float StartTime =0f;
+        private float StartTime = 0f;
 
         [UIValue("end-slider")]
-        private float EndTime =60f;
-=======
-        private float StartTime = 0;
-
-        [UIValue("end-slider")]
-        private float endTime = 58;
->>>>>>> Stashed changes
+        private float endTime = 60f;
 
         [UIValue("notes-selected")]
         private int NotesSlected = 32;
@@ -144,18 +140,18 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         #region T2: UI VALUES
 
         #region T2: LEFT
-        
+
         [UIValue("average-left-pre-swing")]
-        private int AverageLeftPreSwing   = 100;
+        private int AverageLeftPreSwing = 100;
 
         [UIValue("average-left-post-swing")]
-        private int AverageLeftPostSwing  = 100;
+        private int AverageLeftPostSwing = 100;
 
         #endregion T2: LEFT
         #region T2: RIGHT
 
         [UIValue("average-right-pre-swing")]
-        private int AverageRightPreSwing  = 100;
+        private int AverageRightPreSwing = 100;
 
         [UIValue("average-right-post-swing")]
         private int AverageRightPostSwing = 100;
@@ -172,14 +168,14 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
 
         #region T3: LEFT
-        
+
         [UIValue("average-left-accuracy")]
         private int AverageLeftAccuracy = 15;
 
         #endregion T3: LEFT
 
         #region T3: RIGHT
-        
+
         [UIValue("average-right-accuracy")]
         private int AverageRightAccuracy = 15;
         #endregion T3: RIGHT
@@ -201,7 +197,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         #endregion T4: LEFT
 
         #region T4: RIGHT
-        
+
         [UIValue("average-right-timing-dependence")]
         private string AverageRightTimingDependence = "0.00" + "TD";
 
@@ -219,7 +215,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         #region T5: UIVALUES
 
         #region T5: LEFT
-        
+
         [UIValue("average-left-velocity")]
         private float AverageLeftVelocity = 80f;
 
@@ -229,7 +225,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         #endregion T5: LEFT
 
         #region T5: RIGHT
-        
+
         [UIValue("average-right-velocity")]
         private float AverageRightVelocity = 80f;
 
@@ -242,44 +238,40 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
         #endregion TAB 5 : VELOCITY
 
-        public static void ImportPlayData(string newPlayPath, int newPlayLine, string newPlayName) 
+        public void ImportPlayData(string newPlayPath, int newPlayLine, string newPlayName)
         {
-            WorkingPlay workingPlay = new WorkingPlay(newPlayPath: newPlayPath, newPlayLine:newPlayLine, newPlayName: newPlayName);
-            string SongName = workingPlay.myPlayName;
+            WorkingPlay workingPlay = new WorkingPlay(newPlayPath: newPlayPath, newPlayLine: newPlayLine, newPlayName: newPlayName);
+            SongName = workingPlay.myPlayName;
 
             Plugin.Log.Info("WorkingPlay Created Successfully!");
-            
-<<<<<<< Updated upstream
-            
 
-        }
 
-=======
 
 
         }
->>>>>>> Stashed changes
-        
+
+
+
+
     }
 
-    public class WorkingPlay 
+    public class WorkingPlay
     {
-        
+
         public string myPlayName { get; set; }
         public int myPlayLine { get; set; }
         public string myPlayPath { get; set; }
-        
 
-        public WorkingPlay(string newPlayPath, int newPlayLine, string newPlayName) 
+
+        public WorkingPlay(string newPlayPath, int newPlayLine, string newPlayName)
         {
             myPlayName = newPlayName;
             myPlayPath = newPlayPath;
-            myPlayLine = newPlayLine; 
-        
-        }
-    
-    }
+            myPlayLine = newPlayLine;
 
+        }
+
+    }
 
 }
 
