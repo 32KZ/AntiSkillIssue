@@ -25,7 +25,7 @@
 				</horizontal>
 				<horizontal>
 					<text text='Currently Selected Play: '/>
-					<text text='~selected-song-name'/>
+					<text id ='song-selected-text' text='~selected-song-name'/>
 				</horizontal>
 			
 				<!--Start Time Slider -->

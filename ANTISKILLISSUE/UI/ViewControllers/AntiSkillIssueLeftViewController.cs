@@ -25,8 +25,7 @@ using AntiSkillIssue.ANTISKILLISSUE.Configuration;
 using AntiSkillIssue.ANTISKILLISSUE.Installers;
 using AntiSkillIssue.ANTISKILLISSUE.UI.FlowCoordinators;
 using AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers;
-
-
+using TMPro;
 
 namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 {
@@ -38,6 +37,14 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         #region Default Variables
         private string ourSongName = "blank";
         #endregion Default Variables
+
+        #region import variables
+
+        public string CurrentPlayName;
+        public string CurrentSPlayPath;
+        public string CurrentPlayLine;
+
+        #endregion import variables
 
 
         #region UNIVERSAL UI ACTIONS
@@ -72,13 +79,15 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         private void SetEndTime(float newEndTime)
         {
 
-            EndTime = newEndTime;
+            endTime = newEndTime;
 
         }
         #endregion T1: UI ACTIONS
 
         #region T1: UI COMPONENTS
 
+        [UIComponent("song-selected-text")]
+        private string SelectedSongText;
 
         [UIComponent("start-time-slider")]
         private SliderSetting startTimeSlider;
@@ -91,9 +100,9 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         #region T1: UI VALUES
 
         [UIValue("selected-song-name")]
-        public string SongName 
-        
-        
+        public string SongName
+
+
         {
             get => this.ourSongName;
             set
@@ -103,23 +112,25 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             }
         }
 
+
+
         [UIValue("song-length")]
-        private float SongLength; //will be values taken from songdata
+        private float SongLength = 121f; //will be values taken from songdata
 
         [UIValue("start-slider")]
-        private float StartTime =0f;
+        private float StartTime = 0f;
 
         [UIValue("end-slider")]
-        private float EndTime =60f;
+        private float endTime = 60f;
 
         [UIValue("notes-selected")]
-        private int NotesSlected;
+        private int NotesSlected = 32;
 
         [UIValue("duration-selected")]
-        private int DurationSelected;
+        private int DurationSelected = 59;
 
         [UIValue("bpm-changes")]
-        private int BPMChanges;
+        private int BPMChanges = 0;
         #endregion T1: UI VALUES
 
         #endregion TAB 1 : START AND END SLIDERS
@@ -129,18 +140,18 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         #region T2: UI VALUES
 
         #region T2: LEFT
-        
+
         [UIValue("average-left-pre-swing")]
-        private int AverageLeftPreSwing   = 100;
+        private int AverageLeftPreSwing = 100;
 
         [UIValue("average-left-post-swing")]
-        private int AverageLeftPostSwing  = 100;
+        private int AverageLeftPostSwing = 100;
 
         #endregion T2: LEFT
         #region T2: RIGHT
 
         [UIValue("average-right-pre-swing")]
-        private int AverageRightPreSwing  = 100;
+        private int AverageRightPreSwing = 100;
 
         [UIValue("average-right-post-swing")]
         private int AverageRightPostSwing = 100;
@@ -157,14 +168,14 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
 
         #region T3: LEFT
-        
+
         [UIValue("average-left-accuracy")]
         private int AverageLeftAccuracy = 15;
 
         #endregion T3: LEFT
 
         #region T3: RIGHT
-        
+
         [UIValue("average-right-accuracy")]
         private int AverageRightAccuracy = 15;
         #endregion T3: RIGHT
@@ -186,7 +197,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         #endregion T4: LEFT
 
         #region T4: RIGHT
-        
+
         [UIValue("average-right-timing-dependence")]
         private string AverageRightTimingDependence = "0.00" + "TD";
 
@@ -204,7 +215,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         #region T5: UIVALUES
 
         #region T5: LEFT
-        
+
         [UIValue("average-left-velocity")]
         private float AverageLeftVelocity = 80f;
 
@@ -214,7 +225,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         #endregion T5: LEFT
 
         #region T5: RIGHT
-        
+
         [UIValue("average-right-velocity")]
         private float AverageRightVelocity = 80f;
 
@@ -227,36 +238,40 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
         #endregion TAB 5 : VELOCITY
 
-        public static void ImportPlayData(string newPlayPath, int newPlayLine, string newPlayName) 
+        public void ImportPlayData(string newPlayPath, int newPlayLine, string newPlayName)
         {
-            WorkingPlay workingPlay = new WorkingPlay(newPlayPath: newPlayPath, newPlayLine:newPlayLine, newPlayName: newPlayName);
-            string SongName = workingPlay.myPlayName;
+            WorkingPlay workingPlay = new WorkingPlay(newPlayPath: newPlayPath, newPlayLine: newPlayLine, newPlayName: newPlayName);
+            SongName = workingPlay.myPlayName;
 
             Plugin.Log.Info("WorkingPlay Created Successfully!");
-            
-            
+
+
+
 
         }
 
-        
+
+
+
     }
 
-    public class WorkingPlay 
+    public class WorkingPlay
     {
-        public string myPlayName { get; set; }
-        public string myPlayPath { get; set; }
-        public int myPlayLine { get; set; }
 
-        public WorkingPlay(string newPlayPath, int newPlayLine, string newPlayName) 
+        public string myPlayName { get; set; }
+        public int myPlayLine { get; set; }
+        public string myPlayPath { get; set; }
+
+
+        public WorkingPlay(string newPlayPath, int newPlayLine, string newPlayName)
         {
             myPlayName = newPlayName;
             myPlayPath = newPlayPath;
-            myPlayLine = newPlayLine; 
-        
-        }
-    
-    }
+            myPlayLine = newPlayLine;
 
+        }
+
+    }
 
 }
 

@@ -246,10 +246,10 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         }
         #endregion
 
-        private static void SetPlaysData(string PlayPath, int PlayLine, string PlayName) 
+        private void SetPlaysData(string PlayPath, int PlayLine, string PlayName) 
         {
             Plugin.Log.Info($"{PlayName}"+" In Session "+$"{PlayPath}"+ " , As Line " + $"{PlayLine}"+".");
-            AntiSkillIssueLeftViewController.ImportPlayData(newPlayPath:PlayPath, newPlayLine:PlayLine, newPlayName:PlayName);
+            AntiSkillIssueLeftViewController.CurrentPlayName = PlayName;
         }
 
         #region timeFormatter
