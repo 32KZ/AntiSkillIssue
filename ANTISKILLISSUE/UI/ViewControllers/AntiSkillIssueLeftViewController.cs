@@ -238,13 +238,12 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
         #endregion TAB 5 : VELOCITY
 
-        public void ImportPlayData(string newPlayPath, int newPlayLine, string newPlayName)
+        public static void ImportPlayData(string newPlayPath, int newPlayLine, string newPlayName)
         {
             WorkingPlay workingPlay = new WorkingPlay(newPlayPath: newPlayPath, newPlayLine: newPlayLine, newPlayName: newPlayName);
-            SongName = workingPlay.myPlayName;
+            string SongName = workingPlay.myPlayName;
 
             Plugin.Log.Info("WorkingPlay Created Successfully!");
-
 
 
 
