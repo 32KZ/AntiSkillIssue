@@ -39,9 +39,6 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         //Reload Buttons
         [UIComponent("session-reload-button")]
         private ButtonTag SessionReloadButton;
-
-        [UIComponent("plays-reload-button")]
-        private ButtonTag PlaysReloadButton;
         //-=-=
         #endregion
 
@@ -88,10 +85,10 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
         
         #region SetSessions
-        public void SetSessions() //called from Sessions-Reload-Button
+        public void SetSessions() //called from Sessions-Reload-Button and ASIFlowCoordinator
         {
             this.Sessions.Clear();
-
+            
             string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Beat Savior Data"; //Set the CD
             string[] fileNames = Directory.GetFiles(path);                              //get the directories of all the files in CD
 
@@ -118,27 +115,29 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
                     Plugin.Log.Info("New Session " + $"{Session.SessionName}" + " Cell's path: " + $"{Session.MyPath}");
                 }
                 else { Plugin.Log.Info("The File " + $"{Session.SessionName}" + " Is not 00-00-0000 Format. Excluded.");}
-                
-                
+
+
                 #region Summary~
 
                 //then, for every session, add it to the first list, with its Name, Size, and Dir. 
                 //only Display the Name And Size, the DIR is just A property. 
                 //then, once it is selected in the list, highlight it, and:
-                //  call a cleanup function in ASILVC.CS,
+
                 //  clear the right list,
                 //  pass the Dir to a stream reader,
                 //  ignore the first line(for now),
                 //  In the right list, create a new cell for every line in the file. (with some data for readability.)
-                //          Data for this collection: SongName, SongLength, PercentileScore, Score.
-                //now, the PlayCells should reference a Line in each file.
-                //once a cell is selected,  highlight it, And:
+                //          Data for this collection: SongName, SongLength, Difficulty, SongMapper.
+                //          Clean all the data
+                //now, the Plays should reference a Line in each file.
+                //once a Playcell is selected,  highlight it, And:
                 //Send the File Directory to ASILVC.CS
+                //  call a cleanup function in ASILVC.CS,
                 //ANALYSE DATA.
 
                 #endregion Summary~
             }
-        sessionList?.tableView.ReloadData();
+            sessionList?.tableView.ReloadData();
         }
         #endregion
 
@@ -246,10 +245,11 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         }
         #endregion
 
-        private void SetPlaysData(string PlayPath, int PlayLine, string PlayName) 
+        public void SetPlaysData(string PlayPath, int PlayLine, string PlayName) 
         {
+            AntiSkillIssueLeftViewController ASILVC = new AntiSkillIssueLeftViewController();
             Plugin.Log.Info($"{PlayName}"+" In Session "+$"{PlayPath}"+ " , As Line " + $"{PlayLine}"+".");
-            AntiSkillIssueLeftViewController.ImportPlayData(newPlayPath: PlayPath, newPlayLine: PlayLine, newPlayName: PlayName);
+            ASILVC.ImportPlayData(newPlayPath: PlayPath, newPlayLine: PlayLine, newPlayName: PlayName);
         }
 
         #region timeFormatter

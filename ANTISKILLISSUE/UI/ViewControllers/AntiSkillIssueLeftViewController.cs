@@ -26,6 +26,7 @@ using AntiSkillIssue.ANTISKILLISSUE.Installers;
 using AntiSkillIssue.ANTISKILLISSUE.UI.FlowCoordinators;
 using AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers;
 using TMPro;
+using static SliderController.Pool;
 
 namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 {
@@ -35,7 +36,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         internal static IPALogger Log { get; private set; }
 
         #region Default Variables
-        private string ourSongName = "blank";
+        private string songName = "none";
         #endregion Default Variables
 
         #region import variables
@@ -104,11 +105,14 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
 
         {
-            get => this.ourSongName;
+            get { return songName; }
             set
             {
-                this.ourSongName = value;
+                this.songName = value;
+                this.NotifyPropertyChanged(SongName);
+                this.NotifyPropertyChanged(SelectedSongText);
                 this.NotifyPropertyChanged();
+                Console.WriteLine("Clearly you have never played a muffn map");
             }
         }
 
@@ -238,11 +242,11 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
         #endregion TAB 5 : VELOCITY
 
-        public static void ImportPlayData(string newPlayPath, int newPlayLine, string newPlayName)
+        public void ImportPlayData(string newPlayPath, int newPlayLine, string newPlayName)
         {
             WorkingPlay workingPlay = new WorkingPlay(newPlayPath: newPlayPath, newPlayLine: newPlayLine, newPlayName: newPlayName);
-            string SongName = workingPlay.myPlayName;
-
+            SongName = workingPlay.myPlayName;
+            
             Plugin.Log.Info("WorkingPlay Created Successfully!");
 
 
