@@ -21,6 +21,7 @@ using BeatSaberMarkupLanguage.GameplaySetup;
 using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.ViewControllers;
 using BeatSaberMarkupLanguage.Components.Settings;
+using BeatSaberMarkupLanguage.Tags;
 using AntiSkillIssue.ANTISKILLISSUE.Configuration;
 using AntiSkillIssue.ANTISKILLISSUE.Installers;
 using AntiSkillIssue.ANTISKILLISSUE.UI.FlowCoordinators;
@@ -33,26 +34,35 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
     internal class AntiSkillIssueLeftViewController : BSMLResourceViewController //no way! its a legendary view controller! super rare!
     {
         public override string ResourceName => string.Join(".", GetType().Namespace, GetType().Name) + ".bsml";
+        public AntiSkillIssueLeftViewController _AntiSkillIssueLeftViewController;
         internal static IPALogger Log { get; private set; }
+        public string myPlayName { get; set; }
+        public int myPlayLine { get; set; }
+        public string myPlayPath { get; set; }
 
         #region Default Variables
         private string songName = "none";
+        private int testInt = 0;
         #endregion Default Variables
 
         #region import variables
 
         public string CurrentPlayName;
-        public string CurrentSPlayPath;
+        public string CurrentPlayPath;
         public string CurrentPlayLine;
 
         #endregion import variables
 
 
         #region UNIVERSAL UI ACTIONS
+        [UIAction("test-decrement")]
+        public void testDecrement() { testvalue--; }
 
+        [UIAction("test-increment")]
+        public void testIncrement() { testvalue++; }
 
         [UIAction("Click")]
-        private void ButtonClicked()
+        public void ButtonClicked()
         {
             Console.WriteLine("Button was clicked!");
 
@@ -90,6 +100,15 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         [UIComponent("song-selected-text")]
         private string SelectedSongText;
 
+        [UIComponent("increment-button")]
+        private ButtonTag incrementButton;
+
+        [UIComponent("test-value")]
+        private TextTag TestInt;
+
+        [UIComponent("decrement-button")]
+        private ButtonTag decrementButton;
+
         [UIComponent("start-time-slider")]
         private SliderSetting startTimeSlider;
 
@@ -109,14 +128,24 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             set
             {
                 this.songName = value;
-                this.NotifyPropertyChanged(SongName);
-                this.NotifyPropertyChanged(SelectedSongText);
                 this.NotifyPropertyChanged();
                 Console.WriteLine("Clearly you have never played a muffn map");
             }
         }
 
+        [UIValue("test-value")]
+        public int testvalue 
 
+
+        {
+            get { return testInt; }
+            set
+            {
+                testvalue = value;
+                this.NotifyPropertyChanged();
+                Console.WriteLine("tv");
+            }
+        }
 
         [UIValue("song-length")]
         private float SongLength = 121f; //will be values taken from songdata
@@ -253,7 +282,13 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
         }
 
+        public AntiSkillIssueLeftViewController(string newPlayPath, int newPlayLine, string newPlayName)
+        {
+            myPlayName = newPlayName;
+            myPlayPath = newPlayPath;
+            myPlayLine = newPlayLine;
 
+        }
 
 
     }

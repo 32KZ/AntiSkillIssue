@@ -27,6 +27,11 @@
 					<text text='Currently Selected Play: '/>
 					<text id ='song-selected-text' text='~selected-song-name'/>
 				</horizontal>
+				<horizontal>
+					<button id='decrement-button' text='--' on-click='test-decrement'/>
+					<text id='test-value' text='~test-value'  />
+					<button id='increment-button' text='++' on-click='test-increment'/>
+				</horizontal>
 			
 				<!--Start Time Slider -->
 			<horizontal preferred-height='12' pad-left='10' pad-right='10' pad-top='5' horizontal-fit='PreferredSize'>

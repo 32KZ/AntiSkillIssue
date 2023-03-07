@@ -247,7 +247,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
         public void SetPlaysData(string PlayPath, int PlayLine, string PlayName) 
         {
-            AntiSkillIssueLeftViewController ASILVC = new AntiSkillIssueLeftViewController();
+            AntiSkillIssueLeftViewController ASILVC = new AntiSkillIssueLeftViewController(newPlayPath: PlayPath, newPlayLine: PlayLine, newPlayName: PlayName);
             Plugin.Log.Info($"{PlayName}"+" In Session "+$"{PlayPath}"+ " , As Line " + $"{PlayLine}"+".");
             ASILVC.ImportPlayData(newPlayPath: PlayPath, newPlayLine: PlayLine, newPlayName: PlayName);
         }

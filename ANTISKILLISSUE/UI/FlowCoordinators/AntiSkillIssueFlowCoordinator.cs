@@ -33,14 +33,17 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.FlowCoordinators //Find Directory
 		private MainFlowCoordinator _AntiSkillIssueMainFlowCoordinator;		//mark _AntiSkillIssueMainFlowCoordinator as the MainFlowCoordinator 
 		private AntiSkillIssueViewController _AntiSkillIssueViewController; //this is external to this CS file. we do not need to define it on the contrary.
 		private AntiSkillIssueLeftViewController _AntiSkillIssueLeftViewController;
+		private AntiSkillIssueLeftViewController _newAntiSkillIssueLeftViewController;
 		private AntiSkillIssueRightViewController _AntiSkillIssueRightViewController;
-		//private void Construct(MainFlowCoordinator mainFlowCoordinator, AntiSkillIssueViewController AntiSkillIssueViewController) //Create the FlowCoordinator and ViewController
-		//{
-		//	_AntiSkillIssueMainFlowCoordinator = mainFlowCoordinator;
-		//	_AntiSkillIssueViewController = AntiSkillIssueViewController;
-		//}
+        private Action finishedCallback;
 
-		protected override void DidActivate(bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling)
+        //private void Construct(MainFlowCoordinator mainFlowCoordinator, AntiSkillIssueViewController AntiSkillIssueViewController) //Create the FlowCoordinator and ViewController
+        //{
+        //	_AntiSkillIssueMainFlowCoordinator = mainFlowCoordinator;
+        //	_AntiSkillIssueViewController = AntiSkillIssueViewController;
+        //}
+
+        protected override void DidActivate(bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling)
 		{
 			SetTitle("ASI: BeatSavior Score Review");
 			showBackButton = true;
@@ -51,6 +54,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.FlowCoordinators //Find Directory
 			ProvideInitialViewControllers(_AntiSkillIssueViewController, _AntiSkillIssueLeftViewController, _AntiSkillIssueRightViewController);
 			_AntiSkillIssueViewController.SetSessions(); //Auto Populate the Sessions List.
 			_AntiSkillIssueViewController.SetPlays(SessionPath:null, Override:"!null, Override!"); //Enqueue a dummy to make it clear of the UI purpose.
+			_AntiSkillIssueViewController._AntiSkillIssueLeftViewController = _AntiSkillIssueLeftViewController;
 		}
 
 		protected override void BackButtonWasPressed(ViewController topViewController)
@@ -58,7 +62,13 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.FlowCoordinators //Find Directory
 			DidFinishEvent.Invoke();
 		}
 
-
+		public void UpdateASILVC(string PlayPath, int PlayLine, string PlayName) 
+		{
+			_newAntiSkillIssueLeftViewController = new AntiSkillIssueLeftViewController(newPlayPath:PlayPath,newPlayLine:PlayLine,newPlayName:PlayName);
+			
+			
+		}
+        
 	}
 
 
