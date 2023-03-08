@@ -6,3 +6,5 @@ obj/project.nuget.cache
 obj/AntiSkillIssue.csproj.nuget.g.props
 obj/AntiSkillIssue.csproj.nuget.dgspec.json
 obj/project.nuget.cache
+*.cache
+*.cache

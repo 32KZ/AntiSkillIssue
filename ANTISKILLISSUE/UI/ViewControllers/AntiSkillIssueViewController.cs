@@ -31,9 +31,20 @@ using AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers;
 
 namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 {
+    public delegate void DataTransferEventHandler(object sender, DataTransferEventArgs EventArguments);
+
+    public class DataTransferEventArgs : EventArgs
+    {
+        public string Path { get; set; }
+        public int Line { get; set; }
+        public string Name { get; set; }
+    }
     internal class AntiSkillIssueViewController : BSMLResourceViewController //no way! its a legendary view controller! super rare!
     {
         public override string ResourceName => string.Join(".", GetType().Namespace, GetType().Name) + ".bsml";
+        public event DataTransferEventHandler DataTransfer;
+        public AntiSkillIssueLeftViewController BrotherViewController { get; set; }
+
 
         #region Reload Buttons Components
         //Reload Buttons
@@ -247,9 +258,14 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
         public void SetPlaysData(string PlayPath, int PlayLine, string PlayName) 
         {
-            AntiSkillIssueLeftViewController ASILVC = new AntiSkillIssueLeftViewController(newPlayPath: PlayPath, newPlayLine: PlayLine, newPlayName: PlayName);
-            Plugin.Log.Info($"{PlayName}"+" In Session "+$"{PlayPath}"+ " , As Line " + $"{PlayLine}"+".");
-            ASILVC.ImportPlayData(newPlayPath: PlayPath, newPlayLine: PlayLine, newPlayName: PlayName);
+
+            DataTransfer?.Invoke(this, new DataTransferEventArgs { 
+                                                                    Path = PlayPath, Line = PlayLine, Name=PlayName
+                                                                 });
+
+            //AntiSkillIssueLeftViewController ASILVC = new AntiSkillIssueLeftViewController(newPlayPath: PlayPath, newPlayLine: PlayLine, newPlayName: PlayName);
+            Plugin.Log.Info($"Event called with {PlayName}"+" In Session "+$"{PlayPath}"+ " , As Line " + $"{PlayLine}"+".");
+            //ASILVC.ImportPlayData(newPlayPath: PlayPath, newPlayLine: PlayLine, newPlayName: PlayName);
         }
 
         #region timeFormatter
