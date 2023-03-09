@@ -43,16 +43,14 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         public int myPlayLine { get; set; }
         public string myPlayPath { get; set; }
 
-        
+        private string songName { get; set; }
 
-       
+        public string songLength { get; set; } //used in UI display
+        public float songDuration { get; set; } // Used in Slider Calculation.
 
+        public string songDifficulty { get; set; }
+        public string deLimiter { get; set; }
 
-
-        #region Default Variables
-        private string songName = "none";
-        private int testInt = 0;
-        #endregion Default Variables
 
         #region UNIVERSAL UI ACTIONS
         [UIAction("Click")]
@@ -62,9 +60,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             
         }
 
-        //dynamic value
-        [UIValue("dynamic-value")]
-        private float DynamicValue;
+
 
         #endregion UNIVERSAL UI ACTIONS
 
@@ -95,15 +91,6 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         [UIComponent("song-selected-text")]
         private TextTag SelectedSongText;
 
-        [UIComponent("increment-button")]
-        private ButtonTag incrementButton;
-
-        [UIComponent("test-value")]
-        private TextTag TestInt;
-
-        [UIComponent("decrement-button")]
-        private ButtonTag decrementButton;
-
         [UIComponent("start-time-slider")]
         private SliderSetting startTimeSlider;
 
@@ -114,29 +101,107 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
         #region T1: UI VALUES
 
-        [UIValue("selected-song-name")]
+        //dynamic value
+        [UIValue("dynamic-value")]
+        private float DynamicValue;
+
+        [UIValue("song-name")]
         public string SongName
 
 
         {
-            get { return songName; }
+            get 
+            {
+                if (songName == null) { songName = "Use these Sliders to Select a smaller section of the Map to review!"; }
+                return songName;
+            }
             set
             {
                 this.songName = value;
                 this.NotifyPropertyChanged();
-                Console.WriteLine($"{this.songName} Property Changed!");
+                Plugin.Log.Info($"{this.songName} Property Changed!");
+            }
+        }
+
+        [UIValue("song-difficulty")]
+        public string SongDifficulty
+
+
+        {
+            get
+            {
+                if (songDifficulty == null) { songDifficulty = "all data on following tabs will change accordingly."; }
+                return songDifficulty;
+            }
+            set
+            {
+                this.songDifficulty = value;
+                this.NotifyPropertyChanged();
+                Plugin.Log.Info($"{this.songDifficulty} Property Changed!");
             }
         }
 
         [UIValue("song-length")]
-        private float SongLength = 121f; //will be values taken from songdata
+        public string SongLength //will be values taken from songdata
 
-        [UIValue("start-slider")]
+
+        {
+            get 
+            {
+                if (songLength == null) { songLength = ""; }
+                return songLength;
+
+            }
+            set
+            {
+                this.songLength = value;
+                this.NotifyPropertyChanged();
+                Plugin.Log.Info($"{this.songLength} Property Changed!");
+            }
+        }
+
+        [UIValue("delimiter")]
+        public string Delimiter 
+
+        {
+            get
+            {
+                if (SongName == "Use these Sliders to Select a smaller section of the Map to review!") { deLimiter = ""; }
+                else { deLimiter = "  -  "; }
+
+                return deLimiter; //Delimiter is not a value declared in Working play, so it will check against the song name instead. 
+
+            }
+            set
+            {
+                this.deLimiter = value;
+                this.NotifyPropertyChanged();
+                Plugin.Log.Info($"{this.deLimiter} Property Changed!");
+            }
+        }
+
+        [UIValue("song-duration")]
+        public float SongDuration 
+        { 
+            get 
+            {
+                if (songDuration == null) { songDuration = 60f; }
+                return songDuration; 
+            } 
+            set 
+            {
+            }
+        }
+
+
+                [UIValue("start-slider")]
         private float StartTime = 0f;
 
         [UIValue("end-slider")]
         private float endTime = 60f;
 
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        
         [UIValue("notes-selected")]
         private int NotesSlected = 32;
 
@@ -145,6 +210,8 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
         [UIValue("bpm-changes")]
         private int BPMChanges = 0;
+
+
         #endregion T1: UI VALUES
 
         #endregion TAB 1 : START AND END SLIDERS
@@ -273,15 +340,14 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             myPlayName = eventArgs.Name;
             myPlayPath = eventArgs.Path;
             myPlayLine = eventArgs.Line;
-            SongName = myPlayName;
-
+            
             //Plugin.Log.Info("");
             string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Beat Savior Data\"; //Set the CD
 
             StreamReader reader = File.OpenText(myPlayPath);
-
             int x = 1;
             string line;
+            Play WorkingPlay = new Play(null, null, null, null, null, null, null);
             while ((line = reader.ReadLine()) != null)
             {
                 if (x != myPlayLine) //Line number as int32 not index
@@ -290,18 +356,18 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
                 }
                 else
                 {
-                    Play play = JsonConvert.DeserializeObject<Play>(line);
-                    play.playPath = myPlayPath;
-                    play.playLine = myPlayLine;
-                    Plugin.Log.Info($"{x}> Processing Play {play.songName} at path: {play.playPath}");
+                    WorkingPlay = JsonConvert.DeserializeObject<Play>(line);
+                    WorkingPlay.playPath = myPlayPath;
+                    WorkingPlay.playLine = myPlayLine;
+                    Plugin.Log.Info($"{x}> Processing Play {WorkingPlay.songName} at path: {WorkingPlay.playPath}");
 
                     #region Clean Data
 
                     #region Song Duration Formatter (121 = 2m 1s)
 
-                    float temp = float.Parse(play.songDuration) * 1000;
+                    float temp = float.Parse(WorkingPlay.songDuration) * 1000;
                     int temp2 = Convert.ToInt32(temp) / 1000;
-                    play.songDurationFormatted = TimeCalculator(MyValue: temp2);
+                    WorkingPlay.songDurationFormatted = TimeCalculator(MyValue: temp2);
 
                     #endregion
 
@@ -328,9 +394,9 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
                     #region Song Difficulty (Capitalise)
 
-                    if (Char.IsLower(play.songDifficulty[0]))
+                    if (Char.IsLower(WorkingPlay.songDifficulty[0]))
                     {
-                        play.songDifficulty = Char.ToUpper(play.songDifficulty[0]) + play.songDifficulty.Substring(1);
+                        WorkingPlay.songDifficulty = Char.ToUpper(WorkingPlay.songDifficulty[0]) + WorkingPlay.songDifficulty.Substring(1);
                     }
                     //if letter index 1 of our song difficulty is not a capital letter, make it one.
                     //No song Difficulty will ever start with a number.
@@ -350,7 +416,17 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             }
             reader.Close();                             // CLOSE READER
 
-            
+            Plugin.Log.Info($"WorkingPlay:{WorkingPlay.songName}, by {WorkingPlay.songArtist}, mapped by {WorkingPlay.songMapper} ");
+            Plugin.Log.Info($"{WorkingPlay.songDifficulty}");
+            Plugin.Log.Info($"{WorkingPlay.songDurationFormatted}");
+
+            SongName = WorkingPlay.songName;
+
+            SongDifficulty = WorkingPlay.songDifficulty;
+            SongLength = WorkingPlay.songDurationFormatted;
+            songDuration = (float)Convert.ToInt32(WorkingPlay.songDuration);
+            Delimiter = "  -  ";
+
             #region Deserialise TRACKERS
             //HIT TRACKER
             object fileHitTracker = WorkingPlay.trackers["hitTracker"];

@@ -17,16 +17,21 @@
 
 		<tab tab-name='Time Selector' tags='tabs'>
 			<modifier-container child-expand-width='true' spacing='1' >
-				<horizontal  pad-left='10' pad-right='10' horizontal-fit='PreferredSize'>
-					<text text='Use these Sliders to Select a smaller section of the Map to review!' />
-				</horizontal>	
-				<horizontal pad-left='10' pad-right='10' horizontal-fit='PreferredSize'>
-					<text text='all data on following tabs will change accordingly.' />
+				<!-- SongName -->
+				<horizontal  pad-left='8' pad-right='8' horizontal-fit='PreferredSize'>
+					<!--<text text='Use these Sliders to Select a smaller section of the Map to review!' />-->
+					<text text='~song-name'/>
 				</horizontal>
-				<horizontal>
-					<text text='Currently Selected Play: '/>
-					<text id ='song-selected-text' text='~selected-song-name'/>
+				<!-- SongDifficulty and Song Length-->
+
+				<horizontal pad-left='8' pad-right='8' horizontal-fit='PreferredSize'>
+					<!--<text text='all data on following tabs will change accordingly.' />-->
+					<text text='~song-difficulty' />
+					<text text='~delimiter' />
+					<text text='~song-length' />
+					
 				</horizontal>
+				
 				<!--Start Time Slider -->
 			<horizontal preferred-height='12' pad-left='10' pad-right='10' pad-top='5' horizontal-fit='PreferredSize'>
 				<slider-setting id='start-time-slider'
@@ -36,7 +41,7 @@
 								text='Start Slider'
 								increment='1'
 								min='0'
-								max='~song-length'
+								max='~song-duration'
 								hover-hint='Where in the song to start Reviewing'>
 				</slider-setting>
 			</horizontal>
@@ -51,7 +56,7 @@
 								text='End Slider'
 								increment='1'
 								min='0'
-								max='~song-length'
+								max='~song-duration'
 								hover-hint='Where in the song to Stop Reviewing'>
 				</slider-setting>
 			</horizontal>
