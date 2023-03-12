@@ -66,7 +66,7 @@
 			</horizontal>
 			<!--End Time Slider END-->
 				<horizontal>
-					<text text ='~play-validity' font-color='~validity-font-color' pad='3' align='Center'/>
+					<text text ='~play-validity' font-color='~validity-font-color' pad-top='5' align='Center'/>
 					<!-- This shows the user if the play is valid.-->
 				</horizontal>
 			</modifier-container>
@@ -82,7 +82,7 @@
 			<tab-selector tab-tag='SCT1' preferred-height='5' pad-top='-20' />
 			<modifier-container child-expand-width='true' spacing='5' >
 				<!-- Pre-Swing and Post-Swing Left Main-->
-				<tab tab-name='Left'  tags='SCT1' hover-hint='View Left hand Data'>
+				<tab tab-name='Left'  tags='SCT1'>
 					<modifier-container child-expand-width='true' spacing='1' >
 						<horizontal preferred-height='20' bg='panel-top' pad-left='10' pad-right='10' horizontal-fit='PreferredSize'>
 							<text text='Left!'/>
@@ -102,7 +102,7 @@
 					</modifier-container>
 				</tab>
 				<!-- Pre-Swing and Post-Swing Right Main-->
-				<tab tab-name='Right' tags='SCT1' hover-hint='View Right hand Data'>
+				<tab tab-name='Right' tags='SCT1'>
 					<modifier-container child-expand-width='true' spacing='1' >
 						<horizontal preferred-height='20' bg='panel-top' pad-left='10' pad-right='10' horizontal-fit='PreferredSize'>
 							<text text='Right!'/>
@@ -134,7 +134,7 @@
 			<tab-selector tab-tag='SCT2' preferred-height='5' pad-top='-20' />
 			<modifier-container child-expand-width='true' spacing='5' >
 				<!-- Accuracy Left Main-->
-				<tab tab-name='Left'  tags='SCT2' hover-hint='View Left hand Data'>
+				<tab tab-name='Left'  tags='SCT2'>
 					<modifier-container child-expand-width='true' spacing='1' >
 						<horizontal preferred-height='20' bg='panel-top' pad-left='10' pad-right='10' horizontal-fit='PreferredSize'>
 							<text text='Left!'/>
@@ -147,7 +147,7 @@
 					</modifier-container>
 				</tab>
 				<!-- Accuracy Right Main-->
-				<tab tab-name='Right' tags='SCT2' hover-hint='View Right hand Data'>
+				<tab tab-name='Right' tags='SCT2'>
 					<modifier-container child-expand-width='true' spacing='1' >
 						<horizontal preferred-height='20' bg='panel-top' pad-left='10' pad-right='10' horizontal-fit='PreferredSize'>
 							<text text='Right!'/>
@@ -172,7 +172,7 @@
 			<tab-selector tab-tag='SCT3' preferred-height='5' pad-top='-20' />
 			<modifier-container child-expand-width='true' spacing='5' >
 				<!-- Timing Dependence Left Main-->
-				<tab tab-name='Left'  tags='SCT3' hover-hint='View Left hand Data'>
+				<tab tab-name='Left'  tags='SCT3' >
 					<modifier-container child-expand-width='true' spacing='1' >
 						<horizontal preferred-height='20' bg='panel-top' pad-left='10' pad-right='10' horizontal-fit='PreferredSize'>
 							<text text='Left!'/>
@@ -183,12 +183,12 @@
 						</horizontal>
 						<horizontal pad='1'>
 							<text text='Average T-Deviation'/>
-							<clickable-text text='~average-left-timing-deviation'  default-color='#ff0000'  highlight-color='#ff2222' on-click='Click' hover-hint='Deviation between the times of note cut, and sound played. (UR)'/>
+							<clickable-text text='~average-left-timing-deviation'  default-color='#ff0000'  highlight-color='#ff2222' on-click='Click' hover-hint='Deviation between the times of note cut, and sound played. (Unstable Rate)'/>
 						</horizontal>
 					</modifier-container>
 				</tab>
 				<!-- Timing Dependence Right Main-->
-				<tab tab-name='Right' tags='SCT3' hover-hint='View Right hand Data'>
+				<tab tab-name='Right' tags='SCT3'>
 					<modifier-container child-expand-width='true' spacing='1' >
 						<horizontal preferred-height='20' bg='panel-top' pad-left='10' pad-right='10' horizontal-fit='PreferredSize'>
 							<text text='Right!'/>
@@ -199,7 +199,7 @@
 						</horizontal>
 						<horizontal pad='1'>
 							<text text='Average T-Deviation'/>
-							<clickable-text text='~average-right-timing-deviation'  default-color='#1122ff'  highlight-color='#3344ff' on-click='Click' hover-hint='Deviation between the times of note cut, and sound played. (UR)'/>
+							<clickable-text text='~average-right-timing-deviation'  default-color='#1122ff'  highlight-color='#3344ff' on-click='Click' hover-hint='Deviation between the times of note cut, and sound played. (Unstable Rate)'/>
 						</horizontal>
 					</modifier-container>
 				</tab>
@@ -216,34 +216,38 @@
 			<tab-selector tab-tag='SCT4' preferred-height='5' pad-top='-20' />
 			<modifier-container child-expand-width='true' spacing='5' >
 				<!-- Velocity Left Main-->
-				<tab tab-name='Left'  tags='SCT4' hover-hint='View Left hand Data'>
+				<tab tab-name='Left'  tags='SCT4' >
 					<modifier-container child-expand-width='true' spacing='1' >
 						<horizontal preferred-height='20' bg='panel-top' pad-left='10' pad-right='10' horizontal-fit='PreferredSize'>
 							<text text='Left!'/>
 						</horizontal>
 						<horizontal pad='1'>
-							<text text='Average Velocity'/>
-							<clickable-text text='~average-left-velocity'  default-color='#ff0000'  highlight-color='#ff2222' on-click='Click'/>
+							<text text='Average Velocity' align='Center' pad='2'/>
+							<clickable-text text='~average-left-velocity'  default-color='#ff0000'  highlight-color='#ff2222' align='Center' pad='2' on-click='Click' />
+							<clickable-text text=' m/s'  default-color='#ff0000'  highlight-color='#ff2222' align='Center' pad='2' on-click='Click'/>
 						</horizontal>
 						<horizontal pad='1'>
-							<text text='Recomended Velocity'/>
-							<clickable-text text='~recommended-left-velocity'  default-color='#ff0000'  highlight-color='#ff2222' on-click='Click' hover-hint='For Maximised Control, aim for this swing speed.'/>
+							<text text='Recomended Velocity' align='Center' pad='2'/>
+							<clickable-text text='~recommended-left-velocity'  default-color='#ff0000'  highlight-color='#ff2222' align='Center' pad='2' on-click='Click' hover-hint='For Maximised Control, aim for this swing speed.'/>
+							<clickable-text text=' m/s'  default-color='#ff0000'  highlight-color='#ff2222' align='Center' pad='2' on-click='Click' hover-hint='For Maximised Control, aim for this swing speed.'/>
 						</horizontal>
 					</modifier-container>
 				</tab>
 				<!-- Velocity Right Main-->
-				<tab tab-name='Right' tags='SCT4' hover-hint='View Right hand Data'>
+				<tab tab-name='Right' tags='SCT4' >
 					<modifier-container child-expand-width='true' spacing='1' >
 						<horizontal preferred-height='20' bg='panel-top' pad-left='10' pad-right='10' horizontal-fit='PreferredSize'>
 							<text text='Right!'/>
 						</horizontal>
 						<horizontal pad='1'>
-							<text text='Average Velocity'/>
-							<clickable-text text='~average-right-velocity'  default-color='#1122ff'  highlight-color='#3344ff' on-click='Click'/>
+							<text text='Average Velocity' align='Center' pad='2'/>
+							<clickable-text text='~average-right-velocity'  default-color='#1122ff'  highlight-color='#3344ff' align='Center' pad='2' on-click='Click'/>
+							<clickable-text text=' m/s'  default-color='#1122ff'  highlight-color='#3344ff' align='Center' pad='2' on-click='Click'/>
 						</horizontal>
 						<horizontal pad='1'>
-							<text text='Recomended Velocity'/>
-							<clickable-text text='~recommended-right-velocity'  default-color='#1122ff'  highlight-color='#3344ff' on-click='Click' hover-hint='For Maximised Control, aim for this swing speed.'/>
+							<text text='Recomended Velocity' align='Center' pad='2'/>
+							<clickable-text text='~recommended-right-velocity'  default-color='#1122ff'  highlight-color='#3344ff' align='Center' pad='2' on-click='Click' hover-hint='For Maximised Control, aim for this swing speed.'/>
+							<clickable-text text=' m/s'  default-color='#1122ff'  highlight-color='#3344ff' align='Center' pad='2' on-click='Click' hover-hint='For Maximised Control, aim for this swing speed.'/>
 						</horizontal>
 					</modifier-container>
 				</tab>

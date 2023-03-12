@@ -81,9 +81,30 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
         #region Tab 3 Accuracy 
         public float[] averageLeftCut { get; set; } = new float[3]; //Default Value is a Float array of length 3.
-        public float[] averageRightCut { get; set; } = new float[3]; 
+        public float[] averageRightCut { get; set; } = new float[3];
 
         #endregion Tab 3 Accuracy
+
+        #region Tab 4 Timing Dependence
+
+        public string averageLeftTimingDependence { get; set; } = "0.00" + "TD";
+
+        public string averageLeftTimingDeviation { get; set; } = "?" + "ms";
+
+        public string averageRightTimingDependence { get; set; } = "0.00" + "TD";
+
+        public string averageRightTimingDeviation { get; set; } = "?" + "ms";
+
+        #endregion
+
+        #region Tab 5 Velocity
+
+        public float averageLeftVelocity { get; set; } = 0f;
+        public float averageRightVelocity { get; set; } = 0f;
+        public float recommendRightVelocity { get; set; } = 0f;
+        public float recommendLeftVelocity { get; set; } = 0f;
+
+        #endregion Tab 5 Velocity
 
         #endregion UI Backing Values
 
@@ -496,20 +517,66 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         #region T4: UIVALUES
 
         #region T4: LEFT
+
         [UIValue("average-left-timing-dependence")]
-        private string AverageLeftTimingDependence = "0.00" + "TD";
+        private string AverageLeftTimingDependence
+        {
+            get
+            { 
+                return averageLeftTimingDependence;
+            }
+            set 
+            { 
+                this.averageLeftTimingDependence = $"{value} TD";
+                this.NotifyPropertyChanged();
+            } 
+        }
 
         [UIValue("average-left-timing-deviation")]
-        private string AverageLeftTimingDeviation = "120" + "ms";
+        private string AverageLeftTimingDeviation
+        {
+            get
+            {
+                return averageLeftTimingDeviation;
+            }
+            set
+            {
+                this.averageLeftTimingDeviation = $"{value} ms";
+                this.NotifyPropertyChanged();
+            }
+        }
+
         #endregion T4: LEFT
 
         #region T4: RIGHT
 
         [UIValue("average-right-timing-dependence")]
-        private string AverageRightTimingDependence = "0.00" + "TD";
+        private string AverageRightTimingDependence
+        {
+            get
+            {
+                return averageRightTimingDependence;
+            }
+            set
+            {
+                this.averageRightTimingDependence = $"{value} TD";
+                this.NotifyPropertyChanged();
+            }
+        }
 
         [UIValue("average-right-timing-deviation")]
-        private string AverageRightTimingDeviation = "120" + "ms";
+        private string AverageRightTimingDeviation
+        {
+            get
+            {
+                return averageRightTimingDeviation;
+            }
+            set
+            {
+                this.averageRightTimingDeviation = $"{value} ms";
+                this.NotifyPropertyChanged();
+            }
+        }
 
         #endregion T4: RIGHT
 
@@ -524,20 +591,64 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         #region T5: LEFT
 
         [UIValue("average-left-velocity")]
-        private float AverageLeftVelocity = 80f;
+        private float AverageLeftVelocity
+        {
+            get
+            {
+                return averageLeftVelocity;
+            }
+            set
+            {
+                this.averageLeftVelocity = value;
+                this.NotifyPropertyChanged();
+            }
+        }
 
         [UIValue("recommended-left-velocity")]
-        private float RecommendedLeftVelocity = 65f;
+        private float RecommendedLeftVelocity
+        {
+            get
+            {
+                return recommendLeftVelocity;
+            }
+            set
+            {
+                this.recommendLeftVelocity = value;
+                this.NotifyPropertyChanged();
+            }
+        }
 
         #endregion T5: LEFT
 
         #region T5: RIGHT
 
         [UIValue("average-right-velocity")]
-        private float AverageRightVelocity = 80f;
+        private float AverageRightVelocity
+        {
+            get
+            {
+                return averageRightVelocity;
+            }
+            set
+            {
+                this.averageRightVelocity = value;
+                this.NotifyPropertyChanged();
+            }
+        }
 
         [UIValue("recommended-right-velocity")]
-        private float RecommendedRightVelocity = 65f;
+        private float RecommendedRightVelocity
+        {
+            get
+            {
+                return recommendRightVelocity;
+            }
+            set
+            {
+                this.recommendRightVelocity = value;
+                this.NotifyPropertyChanged();
+            }
+        }
 
         #endregion T5: RIGHT
 
@@ -744,8 +855,27 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             AverageRightAccuracy = AccuracyTracker.rightAverageCut[1];
 
             #endregion Assign Tab 3 UIValues
-            
-            
+
+            #region Assign Tab 4 UIValues
+
+            AverageLeftTimingDependence = Convert.ToString((float)Math.Round((float)AccuracyTracker.leftTimeDependence, 4)); // the string of our time dependence rounded to 4dp. (casted as float so we get all DP )
+            AverageRightTimingDependence = Convert.ToString((float)Math.Round((float)AccuracyTracker.rightTimeDependence, 4)); //
+                                                                                                                               //timing deviation needs to be added here, but is stored inside notesDictionary, under deep trackers. 
+
+
+            #endregion
+
+            #region Assign Tab 5 UIValues
+
+            AverageLeftVelocity = AccuracyTracker.leftSpeed;
+            RecommendedLeftVelocity = (float)Math.Round(AccuracyTracker.leftSpeed *0.9f , 3); //For now, ask them to move a tenth Slower. in the future, we will get them to move a 10th faster than the average NPS of the selection / 2m (3dp)
+            AverageRightVelocity = AccuracyTracker.rightSpeed;
+            RecommendedRightVelocity = (float)Math.Round(AccuracyTracker.rightSpeed *0.9f , 3 );
+
+
+            #endregion Assign Tab 5 UIValues
+
+
             #endregion
 
 
