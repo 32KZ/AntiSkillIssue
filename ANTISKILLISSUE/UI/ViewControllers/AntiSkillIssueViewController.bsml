@@ -4,12 +4,16 @@
           xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
 	<!--Reload Buttons-->
 	<horizontal>
-		<button text=' ⟳ ' id='session-reload-button' align='Left' pad='3' pad-left='6' on-click='SetSessions'/>
+		<text text = 'Reload Sessions ' align='Center' pad='3'/>
+		<button text=' ⟳ ' id='session-reload-button' align='Center' pad='3' pad-left='1' on-click='SetSessions'/>
 	</horizontal>
 	
 	<!--Session Viewer Custom List -->
 	<horizontal pad='1'>
 		<vertical pad='3'>
+			<horizontal>
+				<text text='Sessions Viewer' align='Center' pad='3'/>
+			</horizontal>
 			<horizontal>
 				<custom-list visible-cells='4' 
 							show-scrollbar='true' 
@@ -42,6 +46,9 @@
 
 	<!--Plays Viewer Custom List -->
 	<vertical pad='3'>
+		<horizontal>
+			<text text='Plays Viewer' align='Center' pad='3'/>
+		</horizontal>
 		<horizontal>
 				<custom-list visible-cells='3' 
 							show-scrollbar='true' 

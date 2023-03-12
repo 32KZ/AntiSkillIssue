@@ -27,32 +27,68 @@ using AntiSkillIssue.ANTISKILLISSUE.Installers;
 using AntiSkillIssue.ANTISKILLISSUE.UI.FlowCoordinators;
 using AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers;
 using TMPro;
-
 using static SliderController.Pool;
 using System.IO;
 using Newtonsoft.Json;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using System.Diagnostics.Eventing.Reader;
+using System.Collections;
 
 namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 {
     internal class AntiSkillIssueLeftViewController : BSMLResourceViewController //no way! its a legendary view controller! super rare!
     {
         public override string ResourceName => string.Join(".", GetType().Namespace, GetType().Name) + ".bsml";
+
+        #region Import Values
         public string myPlayName { get; set; }
         public int myPlayLine { get; set; }
         public string myPlayPath { get; set; }
 
+        #endregion
+
+        #region UI Backing Values
+
+        #region Tab 1 Overview And Slider Selection
+
         private string songName { get; set; }
-
         public string songLength { get; set; } //used in UI display
-        public float songDuration { get; set; } // Used in Slider Calculation.
-
         public string songDifficulty { get; set; }
         public string deLimiter { get; set; }
 
+        #region Slider Properties
+        public float songDuration { get; set; } = 0f; // Used in Slider Calculation.
+
+        public float startTime { get; set; }
+        public float endTime { get; set; }
+
+        #endregion
+
+
+        #endregion Tab 1 Overview And Slider Selection
+
+        #region Tab 2 Preswing Poswing Backing Values 
+
+        public float averageLeftPreSwing { get; set; } = 0f;
+        public float averageLeftPostSwing { get; set; } = 0f;
+
+        public float averageRightPreSwing { get; set; } = 0f;
+        public float averageRightPostSwing { get; set; } = 0f;
+
+        #endregion Tab 2 Preswing Poswing Backing Values 
+
+        #region Tab 3 Accuracy 
+        public float[] averageLeftCut { get; set; } = new float[3]; //Default Value is a Float array of length 3.
+        public float[] averageRightCut { get; set; } = new float[3]; 
+
+        #endregion Tab 3 Accuracy
+
+        #endregion UI Backing Values
+
+
 
         #region UNIVERSAL UI ACTIONS
+
         [UIAction("Click")]
         public void ButtonClicked()
         {
@@ -68,28 +104,24 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
         #region T1: UI ACTIONS
 
-        [UIAction("start-slider")]
-        private void SetStartTime(float newStartTime)
+        [UIAction("set-start-slider")]
+        private void SetStartTime(float value)
         {
-            DynamicValue = StartTime;
-            StartTime = newStartTime;
-            NotifyPropertyChanged("dynamic-value");
+
+            StartTime = value;
 
         }
 
-        [UIAction("end-slider")]
-        private void SetEndTime(float newEndTime)
+        [UIAction("set-end-slider")]
+        private void SetEndSlider(float value)
         {
 
-            endTime = newEndTime;
+            EndTime = value;
 
         }
         #endregion T1: UI ACTIONS
 
         #region T1: UI COMPONENTS
-
-        [UIComponent("song-selected-text")]
-        private TextTag SelectedSongText;
 
         [UIComponent("start-time-slider")]
         private SliderSetting startTimeSlider;
@@ -101,9 +133,81 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
         #region T1: UI VALUES
 
-        //dynamic value
+        #region Start Slider
+
+        [UIValue("start-slider")]
+        public float StartTime
+        {
+            get
+            {
+                if (startTime == float.NaN) { startTime = 0f; }
+                return startTime;
+            }
+            set
+            {
+                this.startTime = value;
+                this.NotifyPropertyChanged();
+
+            }
+
+        }
+        #endregion
+
+
+        #region End Slider
+
+        [UIValue("end-slider")]
+        public float EndTime 
+        {
+            get 
+            {
+                if (endTime == float.NaN) { endTime = 0f; }
+                return endTime;
+            }
+            set 
+            {
+            
+                this.endTime = value;
+                this.NotifyPropertyChanged();
+
+            }
+
+        }
+
+        #endregion
+
+
+        #region Song Duration
+
+        [UIValue("song-duration")]
+        public float SongDuration
+        {
+            get
+            {
+                if (songDuration == 0f) { songDuration = 60f; }
+                return songDuration;
+            }
+            set
+            {
+                this.songDuration = value;
+                this.NotifyPropertyChanged();
+                Plugin.Log.Info($"Song Duration Changed! {this.songDuration}");
+
+            }
+        }
+
+        #endregion
+
+
+        #region Dynamic Value
+
         [UIValue("dynamic-value")]
         private float DynamicValue;
+
+        #endregion
+
+
+        #region Song Name
 
         [UIValue("song-name")]
         public string SongName
@@ -123,10 +227,13 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             }
         }
 
+        #endregion
+
+
+        #region Song Difficulty
+
         [UIValue("song-difficulty")]
         public string SongDifficulty
-
-
         {
             get
             {
@@ -141,10 +248,13 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             }
         }
 
+        #endregion
+
+
+        #region Song Length
+
         [UIValue("song-length")]
-        public string SongLength //will be values taken from songdata
-
-
+        public string SongLength 
         {
             get 
             {
@@ -160,6 +270,11 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             }
         }
 
+        #endregion
+
+
+        #region Delimiter
+
         [UIValue("delimiter")]
         public string Delimiter 
 
@@ -167,7 +282,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             get
             {
                 if (SongName == "Use these Sliders to Select a smaller section of the Map to review!") { deLimiter = ""; }
-                else { deLimiter = "  -  "; }
+                else { deLimiter = $"  -  "; }
 
                 return deLimiter; //Delimiter is not a value declared in Working play, so it will check against the song name instead. 
 
@@ -180,28 +295,13 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             }
         }
 
-        [UIValue("song-duration")]
-        public float SongDuration 
-        { 
-            get 
-            {
-                if (songDuration == null) { songDuration = 60f; }
-                return songDuration; 
-            } 
-            set 
-            {
-            }
-        }
+        #endregion
 
 
-                [UIValue("start-slider")]
-        private float StartTime = 0f;
+        #region Possible Values
 
-        [UIValue("end-slider")]
-        private float endTime = 60f;
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- Possible Values
 
-        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-        
         [UIValue("notes-selected")]
         private int NotesSlected = 32;
 
@@ -211,6 +311,8 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         [UIValue("bpm-changes")]
         private int BPMChanges = 0;
 
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- Possible Values
+        #endregion
 
         #endregion T1: UI VALUES
 
@@ -223,19 +325,80 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         #region T2: LEFT
 
         [UIValue("average-left-pre-swing")]
-        private int AverageLeftPreSwing = 100;
+        private float AverageLeftPreSwing
+        {
+            get
+            {
+                if (averageLeftPreSwing == 0f) { averageLeftPreSwing = 100f; }
+                return averageLeftPreSwing;
+            }
+            set
+            {
+                
+                this.averageLeftPreSwing = (float)Math.Round(value,4)*100; //cast round Double to the Float type, and round our value to 2 DP for display(perameter provided as 4 because its 2 orders of magnitude higher by the end of the calculation, because we want a percentage)
+                this.NotifyPropertyChanged();
+
+            }
+
+        }
 
         [UIValue("average-left-post-swing")]
-        private int AverageLeftPostSwing = 100;
+        private float AverageLeftPostSwing
+        {
+            get
+            {
+                if (averageLeftPostSwing == 0f) { averageLeftPostSwing = 100f; }
+                return averageLeftPostSwing;
+            }
+            set
+            {
+
+                this.averageLeftPostSwing = (float)Math.Round(value, 4) * 100; //As a Percentage.
+                this.NotifyPropertyChanged();
+
+            }
+
+        }
 
         #endregion T2: LEFT
+
         #region T2: RIGHT
 
         [UIValue("average-right-pre-swing")]
-        private int AverageRightPreSwing = 100;
+        private float AverageRightPreSwing
+        {
+            get
+            {
+                if (averageRightPreSwing == 0f) { averageRightPreSwing = 100f; }
+                return averageRightPreSwing;
+            }
+            set
+            {
+
+                this.averageRightPreSwing = (float)Math.Round(value, 4) * 100; //Make Percentage
+                this.NotifyPropertyChanged();
+
+            }
+
+        }
 
         [UIValue("average-right-post-swing")]
-        private int AverageRightPostSwing = 100;
+        private float AverageRightPostSwing
+        {
+            get
+            {
+                if (averageRightPostSwing == 0f) { averageRightPostSwing = 100f; }
+                return averageRightPostSwing;
+            }
+            set
+            {
+
+                this.averageRightPostSwing = (float)Math.Round(value, 4) * 100; //Make Percentage
+                this.NotifyPropertyChanged();
+
+            }
+
+        }
 
         #endregion T2: LEFT
 
@@ -243,7 +406,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
         #endregion TAB 2 : PRESWING POST SWING (%)
 
-        #region TAB 3 : Acc
+        #region TAB 3 : Accuracy 
 
         #region T3: UIVALUES
 
@@ -251,19 +414,50 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         #region T3: LEFT
 
         [UIValue("average-left-accuracy")]
-        private int AverageLeftAccuracy = 15;
+        private float AverageLeftAccuracy
+        {
+            get
+            {
+                if (averageLeftCut[1] == float.NaN) { averageLeftCut[1] = 15f; }
+                return averageLeftCut[1];                                           // if one value in the array is NaN, then all are NaN. as a result, return default Value.
+            }
+            set
+            {
+
+                this.averageLeftCut[1] = (float)Math.Round(value, 2); // We are looking for a 2dp float of Accuracy. eg, 13.43 or 10.23. (0.00 - 15.00)
+                this.NotifyPropertyChanged();
+
+            }
+
+        }
 
         #endregion T3: LEFT
 
         #region T3: RIGHT
 
         [UIValue("average-right-accuracy")]
-        private int AverageRightAccuracy = 15;
+        private float AverageRightAccuracy
+        {
+            get
+            {
+                if (averageRightCut[1] == float.NaN) { averageRightCut[1] = 15f; }
+                return averageRightCut[1];                                           // Actual or default Value Returned
+            }
+            set
+            {
+
+                this.averageRightCut[1] = (float)Math.Round(value, 2); // 2dp
+                this.NotifyPropertyChanged();
+
+            }
+
+        }
+
         #endregion T3: RIGHT
 
         #endregion T3: UIVALUES
 
-        #endregion TAB 3 : Acc
+        #endregion TAB 3 : Accuracy
 
         #region TAB 4 : TIME DEPENDENCY
 
@@ -320,7 +514,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         #endregion TAB 5 : VELOCITY
 
         #region timeFormatter
-        private static string TimeCalculator(float MyValue)
+        private static string TimeCalculator(int MyValue)
         {
             int MinuitesTime = 0;
             while (MyValue >= 60)
@@ -329,10 +523,12 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
                 MyValue = MyValue - 60;
             };
 
-            return MinuitesTime + "m " + MyValue + "s";
+            return $"  {MinuitesTime}m {MyValue}s ";
         }
         #endregion timeFormatter
 
+
+        #region OnDataTransferEvent
         public void OnDataTransferEvent(object sender, DataTransferEventArgs eventArgs)
         {
             // when the event is called from the AntiSkillIssueViewController,
@@ -341,33 +537,38 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             myPlayPath = eventArgs.Path;
             myPlayLine = eventArgs.Line;
             
-            //Plugin.Log.Info("");
+            //Plugin.Log.Info($"");
             string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Beat Savior Data\"; //Set the CD
 
+
+            #region Read Our Play into WorkingPlay
+
             StreamReader reader = File.OpenText(myPlayPath);
-            int x = 1;
+            int x = 1; //Line number as int32 not index
             string line;
-            Play WorkingPlay = new Play(null, null, null, null, null, null, null);
+            Play WorkingPlay = new Play(null, null, 0f, null, null, null, null); // Make WorkingPlay non local variable to the While Loop
             while ((line = reader.ReadLine()) != null)
             {
-                if (x != myPlayLine) //Line number as int32 not index
+                if (x != myPlayLine)    // if its not the selected Play, move to the next line until it is. 
                 {
-                    x++; //if the Line Indecator is not empty, 
+                    x++;  
                 }
-                else
+                else                    // When it is, deserialise the line as WorkingPlay, and icrement the line so it hoiks to the end of the file.
                 {
-                    WorkingPlay = JsonConvert.DeserializeObject<Play>(line);
+
+                    WorkingPlay = JsonConvert.DeserializeObject<Play>(line); //WorkingPlay is Currently Equal to the Deserialisation(as Play class instance) of the Currently Selected Line.
                     WorkingPlay.playPath = myPlayPath;
                     WorkingPlay.playLine = myPlayLine;
+
                     Plugin.Log.Info($"{x}> Processing Play {WorkingPlay.songName} at path: {WorkingPlay.playPath}");
 
                     #region Clean Data
 
                     #region Song Duration Formatter (121 = 2m 1s)
 
-                    float temp = float.Parse(WorkingPlay.songDuration) * 1000;
-                    int temp2 = Convert.ToInt32(temp) / 1000;
-                    WorkingPlay.songDurationFormatted = TimeCalculator(MyValue: temp2);
+                    int temp = Convert.ToInt32((WorkingPlay.songDuration +1) / 1 ) ; // floor divide it as int to get a whole int. Round Up. to be inclusive
+
+                    WorkingPlay.songDurationFormatted = TimeCalculator(MyValue: temp);
 
                     #endregion
 
@@ -399,14 +600,11 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
                         WorkingPlay.songDifficulty = Char.ToUpper(WorkingPlay.songDifficulty[0]) + WorkingPlay.songDifficulty.Substring(1);
                     }
                     //if letter index 1 of our song difficulty is not a capital letter, make it one.
-                    //No song Difficulty will ever start with a number.
+                    //No song Difficulty will ever start with a number. Songdiff possibilities: [easy,normal,hard,expert,expertplus].
 
                     #endregion
 
-
-
                     #endregion Clean Data
-                    //Play is a local variable here. you need to make a working play and swap it out here, including cleaning the data. that allows you to move onto the deserialising. 
                     
                     x++;                                //Next line Num
 
@@ -416,76 +614,183 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             }
             reader.Close();                             // CLOSE READER
 
+            #endregion
+
+
             Plugin.Log.Info($"WorkingPlay:{WorkingPlay.songName}, by {WorkingPlay.songArtist}, mapped by {WorkingPlay.songMapper} ");
             Plugin.Log.Info($"{WorkingPlay.songDifficulty}");
             Plugin.Log.Info($"{WorkingPlay.songDurationFormatted}");
 
-            SongName = WorkingPlay.songName;
 
-            SongDifficulty = WorkingPlay.songDifficulty;
-            SongLength = WorkingPlay.songDurationFormatted;
-            songDuration = (float)Convert.ToInt32(WorkingPlay.songDuration);
-            Delimiter = "  -  ";
+
+            
+            
 
             #region Deserialise TRACKERS
-            //HIT TRACKER
+
+            #region HIT TRACKER - used for overview information (notes hit or missed, wall hit, bomb hit ect) (OVERVIEW)
             object fileHitTracker = WorkingPlay.trackers["hitTracker"];
             hitTracker HitTracker = JsonConvert.DeserializeObject<hitTracker>(fileHitTracker.ToString());
+            #endregion
+           
 
-            //ACCURACY TRACKER
-            object fileAccuracyTracker = WorkingPlay.trackers["accuracyTracker"];
-            accuracyTracker AccuracyTracker = JsonConvert.DeserializeObject<accuracyTracker>(fileAccuracyTracker.ToString());
-
-
-            //SCORE TRACKER
+            #region SCORE TRACKER - Overall Score in the Level, with modifiers and such. (OVERVIEW)
 
             object fileScoreTracker = WorkingPlay.trackers["scoreTracker"];
             scoreTracker ScoreTracker = JsonConvert.DeserializeObject<scoreTracker>(fileScoreTracker.ToString());
 
-            //WIN TRACKER
+            #endregion
+
+            #region WIN TRACKER - results of the Level. EG rank and such. (OVERVIEW)
 
             object fileWinTracker = WorkingPlay.trackers["winTracker"];
             winTracker WinTracker = JsonConvert.DeserializeObject<winTracker>(fileWinTracker.ToString());
 
-            //DISTANCE TRACKER
+            #endregion
+
+            #region ACCURACY TRACKER - Contains average acc for hands, and a grid acc/Cut lists. (ACCURACY TAB) 
+            object fileAccuracyTracker = WorkingPlay.trackers["accuracyTracker"];
+            accuracyTracker AccuracyTracker = JsonConvert.DeserializeObject<accuracyTracker>(fileAccuracyTracker.ToString());
+            #endregion
+
+            #region DISTANCE TRACKER - Contains Overall distances of hand movement. "Usable" for overall Velocity 
 
             object fileDistanceTracker = WorkingPlay.trackers["distanceTracker"];
             distanceTracker DistanceTracker = JsonConvert.DeserializeObject<distanceTracker>(fileDistanceTracker.ToString());
+            #endregion
 
-            //SCOREGRAPH TRACKER
+            #region SCOREGRAPH TRACKER - Contains data for a graph as score data changes. might be useful for future development. 
 
-            object fileScoreGraphTracker = WorkingPlay.trackers["scoreGraphTracker"];
-            scoreGraphTracker ScoreGraphTracker = JsonConvert.DeserializeObject<scoreGraphTracker>(fileScoreGraphTracker.ToString());
+            //object fileScoreGraphTracker = WorkingPlay.trackers["scoreGraphTracker"];
+            //scoreGraphTracker ScoreGraphTracker = JsonConvert.DeserializeObject<scoreGraphTracker>(fileScoreGraphTracker.ToString());
+
+            #endregion
 
 
+            #endregion
 
-            #endregion Deserialise TRACKERS
+            #region Assign UIValues
 
+            #region Assign Tab 1 UIValues
+
+            SongName = WorkingPlay.songName;
+            SongDifficulty = WorkingPlay.songDifficulty;
+            SongLength = WorkingPlay.songDurationFormatted;
+            SongDuration = WorkingPlay.songDuration;
+            Delimiter = $"  -  ";
+
+            #endregion
+
+            #region Assign Tab 2 UIValues
+
+
+            AverageLeftPreSwing = AccuracyTracker.leftPreswing;
+            AverageLeftPostSwing = AccuracyTracker.leftPostswing;
+            AverageRightPreSwing = AccuracyTracker.rightPreswing;
+            AverageRightPostSwing = AccuracyTracker.rightPostswing;
+
+            #endregion
+
+            #region Assign Tab 3 UIValues
+
+            AverageLeftAccuracy = AccuracyTracker.leftAverageCut[1];
+            AverageRightAccuracy = AccuracyTracker.rightAverageCut[1];
+
+            #endregion Assign Tab 3 UIValues
+            
+            
+            #endregion
+
+
+            //ReadNoteTracker
+            //   (
+            //    WorkingPlay: WorkingPlay,
+            //    HitTracker: HitTracker,
+            //    AccuracyTracker: AccuracyTracker,
+            //    ScoreTracker: ScoreTracker,
+            //    WinTracker: WinTracker
+            //    //DistanceTracker: DistanceTracker,
+            //    //ScoreGraphTracker: ScoreGraphTracker
+            //    );
 
         }
 
-
-    }
-
-    public class WorkingPlay
-    {
-
-        public string myPlayName { get; set; }
-        public int myPlayLine { get; set; }
-        public string myPlayPath { get; set; }
+        #endregion OnDataTransferEvent
 
 
-        public WorkingPlay(string newPlayPath, int newPlayLine, string newPlayName)
+        #region Read Note Tracker
+
+        public void ReadNoteTracker
+                                        (
+            Play WorkingPlay,
+            hitTracker HitTracker,
+            accuracyTracker AccuracyTracker,
+            scoreTracker ScoreTracker,
+            winTracker WinTracker,
+            distanceTracker DistanceTracker
+            //scoreGraphTracker ScoreGraphTracker
+                                        )
         {
-            myPlayName = newPlayName;
-            myPlayPath = newPlayPath;
-            myPlayLine = newPlayLine;
+
+
+
+
+            //Deep trackers 
+            object fileNoteTracker = WorkingPlay.deepTrackers["noteTracker"];                                   // get "notes" : <this>[{},{}]
+            noteTracker Notes = JsonConvert.DeserializeObject<noteTracker>(fileNoteTracker.ToString());         // Deserialise
+
+            ArrayList DictionaryNotesList = new ArrayList();                                                    //create a new array list
+            int x = 0;                                                                                          //set the indexer
+            foreach (object FileDictionaryNotes in (object[])Notes.notes)                                       //for every entry in our deserialised dictionary list,
+            {
+
+                notesDictionary NotesDictionary = JsonConvert.DeserializeObject<notesDictionary>(FileDictionaryNotes.ToString());
+                // notes dictionary is equal to each dictionary in the list
+
+                DictionaryNotesList.Add(NotesDictionary);
+                // add it to the arraylist
+
+                //notesDictionary activeDictNote = (notesDictionary)DictionaryNotesList[x]; // active Working notes Dictionary.  (CLI)
+
+
+                #region //Display Data in CLI
+                //Plugin.Log.Info($"Note ID: {activeDictNote.id}");// 2277
+                //Plugin.Log.Info($"Note Index: {activeDictNote.index}");// 6 
+                //Plugin.Log.Info($"NoteType: {activeDictNote.noteType}"); // 0
+                //Plugin.Log.Info($"NoteDirection: {activeDictNote.noteDirection}");// 1 
+                //Plugin.Log.Info($"NoteTime:  {activeDictNote.time}");// 307.5
+                //Plugin.Log.Info($"cutType:  {activeDictNote.cutType}");// 0
+                //Plugin.Log.Info($"Multiplyer:  {activeDictNote.multiplier}");// 8
+                //foreach (int Y in activeDictNote.score) { Plugin.Log.Info($"Score:  {Y}"); }
+                //foreach (int Y in activeDictNote.noteCenter) { Plugin.Log.Info($"noteCenter:  {Y}"); }
+                //foreach (int Y in activeDictNote.noteRotation) { Plugin.Log.Info($"NoteRotation:  {Y}"); }
+                //Plugin.Log.Info($"timeDeviation:  {activeDictNote.timeDeviation}"); // 0.0820...
+                //Plugin.Log.Info($"Speed:  {activeDictNote.speed}"); // 40.95655
+                //Plugin.Log.Info($"preSwing:  {activeDictNote.preswing}"); // 1.1495...
+                //Plugin.Log.Info($"PostSwing:  {activeDictNote.postswing}"); //0.8838...
+                //Plugin.Log.Info($"Distance to Center:  {activeDictNote.distanceToCenter}"); //0.03606...
+
+                //if (activeDictNote.cutPoint != null) { foreach (int Y in activeDictNote.cutPoint) { Plugin.Log.Info($"CutPoint:  {Y}"); } }
+                //else { Plugin.Log.Info($"cutPoint: Null"); }
+
+                //if (activeDictNote.saberDir != null) { foreach (int Y in activeDictNote.saberDir) { Plugin.Log.Info($"SaberDir:  {Y}"); } }
+                //else { Plugin.Log.Info($"cutPoint: Null"); }
+
+                //if (activeDictNote.cutNormal != null) { foreach (int Y in activeDictNote.cutNormal) { Plugin.Log.Info($"CutNormal:  {Y}"); } }
+                //else { Plugin.Log.Info($"CutNormal: Null"); }
+
+                //Plugin.Log.Info($"TimeDependednce:  {activeDictNote.timeDependence}"); //0.01249...
+
+                #endregion
+
+                x++; 
+            }
 
         }
-       
+
+        #endregion
 
     }
-
 
     #region Trackers
 
@@ -498,7 +803,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         public string songName { get; set; }
 
         public string songDurationFormatted { get; set; }
-        public string songDuration { get; set; }
+        public float songDuration { get; set; }
 
         public string songDifficulty { get; set; }
 
@@ -511,7 +816,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         public Play(
             string newPlayPath,
             string newSongName,
-            string newSongDuration,
+            float newSongDuration,
             string newSongArtist,
             string newSongMapper,
             Dictionary<string, object> TheTrackers,

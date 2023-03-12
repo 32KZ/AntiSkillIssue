@@ -79,10 +79,11 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         #region Selected List Items
         //to be ran when Session clicked on.
         [UIAction("session-selected")]
-        public void SessionSelected(TableView sessionList,Session Sessions )
+        public void SessionSelected(TableView sessionList, Session Sessions )
         {
             SetPlays(SessionPath: Sessions.MyPath, Override:null);
             Plugin.Log.Info("Session Selected!");
+            this.sessionList.tableView.ClearSelection();
         }
 
         //to be ran when Play clicked on.
@@ -90,6 +91,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         public void PlaySelected(TableView playList, Play Plays)
         {
             SetPlaysData(PlayPath: Plays.playPath, PlayLine:Plays.playLine, PlayName:Plays.songName);
+            this.playsList.tableView.ClearSelection();
         }
         #endregion
 
@@ -99,7 +101,10 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         public void SetSessions() //called from Sessions-Reload-Button and ASIFlowCoordinator
         {
             this.Sessions.Clear();
-            
+            this.Plays.Clear();
+            SetPlays(SessionPath: null, Override: "!null, Override!"); //Enqueue a dummy to make it clear of the UI purpose
+
+
             string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Beat Savior Data"; //Set the CD
             string[] fileNames = Directory.GetFiles(path);                              //get the directories of all the files in CD
 
@@ -163,11 +168,11 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             if (Override != null)
             {
                 
-                Play OverridePlay = new Play(   newSongName: "Each BSD Session",
+                Play OverridePlay = new Play(   newSongName: " Each BSD Session",
                                                 newPlayPath:path,
                                                 newSongDuration:"3m 32s",
-                                                newSongArtist:"Plays In",
-                                                newSongMapper:"Go here!",
+                                                newSongArtist:" Plays In",
+                                                newSongMapper:" Go here!",
                                                 newDelimiter:" "); //use of delimiter allows me to write a dummy cell.
 
                 this.Plays.Add(OverridePlay);

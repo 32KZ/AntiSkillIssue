@@ -52,7 +52,6 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.FlowCoordinators //Find Directory
 			_AntiSkillIssueRightViewController = BeatSaberUI.CreateViewController<AntiSkillIssueRightViewController>();
 			ProvideInitialViewControllers(_AntiSkillIssueViewController, _AntiSkillIssueLeftViewController, _AntiSkillIssueRightViewController);
 			_AntiSkillIssueViewController.SetSessions(); //Auto Populate the Sessions List.
-			_AntiSkillIssueViewController.SetPlays(SessionPath:null, Override:"!null, Override!"); //Enqueue a dummy to make it clear of the UI purpose
 			_AntiSkillIssueViewController.BrotherViewController = _AntiSkillIssueLeftViewController;
 			_AntiSkillIssueViewController.DataTransfer += _AntiSkillIssueLeftViewController.OnDataTransferEvent;
         }
@@ -61,9 +60,13 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.FlowCoordinators //Find Directory
 		{
 			_AntiSkillIssueViewController.DataTransfer -= _AntiSkillIssueLeftViewController.OnDataTransferEvent;
 
+            
+			//_AntiSkillIssueViewController.__DismissViewController(DidFinishEvent);
+			//_AntiSkillIssueLeftViewController.__DismissViewController(DidFinishEvent);
+			//_AntiSkillIssueRightViewController.__DismissViewController(DidFinishEvent); //DidFinishEvent.Invoke();
+            //DismissFlowCoordinator(this);
             DidFinishEvent.Invoke();
-
-		}
+        }
 	}
 
 
