@@ -20,15 +20,15 @@
 				<!-- SongName -->
 				<horizontal  pad-left='8' pad-right='8' horizontal-fit='PreferredSize'>
 					<!--<text text='Use these Sliders to Select a smaller section of the Map to review!' />-->
-					<text text='~song-name'/>
+					<text text='~song-name' font-size='5'/>
 				</horizontal>
 				<!-- SongDifficulty and Song Length-->
 
 				<horizontal pad-left='8' pad-right='8' horizontal-fit='PreferredSize'>
 					<!--<text text='all data on following tabs will change accordingly.' />-->
-					<text text='~song-difficulty' />
-					<text text='~delimiter' />
-					<text text='~song-length' />
+					<text text='~song-difficulty' font-size='5'/>
+					<text text='~delimiter' font-size='5'/>
+					<text text='~song-length' font-size='5' />
 					
 				</horizontal>
 				
@@ -65,7 +65,10 @@
 				</slider-setting>
 			</horizontal>
 			<!--End Time Slider END-->
-				
+				<horizontal>
+					<text text ='~play-validity' font-color='~validity-font-color' pad='3' align='Center'/>
+					<!-- This shows the user if the play is valid.-->
+				</horizontal>
 			</modifier-container>
 		</tab>
 				

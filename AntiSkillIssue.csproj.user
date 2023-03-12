@@ -2,6 +2,6 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ReferencePath>D:\appdata(32767)\steamapps\common\BSLEGACY5\Installed Versions\Beat Saber 1.25.0\Beat Saber_Data\Managed;D:\appdata(32767)\steamapps\common\BSLEGACY5\Installed Versions\Beat Saber 1.25.0\Libs;D:\appdata(32767)\steamapps\common\BSLEGACY5\Installed Versions\Beat Saber 1.25.0\Plugins</ReferencePath>
-    <BeatSaberDir>C:\Users\32KZ\Desktop\BSLegacyLauncher\BSLegacyLauncher\Installed Versions\Beat Saber 1.25.1</BeatSaberDir>
+    <BeatSaberDir>D:\appdata(32767)\steamapps\common\BSLEGACY5\Installed Versions\Beat Saber 1.25.0</BeatSaberDir>
   </PropertyGroup>
 </Project>

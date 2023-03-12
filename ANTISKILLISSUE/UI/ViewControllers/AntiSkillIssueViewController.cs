@@ -32,7 +32,6 @@ using AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers;
 namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 {
     public delegate void DataTransferEventHandler(object sender, DataTransferEventArgs EventArguments);
-
     public class DataTransferEventArgs : EventArgs
     {
         public string Path { get; set; }

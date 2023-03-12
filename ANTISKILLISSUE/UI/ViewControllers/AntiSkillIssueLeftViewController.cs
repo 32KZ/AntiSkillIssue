@@ -55,6 +55,8 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         public string songLength { get; set; } //used in UI display
         public string songDifficulty { get; set; }
         public string deLimiter { get; set; }
+        public string playValidity { get; set; } = "The Validity of the Play will appear here!";
+        public string validityFontColor { get; set; } = "#ffffff";
 
         #region Slider Properties
         public float songDuration { get; set; } = 0f; // Used in Slider Calculation.
@@ -297,6 +299,36 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
         #endregion
 
+        #region Play Validity 
+        [UIValue("play-validity")]
+        private string PlayValidity 
+        {
+            get 
+            {
+                return playValidity;
+            }
+            set
+            {
+                playValidity = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        [UIValue("validity-font-color")]
+        private string ValidityFontColor
+        {
+            get
+            {
+                return validityFontColor;
+            }
+            set
+            {
+                validityFontColor = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        #endregion
 
         #region Possible Values
 
@@ -678,6 +710,21 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             SongLength = WorkingPlay.songDurationFormatted;
             SongDuration = WorkingPlay.songDuration;
             Delimiter = $"  -  ";
+
+            #region Validity Check
+
+            if (HitTracker.maxCombo == 0) //in a valid score, the max combo will always be greater than 1, unless all notes are missed. (if all notes are missed, this mod is not for you.)
+            { 
+                PlayValidity = "Invalid! BSD Does Not Support Modmaps, or Desktop Scores.";
+                ValidityFontColor = "#ff0000";
+            }
+            else 
+            { 
+                PlayValidity = "Valid!";
+                ValidityFontColor = "#00ff00";
+            }
+            #endregion Validity Check
+
 
             #endregion
 
