@@ -33,6 +33,7 @@ using Newtonsoft.Json;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using System.Diagnostics.Eventing.Reader;
 using System.Collections;
+using IPA.Utilities;
 
 namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 {
@@ -59,10 +60,11 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         public string validityFontColor { get; set; } = "#ffffff";
 
         #region Slider Properties
-        public float songDuration { get; set; } = 0f; // Used in Slider Calculation.
+        public float songDuration { get; set; } = 60f; // Used in Slider Calculation.
+        public float startTime { get; set; } //the StartSlider's actual Selected time
+        public float endTime { get; set; }   // the end slider's actual selected time
 
-        public float startTime { get; set; }
-        public float endTime { get; set; }
+        
 
         #endregion
 
@@ -116,7 +118,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         public void ButtonClicked()
         {
             Plugin.Log.Info($"Click!");
-            
+
         }
 
 
@@ -147,11 +149,12 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         #region T1: UI COMPONENTS
 
         [UIComponent("start-time-slider")]
-        private SliderSetting startTimeSlider;
+        public SliderSetting StartTimeSlider; //start slider object itself. 
+
 
         [UIComponent("end-time-slider")]
-        private SliderSetting endTimeSlider;
-
+        public SliderSetting EndTimeSlider; //End slider object itself
+        
         #endregion T1: UI COMPONENTS
 
         #region T1: UI VALUES
@@ -159,7 +162,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         #region Start Slider
 
         [UIValue("start-slider")]
-        public float StartTime
+        public float StartTime //Controls the starttimeSlider's actual Selected Value.
         {
             get
             {
@@ -180,16 +183,16 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         #region End Slider
 
         [UIValue("end-slider")]
-        public float EndTime 
+        public float EndTime //Controls the EndTimeSlider's actual selected value
         {
-            get 
+            get
             {
                 if (endTime == float.NaN) { endTime = 0f; }
                 return endTime;
             }
-            set 
+            set
             {
-            
+
                 this.endTime = value;
                 this.NotifyPropertyChanged();
 
@@ -207,12 +210,13 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         {
             get
             {
-                if (songDuration == 0f) { songDuration = 60f; }
+                if (songDuration == float.NaN) { songDuration = 60f; }
                 return songDuration;
             }
             set
             {
                 this.songDuration = value;
+
                 this.NotifyPropertyChanged();
                 Plugin.Log.Info($"Song Duration Changed! {this.songDuration}");
 
@@ -679,7 +683,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             myPlayName = eventArgs.Name;
             myPlayPath = eventArgs.Path;
             myPlayLine = eventArgs.Line;
-            
+            // If path is equal to the root folder, skip. (ADD THIS BEFORE YOU RELEASE)
             //Plugin.Log.Info($"");
             string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Beat Savior Data\"; //Set the CD
 
@@ -816,10 +820,13 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
             #region Assign Tab 1 UIValues
 
+            EndTimeSlider.updateOnChange = true;
+            StartTimeSlider.updateOnChange = true;
             SongName = WorkingPlay.songName;
             SongDifficulty = WorkingPlay.songDifficulty;
             SongLength = WorkingPlay.songDurationFormatted;
             SongDuration = WorkingPlay.songDuration;
+            
             Delimiter = $"  -  ";
 
             #region Validity Check
