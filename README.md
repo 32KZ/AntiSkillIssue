@@ -3,7 +3,11 @@ My Discord is 32KZ#8255. Please message me 😭 😂
 
 ## Current Features
 
-- File reading from %appdata%/Beat savior data all BSD Sessions in to the mod menu screen, and read all of the plays from each session on command.
+- Takes replay information from [BeatSavior](https://github.com/Mystogan98/BeatSaviorData) Found in Appdata For Display in a UI of my Creation 🙌 the UI contains Tabs For the following: 
+
+  - Start & End Review Sliders , Pre-Swing & Post-Swing, Accuracy, Timing Dependence, Velocity
+  
+  - Each tab has a nested Left and Right tab to Display information Per hand for better Data Viewage
 
 - Allows for refreshing of sessions and plays.
 
@@ -12,11 +16,6 @@ My Discord is 32KZ#8255. Please message me 😭 😂
 - has a validity checker to Declare if the Selected BSD play is a Valid, VRmode Score. (exception cases are if there is a 0 combo, aka noodle or desktop scores.)
 
 ## Planed Features
-- Take replay information from [BeatSavior](https://github.com/Mystogan98/BeatSaviorData) Found in Appdata For Display in a UI of my Creation 🙌 the UI is To contain:
-
-  - Tabs For the following: Start & End Review Sliders , Pre-Swing & Post-Swing, Accuracy, Timing Dependence, Velocity
-  
-  - Each tab has a nested Left and Right tab to Display information Per hand for better Data Viewage
 
 - Save config settings in  "UserData/AntiSkillIssue/Settings.json" For future use
 
