@@ -11,8 +11,6 @@ My Discord is 32KZ#8255. Please message me 😭 😂
 
 - Allows for refreshing of sessions and plays.
 
-- Allows the user to View the average Information for each hand, like PreSwing, PostSwing, Accuacy, Timedependence, and velocity. 
-
 - has a validity checker to Declare if the Selected BSD play is a Valid, VRmode Score. (exception cases are if there is a 0 combo, aka noodle or desktop scores.)
 
 ## Planed Features
@@ -27,15 +25,15 @@ My Discord is 32KZ#8255. Please message me 😭 😂
 
 2> Go to the ASI Menu Button under the Mods Section.
 
-3> Select the Session in question
+3> Select the Session in question, from the Main BSMLView, on the Left Most List.
 
-4> Select the score from that session. (then look at the tabs on the left)
+4> Select the score from that session, by clicking a score cell on the right most List. 
 
-5> By Clicking through the tabs, you can look at information from that play, and what to change to improve. 
+5> By Clicking through the tabs on the Left View, you can look at information from that play, Like what to change to improve, and your current data. 
 
-5> Ajust the Start time Slider and End time Slider to review a more specific time range in the song
+5> Ajust the Start time Slider and End time Slider to review a more specific time range in the song, and then click the apply button.
 
-6> Refer to Features for other Functionality. 
+6> Refer to Score Graph on the right for a more Visual representation on what happened During this Range. 
 
 ## Versions
 All releases for BS 1.20.0 and on
@@ -57,6 +55,16 @@ Great idea 🥶
 
 - Custom Cells may or maynot Recycle class instances. 
 
+- Clicking the dummy cell after reloading the sessions, or on initial start causes an access Denied error for the "%appdata%/Beat Savior Data/" directory. 
+
+- Does not support Scores that have a non-Positive Cut Count, or are noodle maps.
+
+- the larger a session, the longer it takes to populate the right list on a session selected. (i need to make the method for it async.)
+
+- Sliders Currently Do not Function. Same with the Button that is Supposed to be used to apply this.
+
+- Score Graph on the right View is currently Not implemented. 
+
 ## Credits
 
 [MatrikMoon](https://www.Github.com/MatrikMoon/) - Teaching me Most of what i Know when it comes to Modding the game, but mainly ViewControllers and FlowCoordinators, as well as the didFinishEvent.
@@ -65,6 +73,10 @@ Great idea 🥶
 
 [Redageddon](https://github.com/Redageddon) & [Top_Cat](https://github.com/Top-Cat) - Taught me how to Assign UIValues Properly through getters and setters. 👏
 
-[32KZ](https://www.Github.com/32KZ) - Figuring out how to make mods, Running them, Developing them, programing this, ect
+[BSMG](https://discord.gg/beatsabermods) #pc-mod-dev - Checked the pins and Found  the BSPIA4 Unity Runtime Editor. super cool 😎 super wonderful community filled with Super Smart and Creative People.
 
-[BSMG](https://discord.gg/beatsabermods) #pc-mod-dev - Checked the pins and Found  the BSPIA4 Unity Runtime Editor. super cool 😎 super wonderful community filled with Super smart and Creative People.
+[32KZ](https://www.twitter.com/32ksarah/) - Figuring out how to make mods, Running them, Developing them, programing this, Learning an entirely new language, ect.
+
+[Kullly_](https://www.youtube.com/@kullly_7813) - Sourcing Some Test Data, helping with Paperwork 🙏
+
+
