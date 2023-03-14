@@ -3,9 +3,13 @@ My Discord is 32KZ#8255. Please message me 😭 😂
 
 ## Current Features
 
-- slightly less than useless UI
+- File reading from %appdata%/Beat savior data all BSD Sessions in to the mod menu screen, and read all of the plays from each session on command.
 
-- File reading from %appdata%/Beat savior data to a custom list for sessions and Plays. Formatted Correctly so its Useable.
+- Allows for refreshing of sessions and plays.
+
+- Allows the user to View the average Information for each hand, like PreSwing, PostSwing, Accuacy, Timedependence, and velocity. 
+
+- has a validity checker to Declare if the Selected BSD play is a Valid, VRmode Score. (exception cases are if there is a 0 combo, aka noodle or desktop scores.)
 
 ## Planed Features
 - Take replay information from [BeatSavior](https://github.com/Mystogan98/BeatSaviorData) Found in Appdata For Display in a UI of my Creation 🙌 the UI is To contain:
@@ -48,11 +52,11 @@ Great idea 🥶
 
 ## Known Issues
 
--Somewhat Works
+- Works less than optimally
 
--Creates new ViewControllers and FlowCoordinators each time the Menu is loaded (memory leak)
+- Creates new ViewControllers and FlowCoordinators each time the Menu is loaded (memory leak 💀)
 
-- Custom Cells may or maynot Recycle
+- Custom Cells may or maynot Recycle class instances. 
 
 ## Credits
 
