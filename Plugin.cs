@@ -104,24 +104,24 @@ namespace AntiSkillIssue
             }
             catch
             {
-                Log.Critical("Failed to instance a MenuButton in plugin.cs, Something has gone Terribly Wrong...");
+                Log.Info("Failed to instance a MenuButton in plugin.cs, Something has gone Terribly Wrong...");
             }
             
-            try
-            {
-                TabHostController tabHostController = new TabHostController();
-                tabHostController.Init(Log);
-                tabHostController.AddTab();
-                
-                //GameplaySetup.instance.AddTab("ASI", "AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers.ASITabMenu.bsml", this, MenuType.Solo | MenuType.Campaign | MenuType.Online);
-                //Log.Info("ASI ModTab Created. in plugin.cs");
-
-            }
-            catch
-            {
-                Log.Warn("unable to Create Mod Tab in Plugin.cs, Defaulting");
-                GameplaySetup.instance.AddTab("ASI", "AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers.ASITabMenuFAIL.bsml", this, MenuType.Solo | MenuType.Campaign | MenuType.Online);
-            }
+            //try
+            //{
+            //    TabHostController tabHostController = new TabHostController();
+            //    tabHostController.Init(Log);
+            //    tabHostController.AddTab();
+            //    
+            //    //GameplaySetup.instance.AddTab("ASI", "AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers.ASITabMenu.bsml", this, MenuType.Solo | MenuType.Campaign | MenuType.Online);
+            //    //Log.Info("ASI ModTab Created. in plugin.cs");
+            //
+            //}
+            //catch
+            //{
+            //    Log.Info("unable to Create Mod Tab in Plugin.cs, Defaulting");
+            //    GameplaySetup.instance.AddTab("ASI", "AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers.ASITabMenuFAIL.bsml", this, MenuType.Solo | MenuType.Campaign | MenuType.Online);
+            //}
 
 
 
@@ -161,7 +161,8 @@ namespace AntiSkillIssue
             _AntiSkillIssueFlowCoordinator = BeatSaberUI.CreateFlowCoordinator<AntiSkillIssueFlowCoordinator>();
             _mainFlowCoordinator.PresentFlowCoordinator(_AntiSkillIssueFlowCoordinator);
 
-            _AntiSkillIssueFlowCoordinator.DidFinishEvent += _AntiSkillIssueFlowCoordinator_DidFinishEvent;
+            _AntiSkillIssueFlowCoordinator.FCDidFinishEvent += _AntiSkillIssueFlowCoordinator_FCDidFinishEvent;
+            _AntiSkillIssueFlowCoordinator.VCDidFinishEvent += _AntiSkillIssueFlowCoordinator_VCDidFinishEvent;
 
             #region OnModButtonPressed Summary
 
@@ -178,15 +179,25 @@ namespace AntiSkillIssue
             #endregion
         }
 
-        private void _AntiSkillIssueFlowCoordinator_DidFinishEvent()
+        private void _AntiSkillIssueFlowCoordinator_FCDidFinishEvent()
         {
-            _AntiSkillIssueFlowCoordinator.DidFinishEvent -= _AntiSkillIssueFlowCoordinator_DidFinishEvent;
+            _AntiSkillIssueFlowCoordinator.FCDidFinishEvent -= _AntiSkillIssueFlowCoordinator_FCDidFinishEvent;
+            _AntiSkillIssueFlowCoordinator.VCDidFinishEvent -= _AntiSkillIssueFlowCoordinator_VCDidFinishEvent; // we do this here because there are multiple View Controllers.
             // DISCONNECT DELEGATION TO STOP MULTIPLE CALLS
+
             _mainFlowCoordinator.DismissFlowCoordinator(_AntiSkillIssueFlowCoordinator);
             #region _AntiSkillIssueFlowCoordinator_DidFinishEvent() Summary
             //when the did finish event is called for the _AntiSkillIssueFlowCoordinator, 
             //Dissmiss the _AntiSkillIssueFlowCoordinator from the _mainFlowCoordinator.
             #endregion
+
+        }
+
+        private void _AntiSkillIssueFlowCoordinator_VCDidFinishEvent()
+        {
+            
+            Plugin.Log.Info("Closed a ViewController.");
+
 
         }
 

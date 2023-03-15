@@ -5,6 +5,39 @@
 	<clickable-text text='Left'  default-color='#ff0000'  highlight-color='#ff2222' on-click='Click'/>
 	<clickable-text text='Right' default-color='#1122ff'  highlight-color='#3344ff' on-click='Click'/>
 	
+	Start and End Sliders
+	
+				<horizontal preferred-height='12' pad-left='10' pad-right='10' pad-top='5' horizontal-fit='PreferredSize'>
+				<slider-setting id='start-time-slider'
+								value='start-slider'
+								show-buttons='true'
+								bind-value='false'
+								text='Start Slider'
+								increment='1'
+								on-change='set-start-slider'
+								apply-on-change='true'
+								min='0'
+								max='~song-duration'
+								hover-hint='Where in the song to start Reviewing'>
+				</slider-setting>
+			</horizontal>
+	
+			<horizontal preferred-height='12' pad-left='10' pad-right='10' pad-top='5' horizontal-fit='PreferredSize'>
+				<slider-setting id='end-time-slider'
+								value='end-slider'
+								show-buttons='true'
+								bind-value='false'
+								text='End Slider'
+								increment='1'
+								on-change='set-end-slider'
+								apply-on-change='true'
+								min='0'
+								max='~song-duration'
+								hover-hint='Where in the song to Stop Reviewing'>
+				</slider-setting>
+			</horizontal>
+	
+	
 	
 	Code Dump end -->
 
@@ -31,40 +64,45 @@
 					<text text='~song-length' font-size='5' />
 					
 				</horizontal>
+				<!-- ST stands for Start time, and ET is end time.-->
+				<horizontal bg='panel-top' spacing='1' pad='2'>
+					<text text='Start Time ' pad='1'/>
+					<button id='st-decrement-small' text='-'  pad='1' on-click='st-decrement-small' align='Center'/>
+					<button id='st-decrement-large' text='--' pad='1' on-click='st-decrement-large' align='Center'/>
+					
+					
+					<text text='0 ' pad='1' align='Left'/>
+					
+					<text id='st-slider-value' text='~st-sldier-value' align='Center'/>
+					
+					<text id='st-start-slider-maximum' text='~st-slider-maximum' pad='1' align='Right'/>
+					
+					
+					<button id='st-increment-large' text='++'  pad='1' on-click='st-increment-large' align='Center'/>
+					<button id='st-increment-small' text='+' pad='1' on-click='st-increment-small' align='Center'/>
+				</horizontal>
 				
-				<!--Start Time Slider -->
-			<horizontal preferred-height='12' pad-left='10' pad-right='10' pad-top='5' horizontal-fit='PreferredSize'>
-				<slider-setting id='start-time-slider'
-								value='start-slider'
-								show-buttons='true'
-								bind-value='false'
-								text='Start Slider'
-								increment='1'
-								on-change='set-start-slider'
-								apply-on-change='true'
-								min='0'
-								max='~song-duration'
-								hover-hint='Where in the song to start Reviewing'>
-				</slider-setting>
-			</horizontal>
-		<!--Start Time Slider END-->
-
-			<!--End Time Slider -->
-			<horizontal preferred-height='12' pad-left='10' pad-right='10' pad-top='5' horizontal-fit='PreferredSize'>
-				<slider-setting id='end-time-slider'
-								value='end-slider'
-								show-buttons='true'
-								bind-value='false'
-								text='End Slider'
-								increment='1'
-								on-change='set-end-slider'
-								apply-on-change='true'
-								min='0'
-								max='~song-duration'
-								hover-hint='Where in the song to Stop Reviewing'>
-				</slider-setting>
-			</horizontal>
-			<!--End Time Slider END-->
+				<horizontal bg='panel-top' spacing='1' pad='2'>
+					<text text='End Time ' pad='1'/>
+					<button id='et-decrement-small' text='-'  pad='1' on-click='et-decrement-small' align='Center'/>
+					<button id='et-decrement-large' text='--' pad='1' on-click='et-decrement-large' align='Center'/>
+					
+					
+					<text text='0 ' pad='1' align='Left'/>
+					
+					<text id='et-slider-value' text='~et-sldier-value' align='Center'/>
+					
+					<text id='et-start-slider-maximum' text='~et-slider-maximum' pad='1' align='Right'/>
+					
+					
+					<button id='et-increment-large' text='++'  pad='1' on-click='et-increment-large' align='Center'/>
+					<button id='et-increment-small' text='+' pad='1' on-click='et-increment-small' align='Center'/>
+				</horizontal>
+				
+				<horizontal>
+					<button id ='apply-button' text ='Apply' on-click ='apply' pad='1' align='Center'/>
+				</horizontal>
+				
 				<horizontal>
 					<text text ='~play-validity' font-color='~validity-font-color' pad-top='5' align='Center'/>
 					<!-- This shows the user if the play is valid.-->

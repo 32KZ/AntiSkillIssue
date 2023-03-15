@@ -40,6 +40,37 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
     internal class AntiSkillIssueLeftViewController : BSMLResourceViewController //no way! its a legendary view controller! super rare!
     {
         public override string ResourceName => string.Join(".", GetType().Namespace, GetType().Name) + ".bsml";
+        public Play WorkingPlay = new Play(null, null, float.NaN, null, null, null, null);
+
+        #region Old Slider Stuff
+
+
+
+        //[UIComponent("start-time-slider")]
+        //public SliderSetting StartTimeSlider; //start slider object itself. 
+
+
+        //[UIComponent("end-time-slider")]
+        //public SliderSetting EndTimeSlider; //End slider object itself
+
+        //[UIAction("set-start-slider")]
+        //private void SetStartTime(float value)
+        //{
+
+        //    StartTime = value;
+
+        //}
+
+        //[UIAction("set-end-slider")]
+        //private void SetEndSlider(float value)
+        //{
+
+        //    EndTime = value;
+        //
+        //}
+
+
+        #endregion
 
         #region Import Values
         public string myPlayName { get; set; }
@@ -61,11 +92,11 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
         #region Slider Properties
         public float songDuration { get; set; } = 60f; // Used in Slider Calculation.
-        public float startTime { get; set; } //the StartSlider's actual Selected time
+        public float startTime { get; set; } // the StartSlider's actual Selected time
         public float endTime { get; set; }   // the end slider's actual selected time
 
-        
-
+        public float startSliderMaximum { get; set; } = 60f;
+        public float endSliderMaximum { get; set; } = 60f;
         #endregion
 
 
@@ -111,7 +142,6 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         #endregion UI Backing Values
 
 
-
         #region UNIVERSAL UI ACTIONS
 
         [UIAction("Click")]
@@ -125,43 +155,69 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
         #endregion UNIVERSAL UI ACTIONS
 
+
         #region TAB 1 : START AND END SLIDERS
 
         #region T1: UI ACTIONS
 
-        [UIAction("set-start-slider")]
-        private void SetStartTime(float value)
-        {
 
-            StartTime = value;
-
-        }
-
-        [UIAction("set-end-slider")]
-        private void SetEndSlider(float value)
-        {
-
-            EndTime = value;
-
-        }
         #endregion T1: UI ACTIONS
 
         #region T1: UI COMPONENTS
 
-        [UIComponent("start-time-slider")]
-        public SliderSetting StartTimeSlider; //start slider object itself. 
+        [UIComponent("apply-button")]
+        public ButtonTag ApplyButton;
+
+        //start buttons
+        [UIComponent("st-decrement-small")]
+        public ButtonTag StartTimeDecrementSmall;
+
+        [UIComponent("st-decrement-large")]
+        public ButtonTag StartTimeDecrementLarge;
+
+        [UIComponent("st-increment-large")]
+        public ButtonTag StartTimeIncrementLarge;
+
+        [UIComponent("st-increment-small")]
+        public ButtonTag StartTimeIncrementSmall;
+
+        //end buttons
+        [UIComponent("et-decrement-small")]
+        public ButtonTag EndTimeDecrementSmall;
+
+        [UIComponent("et-decrement-large")]
+        public ButtonTag EndTimeDecrementLarge;
+
+        [UIComponent("et-increment-large")]
+        public ButtonTag EndTimeIncrementLarge;
+
+        [UIComponent("et-increment-small")]
+        public ButtonTag EndTimeIncrementSmall;
+
+        //start slider texts
+
+        [UIComponent("st-slider-value")]
+        public TextTag StartTimeSliderValue;
+
+        [UIComponent("st-slider-maximum")]
+        public TextTag StartTimeSliderMaximum;
+
+        //end slider texts
+
+        [UIComponent("et-slider-value")]
+        public TextTag EndTimeSliderValue;
+
+        [UIComponent("et-slider-maximum")]
+        public TextTag EndTimeSliderMaximum;
 
 
-        [UIComponent("end-time-slider")]
-        public SliderSetting EndTimeSlider; //End slider object itself
-        
         #endregion T1: UI COMPONENTS
 
         #region T1: UI VALUES
 
-        #region Start Slider
+        #region Start Slider Value
 
-        [UIValue("start-slider")]
+        [UIValue("st-slider-value")]
         public float StartTime //Controls the starttimeSlider's actual Selected Value.
         {
             get
@@ -179,10 +235,9 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         }
         #endregion
 
+        #region End Slider Value
 
-        #region End Slider
-
-        [UIValue("end-slider")]
+        [UIValue("et-slider-value")]
         public float EndTime //Controls the EndTimeSlider's actual selected value
         {
             get
@@ -200,6 +255,44 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
         }
 
+        #endregion
+
+        #region Start Slider Maximum
+        [UIValue("st-slider-maximum")]
+        public float StartSliderMaximum //Controls the starttimeSlider's actual Selected Value.
+        {
+            get
+            {
+                if (startSliderMaximum == float.NaN) { startSliderMaximum = 0f; }
+                return startSliderMaximum;
+            }
+            set
+            {
+                this.startSliderMaximum = value;
+                this.NotifyPropertyChanged();
+
+            }
+
+        }
+        #endregion
+
+        #region Start Slider Maximum
+        [UIValue("et-slider-maximum")]
+        public float EndSliderMaximum //Controls the starttimeSlider's actual Selected Value.
+        {
+            get
+            {
+                if (endSliderMaximum == float.NaN) { endSliderMaximum = 0f; }
+                return endSliderMaximum;
+            }
+            set
+            {
+                this.endSliderMaximum = value;
+                this.NotifyPropertyChanged();
+
+            }
+
+        }
         #endregion
 
 
@@ -226,14 +319,6 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         #endregion
 
 
-        #region Dynamic Value
-
-        [UIValue("dynamic-value")]
-        private float DynamicValue;
-
-        #endregion
-
-
         #region Song Name
 
         [UIValue("song-name")]
@@ -241,7 +326,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
 
         {
-            get 
+            get
             {
                 if (songName == null) { songName = "Use these Sliders to Select a smaller section of the Map to review!"; }
                 return songName;
@@ -281,9 +366,9 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         #region Song Length
 
         [UIValue("song-length")]
-        public string SongLength 
+        public string SongLength
         {
-            get 
+            get
             {
                 if (songLength == null) { songLength = ""; }
                 return songLength;
@@ -303,7 +388,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         #region Delimiter
 
         [UIValue("delimiter")]
-        public string Delimiter 
+        public string Delimiter
 
         {
             get
@@ -326,9 +411,9 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
         #region Play Validity 
         [UIValue("play-validity")]
-        private string PlayValidity 
+        private string PlayValidity
         {
-            get 
+            get
             {
                 return playValidity;
             }
@@ -372,6 +457,101 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         #endregion
 
         #endregion T1: UI VALUES
+
+        #region T1: UI ACTIONS 
+
+        [UIAction("apply")]
+        public void Apply()
+        {
+            if (WorkingPlay.songName == null) { Plugin.Log.Info("Please Select a Play Before applying a range."); }
+            else
+            {
+
+                ReadNoteTracker
+                   (
+                    WorkingPlay: WorkingPlay,
+                    HitTracker: HitTracker,
+                    AccuracyTracker: AccuracyTracker,       //Create Properties for all the trackers
+                    ScoreTracker: ScoreTracker,
+                    WinTracker: WinTracker
+                    //DistanceTracker: DistanceTracker,
+                    //ScoreGraphTracker: ScoreGraphTracker
+                    );
+
+            }
+        }
+
+        // Start time Slider Buttons
+        [UIAction("st-decrement-small")]
+        public void ActionStartTimeDecrementSmall()
+        {
+
+            if (StartTime - 1f <= 0f) //if the result is not less than 0, or greater than the end time, or max, start time gets decremented. 
+            { StartTime = 0f; }
+            if (StartTime > EndTime)
+            { StartTime = EndTime; }
+            if (StartTime > StartSliderMaximum) { StartTime = 0f; }
+            else { StartTime = StartTime - 1f; }
+
+        }
+
+        [UIAction("st-decrement-large")]
+        public void ActionStartTimeDecrementLarge()
+        {
+
+            if (StartTime - 10f <= 0f)
+            { StartTime = 0f; }
+            if (StartTime > EndTime)
+            { StartTime = EndTime; }
+            if (StartTime > StartSliderMaximum) { StartTime = 0f; }
+            else { StartTime = StartTime - 10f; }
+
+            StartTime = StartTime - 10f;
+        }
+
+        [UIAction("st-increment-small")]
+        public void ActionStartTimeIncrementSmall()
+        {
+            StartTime = StartTime + 1f;
+        }
+
+        [UIAction("st-increment-large")]
+        public void ActionStartTimeIncrementLarge()
+        {
+            StartTime = StartTime + 10f;
+        }
+
+        //End time Slider Buttons
+
+        [UIAction("et-decrement-small")]
+        public void ActionEndTimeDecrementSmall()
+        {
+            EndTime = EndTime - 1f;
+        }
+
+        [UIAction("et-decrement-large")]
+        public void ActionEndTimeDecrementLarge()
+        {
+            EndTime = EndTime - 10f;
+        }
+
+        [UIAction("et-increment-small")]
+        public void ActionEndTimeIncrementSmall()
+        {
+            EndTime = EndTime + 1f;
+        }
+
+        [UIAction("et-increment-large")]
+        public void ActionEndTimeIncrementLarge()
+        {
+            EndTime = EndTime + 10f;
+        }
+
+        
+
+
+        #endregion
+
 
         #endregion TAB 1 : START AND END SLIDERS
 
@@ -820,13 +1000,15 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
             #region Assign Tab 1 UIValues
 
-            EndTimeSlider.updateOnChange = true;
-            StartTimeSlider.updateOnChange = true;
             SongName = WorkingPlay.songName;
             SongDifficulty = WorkingPlay.songDifficulty;
             SongLength = WorkingPlay.songDurationFormatted;
+
+
             SongDuration = WorkingPlay.songDuration;
-            
+            StartSliderMaximum = WorkingPlay.songDuration;
+            EndSliderMaximum = WorkingPlay.songDuration;
+
             Delimiter = $"  -  ";
 
             #region Validity Check
@@ -931,7 +1113,10 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
                 notesDictionary NotesDictionary = JsonConvert.DeserializeObject<notesDictionary>(FileDictionaryNotes.ToString());
                 // notes dictionary is equal to each dictionary in the list
 
-                DictionaryNotesList.Add(NotesDictionary);
+                if (NotesDictionary.id < StartTime) { x++; }
+                if (NotesDictionary.id >= StartTime & NotesDictionary.id <=EndTime) { DictionaryNotesList.Add(NotesDictionary); }
+                if (NotesDictionary.id > EndTime) { x++; }
+                
                 // add it to the arraylist
 
                 //notesDictionary activeDictNote = (notesDictionary)DictionaryNotesList[x]; // active Working notes Dictionary.  (CLI)
@@ -969,6 +1154,101 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
                 x++; 
             }
+
+            float newLeftAccuracyAverage = 0f;
+            float newLeftTimeDeviationAverage = 0f;
+            float newLeftTimeDependenceAverage = 0f;
+            float newLeftSpeedAverage = 0f;
+            float newLeftPreswingAverage = 0f;
+            float newLeftPostswingAverage = 0f;
+
+            float newRightAccuracyAverage = 0f;
+            float newRightTimeDeviationAverage = 0f;
+            float newRightTimeDependenceAverage = 0f;
+            float newRightSpeedAverage = 0f;
+            float newRightPreswingAverage = 0f;
+            float newRightPostswingAverage = 0f;
+
+            ArrayList leftAccuracyAverageList = new ArrayList();
+            ArrayList leftTimeDeviationAverageList = new ArrayList();
+            ArrayList leftTimeDependenceAverageList = new ArrayList();
+            ArrayList leftSpeedAverageList = new ArrayList();
+            ArrayList leftPreswingAverageList = new ArrayList();
+            ArrayList leftPostswingAverageList = new ArrayList();
+
+            ArrayList rightAccuracyAverageList = new ArrayList();
+            ArrayList rightTimeDeviationAverageList = new ArrayList();
+            ArrayList rightTimeDependenceAverageList = new ArrayList();
+            ArrayList rightSpeedAverageList = new ArrayList();
+            ArrayList rightPreswingAverageList = new ArrayList();
+            ArrayList rightPostswingAverageList = new ArrayList();
+
+            foreach (notesDictionary CurrentNoteDictionary in DictionaryNotesList) 
+            {
+                if (CurrentNoteDictionary.noteType == 0)// if hand is = right
+                {
+                    rightAccuracyAverageList.Add(CurrentNoteDictionary.score[1]);
+                    rightTimeDeviationAverageList.Add(CurrentNoteDictionary.timeDeviation);
+                    rightTimeDependenceAverageList.Add(CurrentNoteDictionary.timeDependence);
+                    rightSpeedAverageList.Add(CurrentNoteDictionary.speed);
+                    rightPreswingAverageList.Add(CurrentNoteDictionary.preswing);
+                    rightPostswingAverageList.Add(CurrentNoteDictionary.postswing);
+                }
+                else // you have two hands, the only other option is left.
+                {
+                    leftAccuracyAverageList.Add(CurrentNoteDictionary.score[1]);
+                    leftTimeDeviationAverageList.Add(CurrentNoteDictionary.timeDeviation);
+                    leftTimeDependenceAverageList.Add(CurrentNoteDictionary.timeDependence);
+                    leftSpeedAverageList.Add(CurrentNoteDictionary.speed);
+                    leftPreswingAverageList.Add(CurrentNoteDictionary.preswing);
+                    leftPostswingAverageList.Add(CurrentNoteDictionary.postswing);
+                }
+
+            }
+
+            #region Calculate Accuracy averages For Left and right Hands
+
+            int leftTotalNoteAccuracy = 0;
+            int length = 0;
+            foreach (int NoteAccuracy in leftAccuracyAverageList) 
+            {
+                leftTotalNoteAccuracy = leftTotalNoteAccuracy + NoteAccuracy;
+                length++;
+            }
+            newLeftAccuracyAverage = (float)leftTotalNoteAccuracy / (float)length;
+            
+
+            int rightTotalNoteAccuracy = 0;
+            length = 0;
+            foreach (int NoteAccuracy in rightAccuracyAverageList)
+            {
+                rightTotalNoteAccuracy = rightTotalNoteAccuracy + NoteAccuracy;
+                length++;
+            }
+            newRightAccuracyAverage = (float)rightTotalNoteAccuracy / (float)length;
+            length = 0;
+
+            AverageLeftAccuracy = newLeftAccuracyAverage;
+            AverageRightAccuracy = newRightAccuracyAverage;
+
+            #endregion
+
+
+            //For each hand get averages and update the properties
+            //Nullify active Values.
+
+
+            //{
+            //
+            //"score":[70,12,30],
+            //
+            //"timeDeviation":0.017578125,
+            //"speed":57.0695038,
+            //"preswing":1.54497993,
+            //"postswing":0.843348563,
+            //"timeDependence":0.171928167
+            //
+            //}
 
         }
 

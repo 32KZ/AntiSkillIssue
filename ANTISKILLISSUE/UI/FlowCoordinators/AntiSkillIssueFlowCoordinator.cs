@@ -29,7 +29,8 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.FlowCoordinators //Find Directory
 {
 	internal class AntiSkillIssueFlowCoordinator : HMUI.FlowCoordinator //Create Class as a HarmonyUI FlowCoordinator. 
 	{
-		public event Action DidFinishEvent;
+		public event Action FCDidFinishEvent;
+		public event Action VCDidFinishEvent;
 		private MainFlowCoordinator _AntiSkillIssueMainFlowCoordinator;		//mark _AntiSkillIssueMainFlowCoordinator as a MainFlowCoordinator 
 		private AntiSkillIssueViewController _AntiSkillIssueViewController; //this is external to this CS file. we do not need to define it on the contrary.
 		private AntiSkillIssueLeftViewController _AntiSkillIssueLeftViewController;
@@ -59,13 +60,8 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.FlowCoordinators //Find Directory
         protected override void BackButtonWasPressed(ViewController topViewController)
 		{
 			_AntiSkillIssueViewController.DataTransfer -= _AntiSkillIssueLeftViewController.OnDataTransferEvent;
-
-            
-			//_AntiSkillIssueViewController.__DismissViewController(DidFinishEvent);
-			//_AntiSkillIssueLeftViewController.__DismissViewController(DidFinishEvent);
-			//_AntiSkillIssueRightViewController.__DismissViewController(DidFinishEvent); //DidFinishEvent.Invoke();
-            //DismissFlowCoordinator(this);
-            DidFinishEvent.Invoke();
+			//this.DismissViewController(viewController:topViewController, finishedCallback:VCDidFinishEvent);
+			FCDidFinishEvent.Invoke();
         }
 	}
 
