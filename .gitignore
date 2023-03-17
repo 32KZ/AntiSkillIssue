@@ -8,3 +8,6 @@ obj/AntiSkillIssue.csproj.nuget.dgspec.json
 obj/project.nuget.cache
 *.cache
 *.cache
+obj/Debug/AntiSkillIssue.csproj.AssemblyReference.cache
+obj/Debug/AntiSkillIssue.dll
+obj/Debug/AntiSkillIssue.pdb
