@@ -53,54 +53,59 @@
 				<!-- SongName -->
 				<horizontal  pad-left='8' pad-right='8' horizontal-fit='PreferredSize'>
 					<!--<text text='Use these Sliders to Select a smaller section of the Map to review!' />-->
-					<text text='~song-name' font-size='5'/>
+					<text text='~song-name' />
 				</horizontal>
 				<!-- SongDifficulty and Song Length-->
 
 				<horizontal pad-left='8' pad-right='8' horizontal-fit='PreferredSize'>
 					<!--<text text='all data on following tabs will change accordingly.' />-->
-					<text text='~song-difficulty' font-size='5'/>
-					<text text='~delimiter' font-size='5'/>
-					<text text='~song-length' font-size='5' />
+					<text text='~song-difficulty' />
+					<text text='~delimiter' />
+					<text text='~song-length'  />
 					
 				</horizontal>
 				<!-- ST stands for Start time, and ET is end time.-->
-				<horizontal bg='panel-top' spacing='1' pad='2'>
-					<text text='Start Time ' pad='1'/>
-					<button id='st-decrement-small' text='-'  pad='1' on-click='st-decrement-small' align='Center'/>
-					<button id='st-decrement-large' text='--' pad='1' on-click='st-decrement-large' align='Center'/>
+				<horizontal horizontal-fit='PreferredSize'>
+					<text text='Start Time ' pad='2' align='Center' />
+				</horizontal>
+				<horizontal bg='panel-top' spacing='5' pad='3' horizontal-fit='PreferredSize'>
+					<button id='st-decrement-small' text='-'  spacing='1' on-click='st-decrement-small' align='Center'/>
+					<button id='st-decrement-large' text='--' spacing='1' on-click='st-decrement-large' align='Center'/>
 					
 					
-					<text text='0 ' pad='1' align='Left'/>
+					<text text='0 ' pad='5' spacing='5'  align='Left'/>
 					
-					<text id='st-slider-value' text='~st-sldier-value' align='Center'/>
+					<text id='st-slider-value' text='~st-slider-value' pad='5' spacing='5'  align='Center'/>
 					
-					<text id='st-start-slider-maximum' text='~st-slider-maximum' pad='1' align='Right'/>
+					<text id='st-start-slider-maximum' text='~st-slider-maximum' pad='5' spacing='5' align='Right'/>
 					
 					
-					<button id='st-increment-large' text='++'  pad='1' on-click='st-increment-large' align='Center'/>
-					<button id='st-increment-small' text='+' pad='1' on-click='st-increment-small' align='Center'/>
+					<button id='st-increment-large' text='++'  spacing='1' on-click='st-increment-large' align='Center'/>
+					<button id='st-increment-small' text='+' spacing='1' on-click='st-increment-small' align='Center'/>
 				</horizontal>
 				
-				<horizontal bg='panel-top' spacing='1' pad='2'>
-					<text text='End Time ' pad='1'/>
-					<button id='et-decrement-small' text='-'  pad='1' on-click='et-decrement-small' align='Center'/>
-					<button id='et-decrement-large' text='--' pad='1' on-click='et-decrement-large' align='Center'/>
+				<horizontal horizontal-fit='PreferredSize'>
+					<text text='End Time ' pad='3' align='Center'/>
+				</horizontal>
+					
+				<horizontal bg='panel-top' spacing='5' pad='3' horizontal-fit='PreferredSize'>
+					<button id='et-decrement-small' text='-'  spacing='1'  on-click='et-decrement-small' align='Center'/>
+					<button id='et-decrement-large' text='--' spacing='1' on-click='et-decrement-large' align='Center'/>
 					
 					
-					<text text='0 ' pad='1' align='Left'/>
+					<text text='0 ' pad='5' spacing='5' align='Left'/>
 					
-					<text id='et-slider-value' text='~et-sldier-value' align='Center'/>
+					<text id='et-slider-value' text='~et-slider-value' pad ='5' spacing='5' align='Center'/>
 					
-					<text id='et-start-slider-maximum' text='~et-slider-maximum' pad='1' align='Right'/>
+					<text id='et-start-slider-maximum' text='~et-slider-maximum' pad='5' spacing='5' align='Right'/>
 					
 					
-					<button id='et-increment-large' text='++'  pad='1' on-click='et-increment-large' align='Center'/>
-					<button id='et-increment-small' text='+' pad='1' on-click='et-increment-small' align='Center'/>
+					<button id='et-increment-large' text='++'  spacing='1' on-click='et-increment-large' align='Center'/>
+					<button id='et-increment-small' text='+' spacing='1' on-click='et-increment-small' align='Center'/>
 				</horizontal>
 				
 				<horizontal>
-					<button id ='apply-button' text ='Apply' on-click ='apply' pad='1' align='Center'/>
+					<button id ='apply-button' text ='Apply' on-click ='apply' pad='3' align='Center'/>
 				</horizontal>
 				
 				<horizontal>

@@ -77,13 +77,38 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         public int myPlayLine { get; set; }
         public string myPlayPath { get; set; }
 
+        public Play workingPlay      
+        {
+            get
+            {
+                return WorkingPlay;
+            }
+            set
+            {
+                this.WorkingPlay = value;
+
+            }
+
+        }
+
+
         #endregion
 
         #region UI Backing Values
 
+        #region Tracker Backing Values for Properties
+
+        public hitTracker myHitTracker { get; set; }
+        public accuracyTracker myAccuracyTracker { get; set; }
+        public scoreTracker myScoreTracker { get; set; }
+        public winTracker myWinTracker { get; set; }
+
+
+        #endregion
+
         #region Tab 1 Overview And Slider Selection
 
-        private string songName { get; set; }
+        private string songName { get; set; } = null;
         public string songLength { get; set; } //used in UI display
         public string songDifficulty { get; set; }
         public string deLimiter { get; set; }
@@ -99,6 +124,68 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         public float endSliderMaximum { get; set; } = 60f;
         #endregion
 
+        #region Tracker Properties
+
+        public hitTracker HitTracker 
+        {
+            get 
+            {
+                return myHitTracker;
+            
+            }
+            set 
+            {
+                this.myHitTracker = value;
+                //this.notifyPropertyChanged();
+            }
+        
+        }
+
+        public accuracyTracker AccuracyTracker
+        {
+            get
+            {
+                return myAccuracyTracker;
+
+            }
+            set
+            {
+                this.myAccuracyTracker = value;
+                //this.notifyPropertyChanged();
+            }
+
+        }
+        //Create Properties for all the trackers
+        public scoreTracker ScoreTracker
+        {
+            get
+            {
+                return myScoreTracker;
+
+            }
+            set
+            {
+                this.myScoreTracker = value;
+                //this.notifyPropertyChanged();
+            }
+
+        }
+        public winTracker WinTracker
+        {
+            get
+            {
+                return myWinTracker;
+
+            }
+            set
+            {
+                this.myWinTracker = value;
+                //this.notifyPropertyChanged();
+            }
+
+        }
+
+        #endregion
 
         #endregion Tab 1 Overview And Slider Selection
 
@@ -154,7 +241,6 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
 
         #endregion UNIVERSAL UI ACTIONS
-
 
         #region TAB 1 : START AND END SLIDERS
 
@@ -276,7 +362,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         }
         #endregion
 
-        #region Start Slider Maximum
+        #region End Slider Maximum
         [UIValue("et-slider-maximum")]
         public float EndSliderMaximum //Controls the starttimeSlider's actual Selected Value.
         {
@@ -463,19 +549,14 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         [UIAction("apply")]
         public void Apply()
         {
-            if (WorkingPlay.songName == null) { Plugin.Log.Info("Please Select a Play Before applying a range."); }
+            if (SongName == null) { Plugin.Log.Info("Please Select a Play Before applying a range."); }
             else
             {
 
                 ReadNoteTracker
                    (
-                    WorkingPlay: WorkingPlay,
-                    HitTracker: HitTracker,
-                    AccuracyTracker: AccuracyTracker,       //Create Properties for all the trackers
-                    ScoreTracker: ScoreTracker,
-                    WinTracker: WinTracker
-                    //DistanceTracker: DistanceTracker,
-                    //ScoreGraphTracker: ScoreGraphTracker
+                    WorkingPlay: workingPlay
+
                     );
 
             }
@@ -488,9 +569,10 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
             if (StartTime - 1f <= 0f) //if the result is not less than 0, or greater than the end time, or max, start time gets decremented. 
             { StartTime = 0f; }
-            if (StartTime > EndTime)
+            else if (StartTime > EndTime)
             { StartTime = EndTime; }
-            if (StartTime > StartSliderMaximum) { StartTime = 0f; }
+            else if (StartTime > StartSliderMaximum)
+            { StartTime = StartSliderMaximum; }
             else { StartTime = StartTime - 1f; }
 
         }
@@ -499,26 +581,38 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         public void ActionStartTimeDecrementLarge()
         {
 
-            if (StartTime - 10f <= 0f)
+            if (StartTime - 10f <= 0f) 
             { StartTime = 0f; }
-            if (StartTime > EndTime)
+            else if (StartTime > EndTime)
             { StartTime = EndTime; }
-            if (StartTime > StartSliderMaximum) { StartTime = 0f; }
+            else if (StartTime > StartSliderMaximum) { StartTime = StartSliderMaximum; }
             else { StartTime = StartTime - 10f; }
 
-            StartTime = StartTime - 10f;
+            
         }
 
         [UIAction("st-increment-small")]
         public void ActionStartTimeIncrementSmall()
         {
-            StartTime = StartTime + 1f;
+            if (StartTime + 1f <= 0f)  
+            { StartTime = 0f; }
+            else if (StartTime + 1f  > EndTime)
+            { StartTime = EndTime; }
+            else if (StartTime +1f > StartSliderMaximum) 
+            { StartTime = StartSliderMaximum; }
+            else { StartTime = StartTime + 1f; }
         }
 
         [UIAction("st-increment-large")]
         public void ActionStartTimeIncrementLarge()
         {
-            StartTime = StartTime + 10f;
+            if (StartTime + 10f <= 0f) 
+            { StartTime = 0f; }
+            else if (StartTime + 10f > EndTime)
+            { StartTime = EndTime; }
+            else if (StartTime + 10f > StartSliderMaximum)
+            { StartTime = StartSliderMaximum; }
+            else { StartTime = StartTime + 10f; }
         }
 
         //End time Slider Buttons
@@ -526,25 +620,49 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         [UIAction("et-decrement-small")]
         public void ActionEndTimeDecrementSmall()
         {
-            EndTime = EndTime - 1f;
+            if (EndTime - 1f <= 0f)  
+            { EndTime = 0f; }
+            else if (EndTime -1f < StartTime)
+            { EndTime = StartTime; }
+            else if (EndTime > StartSliderMaximum)
+            { EndTime = StartSliderMaximum; }
+            else { EndTime = EndTime - 1f; }
         }
 
         [UIAction("et-decrement-large")]
         public void ActionEndTimeDecrementLarge()
         {
-            EndTime = EndTime - 10f;
+            if (EndTime - 10f <= 0f)  
+            { EndTime = 0f; }
+            else if (EndTime -10f < StartTime)
+            { EndTime = StartTime; }
+            else if (EndTime > StartSliderMaximum)
+            { EndTime = StartSliderMaximum; }
+            else { EndTime = EndTime - 10f; }
         }
 
         [UIAction("et-increment-small")]
         public void ActionEndTimeIncrementSmall()
         {
-            EndTime = EndTime + 1f;
+            if (EndTime + 1f <= 0f)
+            { EndTime = 0f; }
+            else if (EndTime + 1f < StartTime)
+            { EndTime = StartTime; }
+            else if (EndTime +1f > StartSliderMaximum)
+            { EndTime = StartSliderMaximum; }
+            else { EndTime = EndTime + 1f; }
         }
 
         [UIAction("et-increment-large")]
         public void ActionEndTimeIncrementLarge()
         {
-            EndTime = EndTime + 10f;
+            if (EndTime + 10f <= 0f)
+            { EndTime = 0f; }
+            else if (EndTime + 10f < StartTime)
+            { EndTime = StartTime; }
+            else if (EndTime + 10f > StartSliderMaximum)
+            { EndTime = StartSliderMaximum; }
+            else { EndTime = EndTime + 10f; }
         }
 
         
@@ -873,7 +991,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             StreamReader reader = File.OpenText(myPlayPath);
             int x = 1; //Line number as int32 not index
             string line;
-            Play WorkingPlay = new Play(null, null, 0f, null, null, null, null); // Make WorkingPlay non local variable to the While Loop
+            Play WorkingPlay = new Play(null, null, float.NaN, null, null, null, null); // Make WorkingPlay non local variable to the While Loop
             while ((line = reader.ReadLine()) != null)
             {
                 if (x != myPlayLine)    // if its not the selected Play, move to the next line until it is. 
@@ -948,7 +1066,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             Plugin.Log.Info($"{WorkingPlay.songDifficulty}");
             Plugin.Log.Info($"{WorkingPlay.songDurationFormatted}");
 
-
+            workingPlay = WorkingPlay;
 
             
             
@@ -1005,9 +1123,9 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             SongLength = WorkingPlay.songDurationFormatted;
 
 
-            SongDuration = WorkingPlay.songDuration;
-            StartSliderMaximum = WorkingPlay.songDuration;
-            EndSliderMaximum = WorkingPlay.songDuration;
+            SongDuration = (float)Math.Round(WorkingPlay.songDuration, 0) + 1f;
+            StartSliderMaximum = (float)Math.Round(WorkingPlay.songDuration, 0) + 1f;
+            EndSliderMaximum = (float)Math.Round(WorkingPlay.songDuration, 0) + 1f;
 
             Delimiter = $"  -  ";
 
@@ -1050,7 +1168,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             AverageLeftTimingDependence = Convert.ToString((float)Math.Round((float)AccuracyTracker.leftTimeDependence, 4)); // the string of our time dependence rounded to 4dp. (casted as float so we get all DP )
             AverageRightTimingDependence = Convert.ToString((float)Math.Round((float)AccuracyTracker.rightTimeDependence, 4)); //
                                                                                                                                //timing deviation needs to be added here, but is stored inside notesDictionary, under deep trackers. 
-
+        
 
             #endregion
 
@@ -1088,36 +1206,37 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
         public void ReadNoteTracker
                                         (
-            Play WorkingPlay,
-            hitTracker HitTracker,
-            accuracyTracker AccuracyTracker,
-            scoreTracker ScoreTracker,
-            winTracker WinTracker,
-            distanceTracker DistanceTracker
-            //scoreGraphTracker ScoreGraphTracker
+            Play WorkingPlay
                                         )
         {
 
-
+            Plugin.Log.Info("---");
 
 
             //Deep trackers 
             object fileNoteTracker = WorkingPlay.deepTrackers["noteTracker"];                                   // get "notes" : <this>[{},{}]
             noteTracker Notes = JsonConvert.DeserializeObject<noteTracker>(fileNoteTracker.ToString());         // Deserialise
 
+            Plugin.Log.Info("---");
+
+
             ArrayList DictionaryNotesList = new ArrayList();                                                    //create a new array list
             int x = 0;                                                                                          //set the indexer
-            foreach (object FileDictionaryNotes in (object[])Notes.notes)                                       //for every entry in our deserialised dictionary list,
+            
+            Plugin.Log.Info("---");
+
+
+            foreach (object FileDictionaryNotes in Notes.notes)                                       //for every entry in our deserialised dictionary list,
             {
 
                 notesDictionary NotesDictionary = JsonConvert.DeserializeObject<notesDictionary>(FileDictionaryNotes.ToString());
                 // notes dictionary is equal to each dictionary in the list
 
-                if (NotesDictionary.id < StartTime) { x++; }
-                if (NotesDictionary.id >= StartTime & NotesDictionary.id <=EndTime) { DictionaryNotesList.Add(NotesDictionary); }
-                if (NotesDictionary.id > EndTime) { x++; }
+                if (NotesDictionary.time < StartTime) { x++; }
+                else if (NotesDictionary.time >= StartTime & NotesDictionary.time <= EndTime) { DictionaryNotesList.Add(NotesDictionary); }
+                else if (NotesDictionary.time > EndTime) { x++; } // possible efficiency increase if we stop deserialising past this point
                 
-                // add it to the arraylist
+                // add it to the arraylist if its within range.
 
                 //notesDictionary activeDictNote = (notesDictionary)DictionaryNotesList[x]; // active Working notes Dictionary.  (CLI)
 
@@ -1152,8 +1271,11 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
                 #endregion
 
-                x++; 
+                //x++; 
             }
+
+            Plugin.Log.Info("---");
+
 
             float newLeftAccuracyAverage = 0f;
             float newLeftTimeDeviationAverage = 0f;
@@ -1183,6 +1305,8 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             ArrayList rightPreswingAverageList = new ArrayList();
             ArrayList rightPostswingAverageList = new ArrayList();
 
+
+
             foreach (notesDictionary CurrentNoteDictionary in DictionaryNotesList) 
             {
                 if (CurrentNoteDictionary.noteType == 0)// if hand is = right
@@ -1208,6 +1332,8 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
             #region Calculate Accuracy averages For Left and right Hands
 
+
+
             int leftTotalNoteAccuracy = 0;
             int length = 0;
             foreach (int NoteAccuracy in leftAccuracyAverageList) 
@@ -1216,7 +1342,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
                 length++;
             }
             newLeftAccuracyAverage = (float)leftTotalNoteAccuracy / (float)length;
-            
+
 
             int rightTotalNoteAccuracy = 0;
             length = 0;
@@ -1228,10 +1354,90 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             newRightAccuracyAverage = (float)rightTotalNoteAccuracy / (float)length;
             length = 0;
 
-            AverageLeftAccuracy = newLeftAccuracyAverage;
-            AverageRightAccuracy = newRightAccuracyAverage;
+
+
+            this.AverageLeftAccuracy = newLeftAccuracyAverage;
+            this.AverageRightAccuracy = newRightAccuracyAverage;
+
+
 
             #endregion
+
+            #region Calculate Time Deiviation Averages for each hand.
+
+            float leftTotalTimeDeviation = 0f;  //invalid cast here~
+            length = 0;
+            foreach (float NoteDeviation in leftTimeDeviationAverageList)
+            {
+
+                if (NoteDeviation != float.NaN) //if the note was missed than there is NAN for Deviation
+                { 
+                    leftTotalTimeDeviation = leftTotalTimeDeviation + NoteDeviation;
+                    length++;
+                }               
+            }
+
+            newLeftTimeDeviationAverage = (float)leftTotalTimeDeviation / (float)length;
+
+
+
+            float rightTotalTimeDeviation = 0f;
+            length = 0;
+            foreach (float NoteDeviation in rightTimeDeviationAverageList)
+            {
+                if (NoteDeviation != float.NaN) //if the note was missed than there is NAN for Deviation
+                {
+                    rightTotalTimeDeviation = rightTotalTimeDeviation + (float)NoteDeviation;
+                    length++;
+                }
+            }
+            newRightTimeDeviationAverage = (float)rightTotalTimeDeviation / (float)length;
+
+
+
+            this.AverageLeftTimingDeviation = Convert.ToString(Math.Round(newLeftTimeDeviationAverage,4));
+            this.AverageRightTimingDeviation = Convert.ToString(Math.Round(newRightTimeDeviationAverage,4));
+
+
+
+            #endregion
+
+            #region Calculate Time Dependence Averages for each hand.
+
+            float leftTotalTimeDependence = 0f;
+            length = 0;
+            foreach (float NoteDependence in leftTimeDependenceAverageList)
+            {
+                if (NoteDependence != float.NaN) //if the note was missed than there is NAN for Dependence
+                {
+                    leftTotalTimeDependence = leftTotalTimeDependence + (float)NoteDependence;
+                    length++;
+                }
+            }
+            newLeftTimeDependenceAverage = (float)leftTotalTimeDependence / (float)length;
+
+
+
+            float rightTotalTimeDependence = 0f;
+            length = 0;
+            foreach (float NoteDependence in rightTimeDependenceAverageList)
+            {
+                if (NoteDependence != float.NaN) //if the note was missed than there is NAN for Dependence
+                {
+                    rightTotalTimeDependence = rightTotalTimeDependence + (float)NoteDependence;
+                    length++;
+                }
+            }
+            newRightTimeDependenceAverage = (float)rightTotalTimeDependence / (float)length;
+
+
+
+            this.AverageLeftTimingDependence = Convert.ToString(Math.Round(newLeftTimeDependenceAverage, 4));
+            this.AverageRightTimingDependence = Convert.ToString(Math.Round(newRightTimeDependenceAverage, 4));
+
+            #endregion
+
+
 
 
             //For each hand get averages and update the properties
