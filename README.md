@@ -13,6 +13,8 @@ My Discord is 32KZ#8255. Please message me 😭 😂
 
 - has a validity checker to Declare if the Selected BSD play is a Valid, VRmode Score. (exception cases are if there is a 0 combo, aka noodle or desktop scores.)
 
+- Allows the User to Select a start and end time for where in the selceted play they would like to Review in more detail. ✨
+
 ## Planed Features
 
 - Save config settings in  "UserData/AntiSkillIssue/Settings.json" For future use
@@ -53,17 +55,17 @@ Great idea 🥶
 
 - Creates new ViewControllers and FlowCoordinators each time the Menu is loaded (memory leak 💀)
 
-- Custom Cells may or maynot Recycle class instances. 
+- Custom Cells may or maynot Recycle class instances. (memory leakish 💀)
 
-- Clicking the dummy cell after reloading the sessions, or on initial start causes an access Denied error for the "%appdata%/Beat Savior Data/" directory. 
+- Clicking the dummy cell after reloading the sessions, or on initial start causes an access Denied error for the "%appdata%/Beat Savior Data/" directory. this breaks the UI and requires the user to back out to the main menu and try again. 😬
 
-- Does not support Scores that have a non-Positive Cut Count, or are noodle maps.
+- Does not support Scores that have a non-Positive Cut Count, or are Noodle maps. 
 
 - the larger a session, the longer it takes to populate the right list on a session selected. (i need to make the method for it async.)
 
-- Sliders Currently Do not Function. Same with the Button that is Supposed to be used to apply this.
-
 - Score Graph on the right View is currently Not implemented. 
+
+- not all data from the play gets updated in the UI after A range Apply. (its not that i dont know how its that i havent implemented it 💀)
 
 ## Credits
 
@@ -77,6 +79,6 @@ Great idea 🥶
 
 [32KZ](https://www.twitter.com/32ksarah/) - Figuring out how to make mods, Running them, Developing them, programing this, Learning an entirely new language, ect.
 
-[Kullly_](https://www.youtube.com/@kullly_7813) - Sourcing Some Test Data, helping with Paperwork 🙏
+[Kullly_](https://www.youtube.com/@kullly_7813) - Sourcing Some Test Data, helping with "Paperwork" 🙏
 
 
