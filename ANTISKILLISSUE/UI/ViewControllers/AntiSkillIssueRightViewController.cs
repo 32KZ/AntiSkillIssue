@@ -34,32 +34,10 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 		public override string ResourceName => string.Join(".", GetType().Namespace, GetType().Name) + ".bsml";
         internal static IPALogger Log { get; private set; }
 
-
-		[UIComponent("get-uuid-button")]
-		ButtonTag button1;
-
-        [UIValue("user-uuid")]
-		private string UserUUID = null;
-
-		[UIAction("get-user-uuid")]
-		public void getUserUUID() //null reference. step through me.
+		[UIAction("new-ui-action")]
+		public void UndefinedUIAction() //Blank
 		{
-			UserUUID = "0";
-            try 
-			{ 
-			StreamReader read = new StreamReader("C:\\AppData\\Roaming\\Beat Savior Data\\TextText.txt");
-			string TestValue = read.ReadLine();
-			UserUUID = TestValue;
-			NotifyPropertyChanged(nameof(UserUUID));
-			Log.Info(TestValue);
-			read.Close(); 
-			}
-			catch 
-			{
-			UserUUID = "default val";
-			Log.Info($"{UserUUID}");
-			}
-			return;
+			Plugin.Log.Info($"Click! ");
 			
 	    }
 

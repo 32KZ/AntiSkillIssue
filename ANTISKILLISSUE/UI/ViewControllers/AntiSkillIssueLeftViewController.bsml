@@ -65,10 +65,7 @@
 					
 				</horizontal>
 				<!-- ST stands for Start time, and ET is end time.-->
-				<horizontal horizontal-fit='PreferredSize'>
-					<text text='Start Time ' pad='2' align='Center' />
-				</horizontal>
-				<horizontal bg='panel-top' spacing='5' pad='3' horizontal-fit='PreferredSize'>
+				<horizontal bg='panel-top' spacing='5' horizontal-fit='PreferredSize' align ='Center'>
 					<button id='st-decrement-small' text='-'  spacing='1' on-click='st-decrement-small' align='Center'/>
 					<button id='st-decrement-large' text='--' spacing='1' on-click='st-decrement-large' align='Center'/>
 					
@@ -83,12 +80,7 @@
 					<button id='st-increment-large' text='++'  spacing='1' on-click='st-increment-large' align='Center'/>
 					<button id='st-increment-small' text='+' spacing='1' on-click='st-increment-small' align='Center'/>
 				</horizontal>
-				
-				<horizontal horizontal-fit='PreferredSize'>
-					<text text='End Time ' pad='3' align='Center'/>
-				</horizontal>
-					
-				<horizontal bg='panel-top' spacing='5' pad='3' horizontal-fit='PreferredSize'>
+				<horizontal bg='panel-top' spacing='5' horizontal-fit='PreferredSize' align ='Center'>
 					<button id='et-decrement-small' text='-'  spacing='1'  on-click='et-decrement-small' align='Center'/>
 					<button id='et-decrement-large' text='--' spacing='1' on-click='et-decrement-large' align='Center'/>
 					

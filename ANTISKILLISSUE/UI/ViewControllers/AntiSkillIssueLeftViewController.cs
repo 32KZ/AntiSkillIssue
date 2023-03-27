@@ -1175,9 +1175,9 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             #region Assign Tab 5 UIValues
 
             AverageLeftVelocity = AccuracyTracker.leftSpeed;
-            RecommendedLeftVelocity = (float)Math.Round(AccuracyTracker.leftSpeed *0.9f , 3); //For now, ask them to move a tenth Slower. in the future, we will get them to move a 10th faster than the average NPS of the selection / 2m (3dp)
+            RecommendedLeftVelocity = (float)Math.Round(AverageLeftVelocity * 0.9f , 3); //For now, ask them to move a tenth Slower. in the future, we will get them to move a 10th faster than the average NPS of the selection / 2m (3dp)
             AverageRightVelocity = AccuracyTracker.rightSpeed;
-            RecommendedRightVelocity = (float)Math.Round(AccuracyTracker.rightSpeed *0.9f , 3 );
+            RecommendedRightVelocity = (float)Math.Round(AverageRightVelocity * 0.9f , 3 );
 
 
             #endregion Assign Tab 5 UIValues
@@ -1210,21 +1210,13 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
                                         )
         {
 
-            Plugin.Log.Info("---");
-
-
             //Deep trackers 
             object fileNoteTracker = WorkingPlay.deepTrackers["noteTracker"];                                   // get "notes" : <this>[{},{}]
             noteTracker Notes = JsonConvert.DeserializeObject<noteTracker>(fileNoteTracker.ToString());         // Deserialise
 
-            Plugin.Log.Info("---");
-
-
             ArrayList DictionaryNotesList = new ArrayList();                                                    //create a new array list
             int x = 0;                                                                                          //set the indexer
             
-            Plugin.Log.Info("---");
-
 
             foreach (object FileDictionaryNotes in Notes.notes)                                       //for every entry in our deserialised dictionary list,
             {
@@ -1273,9 +1265,6 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
                 //x++; 
             }
-
-            Plugin.Log.Info("---");
-
 
             float newLeftAccuracyAverage = 0f;
             float newLeftTimeDeviationAverage = 0f;
@@ -1437,8 +1426,115 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
             #endregion
 
+            #region Calculate Speed Averages For each Hand.
+
+            float leftTotalSpeed = 0f;
+            length = 0;
+            foreach (float NoteSpeed in leftSpeedAverageList)
+            {
+
+                if (NoteSpeed != float.NaN) //if the note was missed than there is NAN for Deviation
+                {
+                    leftTotalSpeed = leftTotalSpeed + NoteSpeed;
+                    length++;
+                }
+
+            }
+
+            newLeftSpeedAverage = (float)leftTotalSpeed / (float)length;
+
+            float rightTotalSpeed = 0f;
+            length = 0;
+            foreach (float NoteSpeed in rightSpeedAverageList)
+            {
+
+                if (NoteSpeed != float.NaN) //if the note was missed than there is NAN
+                {
+                    rightTotalSpeed = rightTotalSpeed + NoteSpeed;
+                    length++;
+                }
+
+            }
+
+            newRightSpeedAverage = (float)rightTotalSpeed / (float)length;
+
+            AverageLeftVelocity = newLeftSpeedAverage;
+            AverageRightVelocity = newRightSpeedAverage;
+            RecommendedLeftVelocity = (float)Math.Round(AverageLeftVelocity * 0.9f, 3);
+            RecommendedRightVelocity = (float)Math.Round(AverageRightVelocity * 0.9f, 3);
+
+            #endregion
+
+            #region Calculate Preswing and postswing averafge for left and right hand
+
+            float leftTotalPreswing = 0f;
+            length = 0;
+            foreach (float NotePreswing in leftPreswingAverageList)
+            {
+
+                if (NotePreswing != float.NaN) //if the note was missed than there is NAN for Deviation
+                {
+                    leftTotalPreswing = leftTotalPreswing + NotePreswing;
+                    length++;
+                }
+
+            }
+
+            newLeftPreswingAverage = (float)leftTotalPreswing / (float)length;
+
+            float rightTotalPreswing = 0f;
+            length = 0;
+            foreach (float NotePreswing in rightPreswingAverageList)
+            {
+
+                if (NotePreswing != float.NaN) //if the note was missed than there is NAN for Deviation
+                {
+                    rightTotalPreswing = rightTotalPreswing + NotePreswing;
+                    length++;
+                }
+
+            }
+
+            newRightPreswingAverage = (float)rightTotalPreswing / (float)length;
 
 
+            float leftTotalPostswing = 0f;
+            length = 0;
+            foreach (float NotePostswing in leftPostswingAverageList)
+            {
+
+                if (NotePostswing != float.NaN) //if the note was missed than there is NAN for Deviation
+                {
+                    leftTotalPostswing = leftTotalPostswing + NotePostswing;
+                    length++;
+                }
+
+            }
+
+            newLeftPostswingAverage = (float)leftTotalPostswing / (float)length;
+
+            float rightTotalPostswing = 0f;
+            length = 0;
+            foreach (float NotePostswing in rightPostswingAverageList)
+            {
+
+                if (NotePostswing != float.NaN) //if the note was missed than there is NAN for Deviation
+                {
+                    rightTotalPostswing = rightTotalPostswing + NotePostswing;
+                    length++;
+                }
+
+            }
+
+            newRightPostswingAverage = (float)rightTotalPostswing / (float)length;
+
+            AverageRightPreSwing = newRightPreswingAverage;
+            AverageRightPostSwing = newRightPostswingAverage;
+            AverageLeftPreSwing = newLeftPreswingAverage;
+            AverageLeftPostSwing = newLeftPostswingAverage;
+
+
+            #endregion
 
             //For each hand get averages and update the properties
             //Nullify active Values.

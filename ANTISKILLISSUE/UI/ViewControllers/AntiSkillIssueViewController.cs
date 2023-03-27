@@ -89,7 +89,14 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         [UIAction("play-selected")]
         public void PlaySelected(TableView playList, Play Plays)
         {
-            SetPlaysData(PlayPath: Plays.playPath, PlayLine:Plays.playLine, PlayName:Plays.songName);
+            if (Plays.playPath != null) //the Dummy cell has Null as path, so we should ignore it. in all cases, we still need to clear selection.
+            {
+                SetPlaysData(PlayPath: Plays.playPath, PlayLine: Plays.playLine, PlayName: Plays.songName);
+            }
+            else 
+            {
+                Plugin.Log.Info("Why are you clicking the Dummy cell??? That does Nothing!!");
+            }
             this.playsList.tableView.ClearSelection();
         }
         #endregion
@@ -168,7 +175,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             {
                 
                 Play OverridePlay = new Play(   newSongName: " Each BSD Session",
-                                                newPlayPath:path,
+                                                newPlayPath: null,
                                                 newSongDuration:"3m 32s",
                                                 newSongArtist:" Plays In",
                                                 newSongMapper:" Go here!",
