@@ -34,121 +34,45 @@ namespace AntiSkillIssue
     {
         private AntiSkillIssueFlowCoordinator _AntiSkillIssueFlowCoordinator;
         private MainFlowCoordinator _mainFlowCoordinator;
-        private ResultsFlowCoordinator _ResultsFlowCoordinator;
-        
+        private MenuButton AsiMenuButton;
         internal static Plugin Instance { get; private set; } 
         internal static IPALogger Log { get; private set; }
 
-
-        
-
-
-        [Init] //initialisation tag
-
-        /// <summary>
-        /// Called when the plugin is first loaded by IPA (either when the game starts or when the plugin is enabled if it starts disabled).
-        /// [Init] methods that use a Constructor or called before regular methods like InitWithConfig.
-        /// Only use [Init] with one Constructor.
-        /// </summary>
-        
-
+        [Init]
         public void Init(IPALogger logger, IPA.Config.Config config) 
         {
             
             Instance = this;
             Log = logger;
-
-            //float _TempSongLength = _currentLevel.songDuration;
-            //string _SongLength = "6:30";//_TempSongLength.ToString();
-
-            //string _SongName = "test1"; //_currentLevel.songName;
-
-            //string _CoverImage = "Cover Image";
-
-
             Log.Info("AntiSkillIssue initialized.");
-
-           
         }
-
-        #region BSIPA Config
-        //Uncomment to use BSIPA's config
-        /*
-        [Init]
-        public void InitWithConfig(Config conf)
-        {
-            Configuration.PluginConfig.Instance = conf.Generated<Configuration.PluginConfig>();
-            Log.Debug("Config loaded");
-        }
-        */
-        #endregion
 
         [OnStart]
         public void OnApplicationStart()
         {
-            
-            Log.Info("Started AntiSkillIssue");
             new GameObject("AntiSkillIssueController").AddComponent<AntiSkillIssueController>();
-
+            Log.Info("Started AntiSkillIssue");
         }
 
         [OnEnable]
         public void OnEnable()
         {
-
-            
-            try
+            try // Create a Mod Button For Main Functionality
             {
-                MenuButtons.instance.RegisterButton(new MenuButton("AntiSkillIssue", "Grow your PP with care!", OnModButtonPressed, true));
-                Log.Info("Menu Button Created.");
+                AsiMenuButton = new MenuButton("AntiSkillIssue", "Grow your PP with care!", OnModButtonPressed, true);
+                MenuButtons.instance.RegisterButton(AsiMenuButton);
+                Log.Info("Menu Button Created And Registered.");
             }
             catch
             {
-                Log.Info("Failed to instance a MenuButton in plugin.cs, Something has gone Terribly Wrong...");
-            }
-            
-            //try
-            //{
-            //    TabHostController tabHostController = new TabHostController();
-            //    tabHostController.Init(Log);
-            //    tabHostController.AddTab();
-            //    
-            //    //GameplaySetup.instance.AddTab("ASI", "AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers.ASITabMenu.bsml", this, MenuType.Solo | MenuType.Campaign | MenuType.Online);
-            //    //Log.Info("ASI ModTab Created. in plugin.cs");
-            //
-            //}
-            //catch
-            //{
-            //    Log.Info("unable to Create Mod Tab in Plugin.cs, Defaulting");
-            //    GameplaySetup.instance.AddTab("ASI", "AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers.ASITabMenuFAIL.bsml", this, MenuType.Solo | MenuType.Campaign | MenuType.Online);
-            //}
-
-
-
-            #region OnEnable() Summary
-            //Create a try and catch statement where a menubutton is attempeted to be made.
-            //if its made, it will appear in game. 
-            //if it fails, a critical log will be made.
-            //do the same for a solo mod menu tab
-            //when the menu button is pressed, OnModButtonPressed() is ran.
-
-            #endregion
-
-            
-
+                Log.Info("Failed to instance a MenuButton in plugin.cs. Check yout IPA installation.");
+            } 
         }
-
-        [OnExit]
+        [OnExit] // Same as [OnDisable]
         public void OnApplicationQuit()
         {
-
-            GameplaySetup.instance.RemoveTab("ASI");
-            Log.Debug("oyasuminasai!");
-
-            #region OnapplicationQuit() Summary
-            //Remove the ASI mod menu tab
-            // log to the verbose debugger that the on exit tag has run.
-            #endregion
+            MenuButtons.instance.UnregisterButton(AsiMenuButton); //Unregister Our MenuButton on Exit.
+            //GameplaySetup.instance.RemoveTab("ASI"); If we had a Tab, we would remove it here also.
 
         }
 
@@ -156,39 +80,35 @@ namespace AntiSkillIssue
         public void OnModButtonPressed()
         {
 
-            Log.Info("OnModButtonPressed() Ran!");
+
             _mainFlowCoordinator = Resources.FindObjectsOfTypeAll<MainFlowCoordinator>().First();
+            //Set the MainFlowCoordinator to a private Variable So we can Provide Children Flow Coordinators.
+
             _AntiSkillIssueFlowCoordinator = BeatSaberUI.CreateFlowCoordinator<AntiSkillIssueFlowCoordinator>();
             _mainFlowCoordinator.PresentFlowCoordinator(_AntiSkillIssueFlowCoordinator);
+            //Create A flow Coordinator, and Present it to the Active, MainFlowCoordinator.
 
             _AntiSkillIssueFlowCoordinator.FCDidFinishEvent += _AntiSkillIssueFlowCoordinator_FCDidFinishEvent;
             _AntiSkillIssueFlowCoordinator.VCDidFinishEvent += _AntiSkillIssueFlowCoordinator_VCDidFinishEvent;
-            
-            #region OnModButtonPressed Summary
+            //Subscribe our FlowCoordinators DidFinish Events for the FlowCoordinators And the the ViewControllers's 
 
-            // when the menu button we created on mod enable is pressed:
+            Log.Info("OnModButtonPressed() Ran!");
 
-            // set the _mainFlowCoordinator to the first flow coordinator.
-
-            // create a new flow coordinator with the name _AntiSkillIssueFlowCoordinator
-
-            // present the _AntiSkillIssueFlowCoordinator to the _mainFlowCoordinator for use.
-
-            // reference a did finish event so the back button can function, by dissmissing the
-            // _AntiSkillIssueFlowCoordinator from the _mainFlowCoordinator.
-            #endregion
         }
-
         private void _AntiSkillIssueFlowCoordinator_FCDidFinishEvent()
         {
             _AntiSkillIssueFlowCoordinator.FCDidFinishEvent -= _AntiSkillIssueFlowCoordinator_FCDidFinishEvent;
             _AntiSkillIssueFlowCoordinator.VCDidFinishEvent -= _AntiSkillIssueFlowCoordinator_VCDidFinishEvent; // we do this here because there are multiple View Controllers.
-            // DISCONNECT DELEGATION TO STOP MULTIPLE CALLS
+            // DISCONNECT DELEGATION TO STOP MULTIPLE CALLS.
 
             _mainFlowCoordinator.DismissFlowCoordinator(_AntiSkillIssueFlowCoordinator);
+            //Dissmiss our Flow Coordinator to allow for the menu to swap back.
+
             #region _AntiSkillIssueFlowCoordinator_DidFinishEvent() Summary
             //when the did finish event is called for the _AntiSkillIssueFlowCoordinator, 
-            //Dissmiss the _AntiSkillIssueFlowCoordinator from the _mainFlowCoordinator.
+            //Dissmiss the _AntiSkillIssueFlowCoordinator from the _mainFlowCoordinator,
+            // AND the view controllers. there are multiple view controllers, so we only need to call the method once
+            // with all of them defined, instead of vice versa
             #endregion
 
         }
@@ -196,9 +116,8 @@ namespace AntiSkillIssue
         private void _AntiSkillIssueFlowCoordinator_VCDidFinishEvent()
         {
             
-            Plugin.Log.Info("Closed a ViewController.");
-
-
+            Log.Info("Closed our ViewControllers.");
+        
         }
 
     }
