@@ -166,15 +166,10 @@
   <ItemGroup>
     <Compile Include="ANTISKILLISSUE\Installers\AntiSkillIssueMenuInstaller.cs" />
     <Compile Include="ANTISKILLISSUE\UI\FlowCoordinators\AntiSkillIssueFlowCoordinator.cs" />
-    <Compile Include="ANTISKILLISSUE\UI\FlowCoordinators\ResultsFlowCoordinator.cs" />
     <Compile Include="ANTISKILLISSUE\UI\ViewControllers\AntiSkillIssueRightViewController.cs" />
     <Compile Include="ANTISKILLISSUE\UI\ViewControllers\AntiSkillIssueViewController.cs" />
     <EmbeddedResource Include="ANTISKILLISSUE\UI\ViewControllers\AntiSkillIssueViewController.bsml" />
     <Compile Include="ANTISKILLISSUE\UI\ViewControllers\AntiSkillIssueLeftViewController.cs" />
-    <Compile Include="ANTISKILLISSUE\UI\ViewControllers\ResultsLeftViewController.cs" />
-    <Compile Include="ANTISKILLISSUE\UI\ViewControllers\ResultsRightViewController.cs" />
-    <Compile Include="ANTISKILLISSUE\UI\ViewControllers\TabHostController.cs" />
-    <Compile Include="ANTISKILLISSUE\UI\ViewControllers\ResultsViewController.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="ANTISKILLISSUE\Configuration\PluginConfig.cs" />
     <Compile Include="AntiSkillIssueController.cs" />
@@ -185,13 +180,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
-    <EmbeddedResource Include="ANTISKILLISSUE\UI\ViewControllers\ASITabMenu.bsml" />
-    <EmbeddedResource Include="ANTISKILLISSUE\UI\ViewControllers\ResultsViewController.bsml" />
     <EmbeddedResource Include="ANTISKILLISSUE\UI\ViewControllers\AntiSkillIssueLeftViewController.bsml" />
     <EmbeddedResource Include="ANTISKILLISSUE\UI\ViewControllers\AntiSkillIssueRightViewController.bsml" />
-    <EmbeddedResource Include="ANTISKILLISSUE\UI\ViewControllers\ASITabMenuFAIL.bsml" />
-    <EmbeddedResource Include="ANTISKILLISSUE\UI\ViewControllers\ResultsLeftViewController.bsml" />
-    <EmbeddedResource Include="ANTISKILLISSUE\UI\ViewControllers\ResultsRightViewController.bsml" />
     <None Include="Directory.Build.props" Condition="Exists('Directory.Build.props')" />
     <None Include="AntiSkillIssue.csproj.user" Condition="Exists('AntiSkillIssue.csproj.user')" />
   </ItemGroup>
@@ -208,9 +198,6 @@
   <ItemGroup>
     <Folder Include="ANTISKILLISSUE\Managers\" />
     <Folder Include="ANTISKILLISSUE\Utils\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="ANTISKILLISSUE\UI\ViewControllers\Blank.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
