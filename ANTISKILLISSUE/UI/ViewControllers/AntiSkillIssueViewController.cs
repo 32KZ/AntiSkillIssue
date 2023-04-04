@@ -31,16 +31,37 @@ using AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers;
 
 namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 {
+
+    #region Data Transfer Event Parse requirements
+
     public delegate void DataTransferEventHandler(object sender, DataTransferEventArgs EventArguments);
     public class DataTransferEventArgs : EventArgs
     {
         public string Path { get; set; }
         public int Line { get; set; }
         public string Name { get; set; }
+
+        //here we set 3 different properties for the Event.
+        // first, the path. this is used in the Left View controller to View all other informaton for the play. this is the most important one.
+        // second, we have the line the play is stored on. this is just as important as the path, so that we get the right score in the file. 
+        // third, is the play name. 
     }
+
+    #endregion 
     internal class AntiSkillIssueViewController : BSMLResourceViewController //no way! its a legendary view controller! super rare!
     {
+        #region ResourceName 
         public override string ResourceName => string.Join(".", GetType().Namespace, GetType().Name) + ".bsml";
+
+        //Our ResoureName is an override from the BSMLViewController Class. it sets this View Controller's Resource to
+        // the file that matches the namespace's class + ".bsml" on the end.
+        // this means the resource used to show the user the front end UI is the BSML file with the same name.
+        // this is how the UI is structured within the project. the CS files Contain the code that Controlls elements Inside the BSML file.
+        // the BSML file then is understood by the BSML library and Used to make a UI in the game that the end user is able to use. 
+        //Additionally, so that C# knows that the BSML files are resources, the need to be marked as embedded resources within the Visual Studio Solution explorer. 
+
+        #endregion ResourceName
+
         public event DataTransferEventHandler DataTransfer;
         public AntiSkillIssueLeftViewController BrotherViewController { get; set; }
 

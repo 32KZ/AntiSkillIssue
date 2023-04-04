@@ -29,21 +29,26 @@ using BeatSaberMarkupLanguage.Tags;
 
 namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 {
-	internal class AntiSkillIssueRightViewController : BSMLResourceViewController //no way! its a legendary view controller! super rare!
+	internal class AntiSkillIssueRightViewController : BSMLResourceViewController 
 	{
-		public override string ResourceName => string.Join(".", GetType().Namespace, GetType().Name) + ".bsml";
-        internal static IPALogger Log { get; private set; }
+        #region ResourceName 
+        public override string ResourceName => string.Join(".", GetType().Namespace, GetType().Name) + ".bsml";
 
-		[UIAction("new-ui-action")]
-		public void UndefinedUIAction() //Blank
-		{
-			Plugin.Log.Info($"Click! ");
-			
-	    }
+        //Our ResoureName is an override from the BSMLViewController Class. it sets this View Controller's Resource to
+        // the file that matches the namespace's class + ".bsml" on the end.
+        // this means the resource used to show the user the front end UI is the BSML file with the same name.
+        // this is how the UI is structured within the project. the CS files Contain the code that Controlls elements Inside the BSML file.
+        // the BSML file then is understood by the BSML library and Used to make a UI in the game that the end user is able to use. 
+        //Additionally, so that C# knows that the BSML files are resources, the need to be marked as embedded resources within the Visual Studio Solution explorer. 
 
-	}
+        #endregion ResourceName
 
-	
+        //Currently, the RightViewController does not do anything. in the future, further developments can be made to display to the user what the most
+        // important things are to improve on here, based apon their current skillset. 
+
+    }
+
+
 
 
 }

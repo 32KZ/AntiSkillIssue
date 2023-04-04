@@ -37,61 +37,65 @@ using IPA.Utilities;
 
 namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 {
-    internal class AntiSkillIssueLeftViewController : BSMLResourceViewController //no way! its a legendary view controller! super rare!
+    internal class AntiSkillIssueLeftViewController : BSMLResourceViewController //this view controller inherits from BSMLResourceViewController class.
     {
-        public override string ResourceName => string.Join(".", GetType().Namespace, GetType().Name) + ".bsml";
-        public Play WorkingPlay = new Play(null, null, float.NaN, null, null, null, null);
+        #region Notes for Commonly occuring themes within this file.
 
-        #region Old Slider Stuff
-
-
-
-        //[UIComponent("start-time-slider")]
-        //public SliderSetting StartTimeSlider; //start slider object itself. 
-
-
-        //[UIComponent("end-time-slider")]
-        //public SliderSetting EndTimeSlider; //End slider object itself
-
-        //[UIAction("set-start-slider")]
-        //private void SetStartTime(float value)
-        //{
-
-        //    StartTime = value;
-
-        //}
-
-        //[UIAction("set-end-slider")]
-        //private void SetEndSlider(float value)
-        //{
-
-        //    EndTime = value;
+        // 
+        //  THIS IS THE FILE WHERE MOST OF THE MAGIC TAKES PLACE.
+        //  ALL OF THIS IS DOCUMENTED INSIDE OF THE iMPLEMENTATION SECTION OF THE WRITEUP. 
+        //  
         //
-        //}
+        //  =-=-=-=-=-=-=- This.NotifyPropertyChanged(); -=-=-=-=-=-=-=
+        //  
+        //  this.NotifyPropertyChanged is a Function inherited from the BSMLResourceViewController class.
+        //  what it does, is it notifys the UI that a property has changed. as a result, ir refreshes the UIvalues inside of the UI.
+        //  it also takes string input. for example, this.notifyPropertyChanged(nameof(AverageTimeDeviation))
+        //  this makes it only refresh one UI value. However, the Performance Change is Minimal.
+        //  
+        //  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        //  
 
+        #endregion 
 
-        #endregion
+        #region ResourceName 
+        public override string ResourceName => string.Join(".", GetType().Namespace, GetType().Name) + ".bsml";
+
+        //Our ResoureName is an override from the BSMLViewController Class. it sets this View Controller's Resource to
+        // the file that matches the namespace's class + ".bsml" on the end.
+        // this means the resource used to show the user the front end UI is the BSML file with the same name.
+        // this is how the UI is structured within the project. the CS files Contain the code that Controlls elements Inside the BSML file.
+        // the BSML file then is understood by the BSML library and Used to make a UI in the game that the end user is able to use. 
+        //Additionally, so that C# knows that the BSML files are resources, the need to be marked as embedded resources within the Visual Studio Solution explorer. 
+
+        #endregion ResourceName
+
+        public Play WorkingPlay = new Play(null, null, float.NaN, null, null, null, null); 
+        // Create a Blank workingplay. 
 
         #region Import Values
         public string myPlayName { get; set; }
         public int myPlayLine { get; set; }
         public string myPlayPath { get; set; }
+        // Import these from the data transfer event 
 
-        public Play workingPlay      
+        #endregion
+
+        #region workingPlay Property
+        public Play workingPlay
         {
             get
             {
                 return WorkingPlay;
+                //return our backing value
             }
             set
             {
                 this.WorkingPlay = value;
-
+                //no validation required for this input. backingvalue = the input.
             }
 
         }
-
-
         #endregion
 
         #region UI Backing Values
@@ -108,23 +112,27 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
         #region Tab 1 Overview And Slider Selection
 
-        private string songName { get; set; } = null;
+        private string songName { get; set; } = null; //Name of the Song. Used in UI display.
         public string songLength { get; set; } //used in UI display
-        public string songDifficulty { get; set; }
-        public string deLimiter { get; set; }
-        public string playValidity { get; set; } = "The Validity of the Play will appear here!";
-        public string validityFontColor { get; set; } = "#ffffff";
+        public string songDifficulty { get; set; } //Used in UI display.
+        public string deLimiter { get; set; } // Used in Front end Display.
+        public string playValidity { get; set; } = "The Validity of the Play will appear here!"; //Validity. if null, Default. if !null, Decide if valid or not.
+        public string validityFontColor { get; set; } = "#ffffff"; //Depending on the color of the Validity,
+
+        //Front end display for this tab.
+
 
         #region Slider Properties
         public float songDuration { get; set; } = 60f; // Used in Slider Calculation.
         public float startTime { get; set; } // the StartSlider's actual Selected time
         public float endTime { get; set; }   // the end slider's actual selected time
 
-        public float startSliderMaximum { get; set; } = 60f;
-        public float endSliderMaximum { get; set; } = 60f;
+        public float startSliderMaximum { get; set; } = 60f; //Maximum for the start Time Selector.
+        public float endSliderMaximum { get; set; } = 60f;   //Maximum For the end time Selector
         #endregion
 
         #region Tracker Properties
+        //Create Properties for all the trackers
 
         public hitTracker HitTracker 
         {
@@ -136,9 +144,10 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             set 
             {
                 this.myHitTracker = value;
-                //this.notifyPropertyChanged();
+                //Currently active Tracker.
+
             }
-        
+
         }
 
         public accuracyTracker AccuracyTracker
@@ -151,11 +160,11 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             set
             {
                 this.myAccuracyTracker = value;
-                //this.notifyPropertyChanged();
+                //Currently active Tracker.
+
             }
 
         }
-        //Create Properties for all the trackers
         public scoreTracker ScoreTracker
         {
             get
@@ -166,7 +175,6 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             set
             {
                 this.myScoreTracker = value;
-                //this.notifyPropertyChanged();
             }
 
         }
@@ -180,12 +188,13 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             set
             {
                 this.myWinTracker = value;
-                //this.notifyPropertyChanged();
             }
 
         }
 
         #endregion
+
+
 
         #endregion Tab 1 Overview And Slider Selection
 
@@ -196,23 +205,27 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
         public float averageRightPreSwing { get; set; } = 0f;
         public float averageRightPostSwing { get; set; } = 0f;
+        
+        //Front end display of the average values for this tab.
+
 
         #endregion Tab 2 Preswing Poswing Backing Values 
 
         #region Tab 3 Accuracy 
         public float[] averageLeftCut { get; set; } = new float[3]; //Default Value is a Float array of length 3.
         public float[] averageRightCut { get; set; } = new float[3];
+        // -----
+        //Front end display of the average values for this tab.
 
         #endregion Tab 3 Accuracy
 
         #region Tab 4 Timing Dependence
+        //Front end display of the average values for this tab.
 
         public string averageLeftTimingDependence { get; set; } = "0.00" + "TD";
-
         public string averageLeftTimingDeviation { get; set; } = "?" + "ms";
-
+        
         public string averageRightTimingDependence { get; set; } = "0.00" + "TD";
-
         public string averageRightTimingDeviation { get; set; } = "?" + "ms";
 
         #endregion
@@ -223,6 +236,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         public float averageRightVelocity { get; set; } = 0f;
         public float recommendRightVelocity { get; set; } = 0f;
         public float recommendLeftVelocity { get; set; } = 0f;
+        //Front end display of the average values for this tab.
 
         #endregion Tab 5 Velocity
 
@@ -237,17 +251,14 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             Plugin.Log.Info($"Click!");
 
         }
-
+        //Easter egg for the Colored, Clickable text. Does nothing Functionally.
+        // this code snippet also appears inside of the BSML doc's, as an example on how to set up UIActions.
+        // as a result, not my code. i did not write this originally. 
 
 
         #endregion UNIVERSAL UI ACTIONS
 
         #region TAB 1 : START AND END SLIDERS
-
-        #region T1: UI ACTIONS
-
-
-        #endregion T1: UI ACTIONS
 
         #region T1: UI COMPONENTS
 
@@ -381,7 +392,6 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         }
         #endregion
 
-
         #region Song Duration
 
         [UIValue("song-duration")]
@@ -404,7 +414,6 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
         #endregion
 
-
         #region Song Name
 
         [UIValue("song-name")]
@@ -416,6 +425,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             {
                 if (songName == null) { songName = "Use these Sliders to Select a smaller section of the Map to review!"; }
                 return songName;
+                //when initially starting, the default value is used here to Display to the user the intent of the page.
             }
             set
             {
@@ -437,6 +447,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             {
                 if (songDifficulty == null) { songDifficulty = "all data on following tabs will change accordingly."; }
                 return songDifficulty;
+                // this is the same case as the Song name. this allows for greater UI understandability. 
             }
             set
             {
@@ -539,6 +550,12 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         [UIValue("bpm-changes")]
         private int BPMChanges = 0;
 
+        //Here During Development, i had a few ideas for More Data types to implement into a future release.
+        // these currently do nothing, and are unimplemented. 
+        // my thought process was that if somone knows how many notes, and over how long, they could work out how fast the section is. 
+        // or even better, i could tell them with the mod.
+        // additionally, BPM changes would be helpful to know as it would help dictate how fast the user has to swing. 
+
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- Possible Values
         #endregion
 
@@ -550,6 +567,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         public void Apply()
         {
             if (SongName == null) { Plugin.Log.Info("Please Select a Play Before applying a range."); }
+            else if (StartTime == EndTime) { Plugin.Log.Info("Please Select a range."); }
             else
             {
 
@@ -560,21 +578,29 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
                     );
 
             }
+
+            // when the apply button is clicked, check if there is a Song Selected. if there is not, do not run.
+            // if there is a song selected, and there is no range selected (start time and end time are the same.) do not run.
+            // in all other cases, at least 1 second is selected, as a result, we can take information from this. 
+
         }
+
+        #region Slider Buttons
 
         // Start time Slider Buttons
         [UIAction("st-decrement-small")]
         public void ActionStartTimeDecrementSmall()
         {
 
-            if (StartTime - 1f <= 0f) //if the result is not less than 0, or greater than the end time, or max, start time gets decremented. 
+            if (StartTime - 1f <= 0f) 
             { StartTime = 0f; }
             else if (StartTime > EndTime)
             { StartTime = EndTime; }
             else if (StartTime > StartSliderMaximum)
             { StartTime = StartSliderMaximum; }
             else { StartTime = StartTime - 1f; }
-
+            //if the result is not less than 0, or greater than the end time, or max, start time gets decremented. 
+            // this is the same theory for all other buttons. this stops out of bounds from happening. 
         }
 
         [UIAction("st-decrement-large")]
@@ -585,7 +611,8 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             { StartTime = 0f; }
             else if (StartTime > EndTime)
             { StartTime = EndTime; }
-            else if (StartTime > StartSliderMaximum) { StartTime = StartSliderMaximum; }
+            else if (StartTime > StartSliderMaximum) 
+            { StartTime = StartSliderMaximum; }
             else { StartTime = StartTime - 10f; }
 
             
@@ -665,7 +692,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             else { EndTime = EndTime + 10f; }
         }
 
-        
+        #endregion Slider Buttons
 
 
         #endregion
@@ -690,7 +717,9 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             set
             {
                 
-                this.averageLeftPreSwing = (float)Math.Round(value,4)*100; //cast round Double to the Float type, and round our value to 2 DP for display(perameter provided as 4 because its 2 orders of magnitude higher by the end of the calculation, because we want a percentage)
+                this.averageLeftPreSwing = (float)Math.Round(value,4)*100; 
+                //cast round Double to the Float type, and round our value to 2 DP for display(perameter provided as 4 because its 2 orders of magnitude higher by the end of the calculation, because we want a percentage)
+                
                 this.NotifyPropertyChanged();
 
             }
@@ -708,7 +737,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             set
             {
 
-                this.averageLeftPostSwing = (float)Math.Round(value, 4) * 100; //As a Percentage.
+                this.averageLeftPostSwing = (float)Math.Round(value, 4) * 100; //As a Percentage. Same theory as last time.
                 this.NotifyPropertyChanged();
 
             }
@@ -796,7 +825,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             get
             {
                 if (averageRightCut[1] == float.NaN) { averageRightCut[1] = 15f; }
-                return averageRightCut[1];                                           // Actual or default Value Returned
+                return averageRightCut[1]; // Actual or default Value Returned
             }
             set
             {
@@ -831,6 +860,8 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             { 
                 this.averageLeftTimingDependence = $"{value} TD";
                 this.NotifyPropertyChanged();
+                //whatever the value comes in as, it can be cast to string.
+                // So it is.
             } 
         }
 
@@ -969,6 +1000,9 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             };
 
             return $"  {MinuitesTime}m {MyValue}s ";
+            // this is used in makeing User Friendly Time Display. for every 60 float seconds, add one to the Minuite time.
+
+
         }
         #endregion timeFormatter
 
@@ -985,217 +1019,234 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             //Plugin.Log.Info($"");
             string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Beat Savior Data\"; //Set the CD
 
+            if (myPlayPath == path)
+            { //DO NOTHING. if its equal to the path, we get a critical Access Denied Error, Breaking the UI. 
+            } // this case Usually applies when the user Clicks One of the Dummy Cells meant to teach them How to use the UI. 
+            else
+            { //in all other cases, Go for it!
 
-            #region Read Our Play into WorkingPlay
 
-            StreamReader reader = File.OpenText(myPlayPath);
-            int x = 1; //Line number as int32 not index
-            string line;
-            Play WorkingPlay = new Play(null, null, float.NaN, null, null, null, null); // Make WorkingPlay non local variable to the While Loop
-            while ((line = reader.ReadLine()) != null)
-            {
-                if (x != myPlayLine)    // if its not the selected Play, move to the next line until it is. 
+
+                #region Read Our Play into WorkingPlay
+
+                StreamReader reader = File.OpenText(myPlayPath); // Open the File. (eg 2020-01-01.BSD)
+                int x = 1; //Line number as integer, not index.
+                string line;
+                Play WorkingPlay = new Play(null, null, float.NaN, null, null, null, null); // Make WorkingPlay Usable Outside of While loop.
+                while ((line = reader.ReadLine()) != null) //For every Line in the File,
                 {
-                    x++;  
-                }
-                else                    // When it is, deserialise the line as WorkingPlay, and icrement the line so it hoiks to the end of the file.
-                {
-
-                    WorkingPlay = JsonConvert.DeserializeObject<Play>(line); //WorkingPlay is Currently Equal to the Deserialisation(as Play class instance) of the Currently Selected Line.
-                    WorkingPlay.playPath = myPlayPath;
-                    WorkingPlay.playLine = myPlayLine;
-
-                    Plugin.Log.Info($"{x}> Processing Play {WorkingPlay.songName} at path: {WorkingPlay.playPath}");
-
-                    #region Clean Data
-
-                    #region Song Duration Formatter (121 = 2m 1s)
-
-                    int temp = Convert.ToInt32((WorkingPlay.songDuration +1) / 1 ) ; // floor divide it as int to get a whole int. Round Up. to be inclusive
-
-                    WorkingPlay.songDurationFormatted = TimeCalculator(MyValue: temp);
-
-                    #endregion
-
-                    #region Song Name (Length Limit)
-                    //if (play.songName.Length >= 14)
-                    //{
-                    //    play.songName = play.songName.Substring(0, 13) + "...";
-                    //}
-                    #endregion
-
-                    #region Song Artist (Length Limit)
-                    //if (play.songArtist.Length >= 11)
-                    //{
-                    //   play.songArtist = play.songArtist.Substring(0, 10) + "...";
-                    //}
-                    #endregion
-
-                    #region Song Mapper (Length Limit)
-                    //if (play.songMapper.Length >= 14)
-                    //{
-                    //    play.songMapper = play.songMapper.Substring(0, 13) + "...";
-                    //}
-                    #endregion
-
-                    #region Song Difficulty (Capitalise)
-
-                    if (Char.IsLower(WorkingPlay.songDifficulty[0]))
+                    if (x != myPlayLine)    // if its not the selected Play, move to the next line until it is. 
                     {
-                        WorkingPlay.songDifficulty = Char.ToUpper(WorkingPlay.songDifficulty[0]) + WorkingPlay.songDifficulty.Substring(1);
+                        x++;
                     }
-                    //if letter index 1 of our song difficulty is not a capital letter, make it one.
-                    //No song Difficulty will ever start with a number. Songdiff possibilities: [easy,normal,hard,expert,expertplus].
+                    else                    // When it is, deserialise the line as WorkingPlay, as class Play. then, icrement the line so it Skips to the end of the file.
+                    {
 
-                    #endregion
+                        WorkingPlay = JsonConvert.DeserializeObject<Play>(line); //WorkingPlay is Currently Equal to the Deserialisation(as Play class instance) of the Currently Selected Line.
+                        WorkingPlay.playPath = myPlayPath;
+                        WorkingPlay.playLine = myPlayLine;
 
-                    #endregion Clean Data
-                    
-                    x++;                                //Next line Num
+                        Plugin.Log.Info($"{x}> Processing Play {WorkingPlay.songName} at path: {WorkingPlay.playPath}");
 
-                    
+                        #region Clean Data
+                        // Here, we are cleaning some Overview Data for the End User to look at so that it is Understandable and neat.
+                        #region Song Duration Formatter (121 = 2m 1s)
+
+                        int temp = Convert.ToInt32((WorkingPlay.songDuration + 1) / 1); // floor divide it as int to get a whole int. Round Up. to be inclusive. 
+                        // if we rounded down here, we might miss out some notes on levels that end in the same second as a note Exists. we dont want that.
+
+                        WorkingPlay.songDurationFormatted = TimeCalculator(MyValue: temp);
+
+                        #endregion
+
+                        //Song name does not need to be length limited here.
+                        // it does in the Play's list however, so i left it commented here, and you can find it there too.
+                        #region Song Name (Length Limit)
+                        //if (play.songName.Length >= 14)
+                        //{
+                        //    play.songName = play.songName.Substring(0, 13) + "...";
+                        //}
+                        #endregion
+
+                        #region Song Artist (Length Limit)
+                        //if (play.songArtist.Length >= 11)
+                        //{
+                        //   play.songArtist = play.songArtist.Substring(0, 10) + "...";
+                        //}
+                        #endregion
+
+                        #region Song Mapper (Length Limit)
+                        //if (play.songMapper.Length >= 14)
+                        //{
+                        //    play.songMapper = play.songMapper.Substring(0, 13) + "...";
+                        //}
+                        #endregion
+
+                        //
+                        #region Song Difficulty (Capitalise)
+
+                        if (Char.IsLower(WorkingPlay.songDifficulty[0]))
+                        {
+                            WorkingPlay.songDifficulty = Char.ToUpper(WorkingPlay.songDifficulty[0]) + WorkingPlay.songDifficulty.Substring(1);
+                        }
+                        //if letter index 1 of our song difficulty is not a capital letter, make it one.
+                        //No song Difficulty will ever start with a number. Songdiff possibilities: [easy,normal,hard,expert,expertplus].
+                        // Most songs have Custom Difficulty names, however, this will only ever identify them as Songdiff Possibilities mentioned above.
+                        #endregion
+
+                        #endregion Clean Data
+
+                        x++;                                //Next line Num
+
+
+                    }
+
                 }
-                
+                reader.Close();                             // CLOSE READER AFTER DONE USING. WITHOUT THIS, YOU CAN ONLY USE IT ONCE. 
+
+                #endregion
+
+                #region Log info to --Vebose Debug menu.
+                Plugin.Log.Info($"WorkingPlay:{WorkingPlay.songName}, by {WorkingPlay.songArtist}, mapped by {WorkingPlay.songMapper} ");
+                Plugin.Log.Info($"{WorkingPlay.songDifficulty}");
+                Plugin.Log.Info($"{WorkingPlay.songDurationFormatted}");
+
+                #endregion Log info to --Vebose Debug menu.
+
+
+                workingPlay = WorkingPlay;
+                //Update Property Feild.
+
+                #region Deserialise TRACKERS
+
+                #region HIT TRACKER - used for overview information (notes hit or missed, wall hit, bomb hit ect) (OVERVIEW)
+                object fileHitTracker = WorkingPlay.trackers["hitTracker"];
+                hitTracker HitTracker = JsonConvert.DeserializeObject<hitTracker>(fileHitTracker.ToString());
+                #endregion
+
+
+                #region SCORE TRACKER - Overall Score in the Level, with modifiers and such. (OVERVIEW)
+
+                object fileScoreTracker = WorkingPlay.trackers["scoreTracker"];
+                scoreTracker ScoreTracker = JsonConvert.DeserializeObject<scoreTracker>(fileScoreTracker.ToString());
+
+                #endregion
+
+                #region WIN TRACKER - results of the Level. EG rank and such. (OVERVIEW)
+
+                object fileWinTracker = WorkingPlay.trackers["winTracker"];
+                winTracker WinTracker = JsonConvert.DeserializeObject<winTracker>(fileWinTracker.ToString());
+                // this is Currently unused By the Project. however, in the Future, we can use this to Show the User their Score on the Level,
+                // along side the current difficulty information.
+               
+                #endregion
+
+                #region ACCURACY TRACKER - Contains average acc for hands, and a grid acc/Cut lists. (ACCURACY TAB) 
+                object fileAccuracyTracker = WorkingPlay.trackers["accuracyTracker"];
+                accuracyTracker AccuracyTracker = JsonConvert.DeserializeObject<accuracyTracker>(fileAccuracyTracker.ToString());
+                #endregion
+
+                #region DISTANCE TRACKER - Contains Overall distances of hand movement. "Usable" for overall Velocity 
+
+                object fileDistanceTracker = WorkingPlay.trackers["distanceTracker"];
+                distanceTracker DistanceTracker = JsonConvert.DeserializeObject<distanceTracker>(fileDistanceTracker.ToString());
+                #endregion
+
+                #region SCOREGRAPH TRACKER - Contains data for a graph as score data changes. might be useful for future development. 
+
+                //object fileScoreGraphTracker = WorkingPlay.trackers["scoreGraphTracker"];
+                //scoreGraphTracker ScoreGraphTracker = JsonConvert.DeserializeObject<scoreGraphTracker>(fileScoreGraphTracker.ToString());
+
+                //Useful for Future possibilities with the Mod's Development, however, its currently outside the Scope. Commented out here
+                // to save processing.
+
+                #endregion
+
+
+                #endregion
+
+                #region Assign UIValues
+
+                #region Assign Tab 1 UIValues
+
+                //Front facing
+                SongName = WorkingPlay.songName; //Song name Property is set so it can be used.
+                SongDifficulty = WorkingPlay.songDifficulty; //Difficulty Property Set.
+                SongLength = WorkingPlay.songDurationFormatted; //Song Length Gets formatted Before Being Set. (Formatted in the Clean data Region)
+
+                //Back end, used for calculation.
+                SongDuration = (float)Math.Round(WorkingPlay.songDuration, 0) + 1f;
+                StartSliderMaximum = (float)Math.Round(WorkingPlay.songDuration, 0) + 1f;
+                EndSliderMaximum = (float)Math.Round(WorkingPlay.songDuration, 0) + 1f;
+
+                // Activate the Delimiter.
+                Delimiter = $"  -  ";
+
+                #region Validity Check
+
+                if (HitTracker.maxCombo == 0)
+                //in a valid score, the max combo will always be greater than 1,
+                //unless all notes are missed, or you are playing a mapping extentions map, that Beat Savior data does not understand or support.
+                //(if all notes are missed, this Project is not for you. or, you are eusing a desktop mode to set the score. as a result, its invalid still.)
+
+                { //Assign Validity to Properties.
+                    PlayValidity = "Invalid! BSD Does Not Support Modmaps, or Desktop Scores.";
+                    ValidityFontColor = "#ff0000"; //red!
+                }
+                else
+                { //Assign Validity to Properties.
+                    PlayValidity = "Valid!";
+                    ValidityFontColor = "#00ff00"; //Green!
+                }
+                #endregion Validity Check
+
+
+                #endregion
+
+                #region Assign Tab 2 UIValues
+
+                // Assign properties with their Correct information, Updating the UI in the process.
+                AverageLeftPreSwing = AccuracyTracker.leftPreswing;
+                AverageLeftPostSwing = AccuracyTracker.leftPostswing;
+                AverageRightPreSwing = AccuracyTracker.rightPreswing;
+                AverageRightPostSwing = AccuracyTracker.rightPostswing;
+
+                #endregion
+
+                #region Assign Tab 3 UIValues
+                // Assign properties with their Correct information, Updating the UI in the process.
+                AverageLeftAccuracy = AccuracyTracker.leftAverageCut[1];
+                AverageRightAccuracy = AccuracyTracker.rightAverageCut[1];
+
+                #endregion Assign Tab 3 UIValues
+
+                #region Assign Tab 4 UIValues
+
+                // Assign properties with their Correct information, Updating the UI in the process.
+
+                AverageLeftTimingDependence = Convert.ToString((float)Math.Round((float)AccuracyTracker.leftTimeDependence, 4)); // the string of our time dependence rounded to 4dp. (casted as float so we get all DP )
+                AverageRightTimingDependence = Convert.ToString((float)Math.Round((float)AccuracyTracker.rightTimeDependence, 4)); //
+                //timing deviation needs to be added here, but is stored inside notesDictionary, under deep trackers. 
+                // as a result, it cannot be shown unless a user selects a range. the rest of time Dependence is OK still though.
+
+                #endregion
+
+                #region Assign Tab 5 UIValues
+
+                AverageLeftVelocity = AccuracyTracker.leftSpeed;
+                RecommendedLeftVelocity = (float)Math.Round(AverageLeftVelocity * 0.9f, 3); 
+                AverageRightVelocity = AccuracyTracker.rightSpeed;
+                RecommendedRightVelocity = (float)Math.Round(AverageRightVelocity * 0.9f, 3);
+                //For now, ask them to move a tenth Slower. in the future,
+                //we can have the user move a 10th faster than the average Notes Per Second of the selection Provided.  (3dp)
+                //
+
+                #endregion Assign Tab 5 UIValues
+
+
+                #endregion
+
             }
-            reader.Close();                             // CLOSE READER
-
-            #endregion
-
-
-            Plugin.Log.Info($"WorkingPlay:{WorkingPlay.songName}, by {WorkingPlay.songArtist}, mapped by {WorkingPlay.songMapper} ");
-            Plugin.Log.Info($"{WorkingPlay.songDifficulty}");
-            Plugin.Log.Info($"{WorkingPlay.songDurationFormatted}");
-
-            workingPlay = WorkingPlay;
-
-            
-            
-
-            #region Deserialise TRACKERS
-
-            #region HIT TRACKER - used for overview information (notes hit or missed, wall hit, bomb hit ect) (OVERVIEW)
-            object fileHitTracker = WorkingPlay.trackers["hitTracker"];
-            hitTracker HitTracker = JsonConvert.DeserializeObject<hitTracker>(fileHitTracker.ToString());
-            #endregion
-           
-
-            #region SCORE TRACKER - Overall Score in the Level, with modifiers and such. (OVERVIEW)
-
-            object fileScoreTracker = WorkingPlay.trackers["scoreTracker"];
-            scoreTracker ScoreTracker = JsonConvert.DeserializeObject<scoreTracker>(fileScoreTracker.ToString());
-
-            #endregion
-
-            #region WIN TRACKER - results of the Level. EG rank and such. (OVERVIEW)
-
-            object fileWinTracker = WorkingPlay.trackers["winTracker"];
-            winTracker WinTracker = JsonConvert.DeserializeObject<winTracker>(fileWinTracker.ToString());
-
-            #endregion
-
-            #region ACCURACY TRACKER - Contains average acc for hands, and a grid acc/Cut lists. (ACCURACY TAB) 
-            object fileAccuracyTracker = WorkingPlay.trackers["accuracyTracker"];
-            accuracyTracker AccuracyTracker = JsonConvert.DeserializeObject<accuracyTracker>(fileAccuracyTracker.ToString());
-            #endregion
-
-            #region DISTANCE TRACKER - Contains Overall distances of hand movement. "Usable" for overall Velocity 
-
-            object fileDistanceTracker = WorkingPlay.trackers["distanceTracker"];
-            distanceTracker DistanceTracker = JsonConvert.DeserializeObject<distanceTracker>(fileDistanceTracker.ToString());
-            #endregion
-
-            #region SCOREGRAPH TRACKER - Contains data for a graph as score data changes. might be useful for future development. 
-
-            //object fileScoreGraphTracker = WorkingPlay.trackers["scoreGraphTracker"];
-            //scoreGraphTracker ScoreGraphTracker = JsonConvert.DeserializeObject<scoreGraphTracker>(fileScoreGraphTracker.ToString());
-
-            #endregion
-
-
-            #endregion
-
-            #region Assign UIValues
-
-            #region Assign Tab 1 UIValues
-
-            SongName = WorkingPlay.songName;
-            SongDifficulty = WorkingPlay.songDifficulty;
-            SongLength = WorkingPlay.songDurationFormatted;
-
-
-            SongDuration = (float)Math.Round(WorkingPlay.songDuration, 0) + 1f;
-            StartSliderMaximum = (float)Math.Round(WorkingPlay.songDuration, 0) + 1f;
-            EndSliderMaximum = (float)Math.Round(WorkingPlay.songDuration, 0) + 1f;
-
-            Delimiter = $"  -  ";
-
-            #region Validity Check
-
-            if (HitTracker.maxCombo == 0) //in a valid score, the max combo will always be greater than 1, unless all notes are missed. (if all notes are missed, this mod is not for you.)
-            { 
-                PlayValidity = "Invalid! BSD Does Not Support Modmaps, or Desktop Scores.";
-                ValidityFontColor = "#ff0000";
-            }
-            else 
-            { 
-                PlayValidity = "Valid!";
-                ValidityFontColor = "#00ff00";
-            }
-            #endregion Validity Check
-
-
-            #endregion
-
-            #region Assign Tab 2 UIValues
-
-
-            AverageLeftPreSwing = AccuracyTracker.leftPreswing;
-            AverageLeftPostSwing = AccuracyTracker.leftPostswing;
-            AverageRightPreSwing = AccuracyTracker.rightPreswing;
-            AverageRightPostSwing = AccuracyTracker.rightPostswing;
-
-            #endregion
-
-            #region Assign Tab 3 UIValues
-
-            AverageLeftAccuracy = AccuracyTracker.leftAverageCut[1];
-            AverageRightAccuracy = AccuracyTracker.rightAverageCut[1];
-
-            #endregion Assign Tab 3 UIValues
-
-            #region Assign Tab 4 UIValues
-
-            AverageLeftTimingDependence = Convert.ToString((float)Math.Round((float)AccuracyTracker.leftTimeDependence, 4)); // the string of our time dependence rounded to 4dp. (casted as float so we get all DP )
-            AverageRightTimingDependence = Convert.ToString((float)Math.Round((float)AccuracyTracker.rightTimeDependence, 4)); //
-                                                                                                                               //timing deviation needs to be added here, but is stored inside notesDictionary, under deep trackers. 
-        
-
-            #endregion
-
-            #region Assign Tab 5 UIValues
-
-            AverageLeftVelocity = AccuracyTracker.leftSpeed;
-            RecommendedLeftVelocity = (float)Math.Round(AverageLeftVelocity * 0.9f , 3); //For now, ask them to move a tenth Slower. in the future, we will get them to move a 10th faster than the average NPS of the selection / 2m (3dp)
-            AverageRightVelocity = AccuracyTracker.rightSpeed;
-            RecommendedRightVelocity = (float)Math.Round(AverageRightVelocity * 0.9f , 3 );
-
-
-            #endregion Assign Tab 5 UIValues
-
-
-            #endregion
-
-
-            //ReadNoteTracker
-            //   (
-            //    WorkingPlay: WorkingPlay,
-            //    HitTracker: HitTracker,
-            //    AccuracyTracker: AccuracyTracker,
-            //    ScoreTracker: ScoreTracker,
-            //    WinTracker: WinTracker
-            //    //DistanceTracker: DistanceTracker,
-            //    //ScoreGraphTracker: ScoreGraphTracker
-            //    );
 
         }
 
