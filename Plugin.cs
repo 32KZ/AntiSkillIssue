@@ -32,11 +32,26 @@ namespace AntiSkillIssue
     [Plugin(RuntimeOptions.SingleStartInit)] 
     public class Plugin 
     {
+        #region Plugin Class Properties
+
+        #region Flow Coordinators
+
         private AntiSkillIssueFlowCoordinator _AntiSkillIssueFlowCoordinator;
         private MainFlowCoordinator _mainFlowCoordinator;
-        private MenuButton AsiMenuButton;
-        internal static Plugin Instance { get; private set; } 
+
+        #endregion Flow Coordinators
+
+        #region Setup Properties
+        internal static Plugin Instance { get; private set; }
         internal static IPALogger Log { get; private set; }
+
+        #endregion Setup Properties
+
+        private MenuButton AsiMenuButton; //MenuButton Property.
+
+        #endregion
+
+        #region Initialise The Mod
 
         [Init]
         public void Init(IPALogger logger, IPA.Config.Config config) 
@@ -45,15 +60,21 @@ namespace AntiSkillIssue
             Instance = this;
             Log = logger;
             Log.Info("AntiSkillIssue initialized.");
+
         }
 
+        #endregion
+
+        #region Start the Mod
         [OnStart]
         public void OnApplicationStart()
         {
             new GameObject("AntiSkillIssueController").AddComponent<AntiSkillIssueController>();
             Log.Info("Started AntiSkillIssue");
         }
+        #endregion Start the Mod
 
+        #region Whilst mod is Enabled. Akin to main.
         [OnEnable]
         public void OnEnable()
         {
@@ -68,6 +89,9 @@ namespace AntiSkillIssue
                 Log.Info("Failed to instance a MenuButton in plugin.cs. Check yout IPA installation.");
             } 
         }
+        #endregion Whilst mod is Enabled. Akin to main.
+
+        #region Disable the Mod
         [OnExit] // Same as [OnDisable]
         public void OnApplicationQuit()
         {
@@ -75,8 +99,9 @@ namespace AntiSkillIssue
             //GameplaySetup.instance.RemoveTab("ASI"); If we had a Tab, we would remove it here also.
 
         }
+        #endregion
 
-
+        #region Create our UI on Button Press.
         public void OnModButtonPressed()
         {
 
@@ -95,9 +120,17 @@ namespace AntiSkillIssue
             Log.Info("OnModButtonPressed() Ran!");
 
         }
-        private void _AntiSkillIssueFlowCoordinator_FCDidFinishEvent()
+
+        #endregion Create Our UI on Button Press
+
+        #region Cleanup after Back Button pressed.
+
+        
+        private void _AntiSkillIssueFlowCoordinator_FCDidFinishEvent() // Dismiss the Flow Coordinator that Controlls the UI
+
         {
-            _AntiSkillIssueFlowCoordinator.FCDidFinishEvent -= _AntiSkillIssueFlowCoordinator_FCDidFinishEvent;
+
+            _AntiSkillIssueFlowCoordinator.FCDidFinishEvent -= _AntiSkillIssueFlowCoordinator_FCDidFinishEvent;             
             _AntiSkillIssueFlowCoordinator.VCDidFinishEvent -= _AntiSkillIssueFlowCoordinator_VCDidFinishEvent; // we do this here because there are multiple View Controllers.
             // DISCONNECT DELEGATION TO STOP MULTIPLE CALLS.
 
@@ -105,20 +138,24 @@ namespace AntiSkillIssue
             //Dissmiss our Flow Coordinator to allow for the menu to swap back.
 
             #region _AntiSkillIssueFlowCoordinator_DidFinishEvent() Summary
-            //when the did finish event is called for the _AntiSkillIssueFlowCoordinator, 
-            //Dissmiss the _AntiSkillIssueFlowCoordinator from the _mainFlowCoordinator,
+            // when the did finish event is called for the _AntiSkillIssueFlowCoordinator, 
+            // Dismiss the _AntiSkillIssueFlowCoordinator from the _mainFlowCoordinator,
             // AND the view controllers. there are multiple view controllers, so we only need to call the method once
-            // with all of them defined, instead of vice versa
+            // with all of them defined, instead of vice versa.
             #endregion
 
         }
 
+        #endregion Cleanup after Back Button pressed.
+
+        #region Mark UI as Cleared
         private void _AntiSkillIssueFlowCoordinator_VCDidFinishEvent()
         {
             
             Log.Info("Closed our ViewControllers.");
         
         }
+        #endregion
 
     }
 }

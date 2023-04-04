@@ -1,20 +1,18 @@
 ﻿{
-  "$schema": "https://raw.githubusercontent.com/bsmg/BSIPA-MetadataFileSchema/master/Schema.json",
-  "id": "AntiSkillIssue",
-  "name": "AntiSkillIssue",
-  "author": "32KZ",
-  "version": "0.2.13",
+  "$schema": "https://raw.githubusercontent.com/bsmg/BSIPA-MetadataFileSchema/master/Schema.json", //Manifest Scheme.
+  "id": "AntiSkillIssue", //MOD ID FOR IPA USAGE
+  "name": "AntiSkillIssue", //Mod name for end user Visibility
+  "author": "32KZ", //Maker. 32KZ, as in Daniel Williams. AKA, Me.
+  "version": "0.2.114", //Mod Version. X.Y.Z: X as in major release. Y as in Release Patch. Z as in Hot patch. if greater than or = 100, it is a version used in testing, reflecting the version listed afterwards as a two digit version. eg 114 is testing version of patch 14.
   "description": "A greater way to Gander At your accuracy that will make your PP love you!",
-  "gameVersion": "1.25.1",
-  "links": {
-    "YouTube": "https://www.youtube.com/channel/UCAB0InebBzwiWw8AVLF6XcA/featured",
-    "ScoreSaber": "https://scoresaber.com/u/76561198227979496",
-    "Twitter": "https://twitter.com/32kSarah",
-    "Twitch": "https://www.twitch.tv/32KZ_",
-    "Github": "https://github.com/32KZ"
-  },
-  "dependsOn": {
-    "BSIPA": "^4.2.0",
-    "BeatSaberMarkupLanguage": "^1.3.4" 
+  "gameVersion": "1.25.0", //Accepts any version after this. 
+  "links":  {
+    "Github": "https://github.com/32KZ" //my github profile.
+            },
+  "dependsOn":  {
+    "BSIPA": "^4.2.0", // minimum BSPIA version.
+    "BeatSaberMarkupLanguage": "^1.3.4", //Version of BSML minimum
+    "BeatSaviorData": "^2.1.15" //Depends on BeatSaviorData, minimum version from November 2022.
+                }
   }
 }
