@@ -52,9 +52,17 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         //  what it does, is it notifys the UI that a property has changed. as a result, ir refreshes the UIvalues inside of the UI.
         //  it also takes string input. for example, this.notifyPropertyChanged(nameof(AverageTimeDeviation))
         //  this makes it only refresh one UI value. However, the Performance Change is Minimal.
-        //  
+        //
+        //  -=-=-=-=-=-=-= JsonConvert.DeserializeObject<Play>(WorkingPlay.ToString());
+        //
+        //  Whenever we deserialise into a class, it takes the found data type from a JSON object and places it into a class property
+        //   of the same name.
+        //
         //  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
         //  
+
+
+
 
         #endregion 
 
@@ -127,8 +135,8 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         public float startTime { get; set; } // the StartSlider's actual Selected time
         public float endTime { get; set; }   // the end slider's actual selected time
 
-        public float startSliderMaximum { get; set; } = 60f; //Maximum for the start Time Selector.
-        public float endSliderMaximum { get; set; } = 60f;   //Maximum For the end time Selector
+        public float startSliderMaximum { get; set; }= -1f; //Mark as Nan
+        public float endSliderMaximum { get; set; } = -1f;   //^^^
         #endregion
 
         #region Tracker Properties
@@ -242,7 +250,6 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
         #endregion UI Backing Values
 
-
         #region UNIVERSAL UI ACTIONS
 
         [UIAction("Click")]
@@ -319,7 +326,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         {
             get
             {
-                if (startTime == float.NaN) { startTime = 0f; }
+                if (startTime == float.NaN) { startTime = 0f; } //Default Value
                 return startTime;
             }
             set
@@ -339,7 +346,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         {
             get
             {
-                if (endTime == float.NaN) { endTime = 0f; }
+                if (endTime == float.NaN) { endTime = endSliderMaximum; } //Set it to the maximum So that the user can Select a start time Immediately. 
                 return endTime;
             }
             set
@@ -360,12 +367,13 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         {
             get
             {
-                if (startSliderMaximum == float.NaN) { startSliderMaximum = 0f; }
+                if (startSliderMaximum == -1f) { startSliderMaximum = 0f; } //Default to 0
                 return startSliderMaximum;
             }
             set
             {
                 this.startSliderMaximum = value;
+                StartTime = 0f;
                 this.NotifyPropertyChanged();
 
             }
@@ -379,12 +387,13 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         {
             get
             {
-                if (endSliderMaximum == float.NaN) { endSliderMaximum = 0f; }
+                if (endSliderMaximum == -1f) { endSliderMaximum = 60f; }
                 return endSliderMaximum;
             }
             set
             {
                 this.endSliderMaximum = value;
+                EndTime = value; // Default the End time to the end of the level. this allows users to select a start time easier.
                 this.NotifyPropertyChanged();
 
             }
@@ -1010,17 +1019,20 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         #region OnDataTransferEvent
         public void OnDataTransferEvent(object sender, DataTransferEventArgs eventArgs)
         {
+            
             // when the event is called from the AntiSkillIssueViewController,
             // the information comes here and gets applied to the left view controller so we can use it.  
             myPlayName = eventArgs.Name;
             myPlayPath = eventArgs.Path;
             myPlayLine = eventArgs.Line;
-            // If path is equal to the root folder, skip. (ADD THIS BEFORE YOU RELEASE)
-            //Plugin.Log.Info($"");
+            
             string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Beat Savior Data\"; //Set the CD
+
+            #region Check for play path and deserilise trackers.
 
             if (myPlayPath == path)
             { //DO NOTHING. if its equal to the path, we get a critical Access Denied Error, Breaking the UI. 
+              // If path is equal to the root folder, skip.
             } // this case Usually applies when the user Clicks One of the Dummy Cells meant to teach them How to use the UI. 
             else
             { //in all other cases, Go for it!
@@ -1247,6 +1259,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
                 #endregion
 
             }
+            #endregion
 
         }
 
@@ -1261,13 +1274,17 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
                                         )
         {
 
-            //Deep trackers 
-            object fileNoteTracker = WorkingPlay.deepTrackers["noteTracker"];                                   // get "notes" : <this>[{},{}]
-            noteTracker Notes = JsonConvert.DeserializeObject<noteTracker>(fileNoteTracker.ToString());         // Deserialise
+            #region setup for selecting a range.
 
-            ArrayList DictionaryNotesList = new ArrayList();                                                    //create a new array list
-            int x = 0;                                                                                          //set the indexer
-            
+            //Deep trackers 
+            object fileNoteTracker = WorkingPlay.deepTrackers["noteTracker"]; // gets "notes" : [{},{}] <<<
+            noteTracker Notes = JsonConvert.DeserializeObject<noteTracker>(fileNoteTracker.ToString());  // Deserialise
+
+            ArrayList DictionaryNotesList = new ArrayList(); //create a new array list so we know the selected Notes
+
+            #endregion
+
+            #region Deserialise every note within our selected range.
 
             foreach (object FileDictionaryNotes in Notes.notes)                                       //for every entry in our deserialised dictionary list,
             {
@@ -1275,48 +1292,22 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
                 notesDictionary NotesDictionary = JsonConvert.DeserializeObject<notesDictionary>(FileDictionaryNotes.ToString());
                 // notes dictionary is equal to each dictionary in the list
 
-                if (NotesDictionary.time < StartTime) { x++; }
-                else if (NotesDictionary.time >= StartTime & NotesDictionary.time <= EndTime) { DictionaryNotesList.Add(NotesDictionary); }
-                else if (NotesDictionary.time > EndTime) { x++; } // possible efficiency increase if we stop deserialising past this point
+                if (NotesDictionary.time < StartTime) {  }
+
+                else if (NotesDictionary.time >= StartTime & NotesDictionary.time <= EndTime) 
+                { DictionaryNotesList.Add(NotesDictionary); } // add it to the arraylist if its within range.
+
+                else if (NotesDictionary.time > EndTime) 
+                { break; } //once out of range, Break out of the Foreach.
                 
-                // add it to the arraylist if its within range.
-
-                //notesDictionary activeDictNote = (notesDictionary)DictionaryNotesList[x]; // active Working notes Dictionary.  (CLI)
-
-
-                #region //Display Data in CLI
-                //Plugin.Log.Info($"Note ID: {activeDictNote.id}");// 2277
-                //Plugin.Log.Info($"Note Index: {activeDictNote.index}");// 6 
-                //Plugin.Log.Info($"NoteType: {activeDictNote.noteType}"); // 0
-                //Plugin.Log.Info($"NoteDirection: {activeDictNote.noteDirection}");// 1 
-                //Plugin.Log.Info($"NoteTime:  {activeDictNote.time}");// 307.5
-                //Plugin.Log.Info($"cutType:  {activeDictNote.cutType}");// 0
-                //Plugin.Log.Info($"Multiplyer:  {activeDictNote.multiplier}");// 8
-                //foreach (int Y in activeDictNote.score) { Plugin.Log.Info($"Score:  {Y}"); }
-                //foreach (int Y in activeDictNote.noteCenter) { Plugin.Log.Info($"noteCenter:  {Y}"); }
-                //foreach (int Y in activeDictNote.noteRotation) { Plugin.Log.Info($"NoteRotation:  {Y}"); }
-                //Plugin.Log.Info($"timeDeviation:  {activeDictNote.timeDeviation}"); // 0.0820...
-                //Plugin.Log.Info($"Speed:  {activeDictNote.speed}"); // 40.95655
-                //Plugin.Log.Info($"preSwing:  {activeDictNote.preswing}"); // 1.1495...
-                //Plugin.Log.Info($"PostSwing:  {activeDictNote.postswing}"); //0.8838...
-                //Plugin.Log.Info($"Distance to Center:  {activeDictNote.distanceToCenter}"); //0.03606...
-
-                //if (activeDictNote.cutPoint != null) { foreach (int Y in activeDictNote.cutPoint) { Plugin.Log.Info($"CutPoint:  {Y}"); } }
-                //else { Plugin.Log.Info($"cutPoint: Null"); }
-
-                //if (activeDictNote.saberDir != null) { foreach (int Y in activeDictNote.saberDir) { Plugin.Log.Info($"SaberDir:  {Y}"); } }
-                //else { Plugin.Log.Info($"cutPoint: Null"); }
-
-                //if (activeDictNote.cutNormal != null) { foreach (int Y in activeDictNote.cutNormal) { Plugin.Log.Info($"CutNormal:  {Y}"); } }
-                //else { Plugin.Log.Info($"CutNormal: Null"); }
-
-                //Plugin.Log.Info($"TimeDependednce:  {activeDictNote.timeDependence}"); //0.01249...
-
-                #endregion
+                
 
                 //x++; 
             }
 
+            #endregion
+
+            #region Create Average Values for the left hand 
             float newLeftAccuracyAverage = 0f;
             float newLeftTimeDeviationAverage = 0f;
             float newLeftTimeDependenceAverage = 0f;
@@ -1324,6 +1315,9 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             float newLeftPreswingAverage = 0f;
             float newLeftPostswingAverage = 0f;
 
+            #endregion
+
+            #region Create average Values for the Right Hand
             float newRightAccuracyAverage = 0f;
             float newRightTimeDeviationAverage = 0f;
             float newRightTimeDependenceAverage = 0f;
@@ -1331,6 +1325,11 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             float newRightPreswingAverage = 0f;
             float newRightPostswingAverage = 0f;
 
+            #endregion
+
+            #region Create ArrayLists that will hold all occurances of data within range.
+
+            //left hand
             ArrayList leftAccuracyAverageList = new ArrayList();
             ArrayList leftTimeDeviationAverageList = new ArrayList();
             ArrayList leftTimeDependenceAverageList = new ArrayList();
@@ -1338,6 +1337,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             ArrayList leftPreswingAverageList = new ArrayList();
             ArrayList leftPostswingAverageList = new ArrayList();
 
+            //right hand
             ArrayList rightAccuracyAverageList = new ArrayList();
             ArrayList rightTimeDeviationAverageList = new ArrayList();
             ArrayList rightTimeDependenceAverageList = new ArrayList();
@@ -1345,11 +1345,14 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             ArrayList rightPreswingAverageList = new ArrayList();
             ArrayList rightPostswingAverageList = new ArrayList();
 
+            #endregion
 
-
+            #region For every note in the selected region
+            // for every note in the selected range, add it to the array lists. 
             foreach (notesDictionary CurrentNoteDictionary in DictionaryNotesList) 
             {
-                if (CurrentNoteDictionary.noteType == 0)// if hand is = right
+                if (CurrentNoteDictionary.noteType == 0)
+                                                        
                 {
                     rightAccuracyAverageList.Add(CurrentNoteDictionary.score[1]);
                     rightTimeDeviationAverageList.Add(CurrentNoteDictionary.timeDeviation);
@@ -1357,6 +1360,9 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
                     rightSpeedAverageList.Add(CurrentNoteDictionary.speed);
                     rightPreswingAverageList.Add(CurrentNoteDictionary.preswing);
                     rightPostswingAverageList.Add(CurrentNoteDictionary.postswing);
+                    // if hand is = right,
+                    // add all the information from this note to the right hand data Lists.
+
                 }
                 else // you have two hands, the only other option is left.
                 {
@@ -1370,26 +1376,38 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
             }
 
+            #endregion
+
+            //Below are average Calculators And Validity Checkers
+
             #region Calculate Accuracy averages For Left and right Hands
 
 
 
             int leftTotalNoteAccuracy = 0;
             int length = 0;
-            foreach (int NoteAccuracy in leftAccuracyAverageList) 
+            foreach (int NoteAccuracy in leftAccuracyAverageList) //Calculate total Note Accuracay
             {
-                leftTotalNoteAccuracy = leftTotalNoteAccuracy + NoteAccuracy;
-                length++;
+                if (NoteAccuracy != 0) //If its a miss or Badcut, Accuracy is Zero. Exclude these.
+                { 
+                    leftTotalNoteAccuracy = leftTotalNoteAccuracy + NoteAccuracy;
+                    length++;
+                }
             }
             newLeftAccuracyAverage = (float)leftTotalNoteAccuracy / (float)length;
+
+            //Left hand accuracy average is our total accuracy / note Count.
 
 
             int rightTotalNoteAccuracy = 0;
             length = 0;
-            foreach (int NoteAccuracy in rightAccuracyAverageList)
+            foreach (int NoteAccuracy in rightAccuracyAverageList) //Calculate total
             {
-                rightTotalNoteAccuracy = rightTotalNoteAccuracy + NoteAccuracy;
-                length++;
+                if (NoteAccuracy != 0) //If its a miss or Badcut, Accuracy is Zero. Exclude these.
+                {
+                    rightTotalNoteAccuracy = rightTotalNoteAccuracy + NoteAccuracy;
+                    length++;
+                }
             }
             newRightAccuracyAverage = (float)rightTotalNoteAccuracy / (float)length;
             length = 0;
@@ -1398,20 +1416,20 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
             this.AverageLeftAccuracy = newLeftAccuracyAverage;
             this.AverageRightAccuracy = newRightAccuracyAverage;
-
+            //Our Properties Get updated with the new averages
 
 
             #endregion
 
             #region Calculate Time Deiviation Averages for each hand.
 
-            float leftTotalTimeDeviation = 0f;  //invalid cast here~
+            float leftTotalTimeDeviation = 0f;  
             length = 0;
             foreach (float NoteDeviation in leftTimeDeviationAverageList)
             {
 
                 if (NoteDeviation != float.NaN) //if the note was missed than there is NAN for Deviation
-                { 
+                {                               // Exclude Float.NaN because it Causes an error.
                     leftTotalTimeDeviation = leftTotalTimeDeviation + NoteDeviation;
                     length++;
                 }               
@@ -1423,26 +1441,28 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
             float rightTotalTimeDeviation = 0f;
             length = 0;
-            foreach (float NoteDeviation in rightTimeDeviationAverageList)
+            foreach (float NoteDeviation in rightTimeDeviationAverageList) //CREATE TOTAL DEVIATION
             {
                 if (NoteDeviation != float.NaN) //if the note was missed than there is NAN for Deviation
-                {
+                {                               // Exclude Float.NaN because it Causes an error.
                     rightTotalTimeDeviation = rightTotalTimeDeviation + (float)NoteDeviation;
                     length++;
                 }
             }
-            newRightTimeDeviationAverage = (float)rightTotalTimeDeviation / (float)length;
+            newRightTimeDeviationAverage = (float)rightTotalTimeDeviation / (float)length; //Calculate average Deviation
 
 
 
             this.AverageLeftTimingDeviation = Convert.ToString(Math.Round(newLeftTimeDeviationAverage,4));
             this.AverageRightTimingDeviation = Convert.ToString(Math.Round(newRightTimeDeviationAverage,4));
-
+            //Update our properties with Deviation rounded to less Dp.
 
 
             #endregion
 
             #region Calculate Time Dependence Averages for each hand.
+
+            //Same theory as time Deviation.
 
             float leftTotalTimeDependence = 0f;
             length = 0;
@@ -1484,15 +1504,15 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             foreach (float NoteSpeed in leftSpeedAverageList)
             {
 
-                if (NoteSpeed != float.NaN) //if the note was missed than there is NAN for Deviation
+                if (NoteSpeed != float.NaN) //if the note was missed than there is NAN for Speed also.
                 {
-                    leftTotalSpeed = leftTotalSpeed + NoteSpeed;
+                    leftTotalSpeed = leftTotalSpeed + NoteSpeed; //Calculate total 
                     length++;
                 }
 
             }
 
-            newLeftSpeedAverage = (float)leftTotalSpeed / (float)length;
+            newLeftSpeedAverage = (float)leftTotalSpeed / (float)length; //Calculate average
 
             float rightTotalSpeed = 0f;
             length = 0;
@@ -1513,17 +1533,20 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             AverageRightVelocity = newRightSpeedAverage;
             RecommendedLeftVelocity = (float)Math.Round(AverageLeftVelocity * 0.9f, 3);
             RecommendedRightVelocity = (float)Math.Round(AverageRightVelocity * 0.9f, 3);
+            //update Properties.
+            // its Unclear how to find the Level's BPM and NJS, so as a result, we ask the user to move a tenth slower.
+            //in the future this would be good to change, for more Accurate usage.
 
             #endregion
 
-            #region Calculate Preswing and postswing averafge for left and right hand
+            #region Calculate Preswing and postswing average for left and right hand
 
             float leftTotalPreswing = 0f;
             length = 0;
             foreach (float NotePreswing in leftPreswingAverageList)
             {
 
-                if (NotePreswing != float.NaN) //if the note was missed than there is NAN for Deviation
+                if (NotePreswing != float.NaN) //if the note was missed than there is NAN for Preswing.
                 {
                     leftTotalPreswing = leftTotalPreswing + NotePreswing;
                     length++;
@@ -1538,7 +1561,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             foreach (float NotePreswing in rightPreswingAverageList)
             {
 
-                if (NotePreswing != float.NaN) //if the note was missed than there is NAN for Deviation
+                if (NotePreswing != float.NaN) //if the note was missed than there is NAN for Preswing.
                 {
                     rightTotalPreswing = rightTotalPreswing + NotePreswing;
                     length++;
@@ -1554,7 +1577,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             foreach (float NotePostswing in leftPostswingAverageList)
             {
 
-                if (NotePostswing != float.NaN) //if the note was missed than there is NAN for Deviation
+                if (NotePostswing != float.NaN) //if the note was missed than there is NAN for  PostSwing
                 {
                     leftTotalPostswing = leftTotalPostswing + NotePostswing;
                     length++;
@@ -1569,7 +1592,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             foreach (float NotePostswing in rightPostswingAverageList)
             {
 
-                if (NotePostswing != float.NaN) //if the note was missed than there is NAN for Deviation
+                if (NotePostswing != float.NaN) //if the note was missed than there is NAN for Postswing
                 {
                     rightTotalPostswing = rightTotalPostswing + NotePostswing;
                     length++;
@@ -1579,29 +1602,15 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
             newRightPostswingAverage = (float)rightTotalPostswing / (float)length;
 
+            //Create averages ^^^^
+
             AverageRightPreSwing = newRightPreswingAverage;
             AverageRightPostSwing = newRightPostswingAverage;
             AverageLeftPreSwing = newLeftPreswingAverage;
             AverageLeftPostSwing = newLeftPostswingAverage;
-
+            //Update Properties ^^^^
 
             #endregion
-
-            //For each hand get averages and update the properties
-            //Nullify active Values.
-
-
-            //{
-            //
-            //"score":[70,12,30],
-            //
-            //"timeDeviation":0.017578125,
-            //"speed":57.0695038,
-            //"preswing":1.54497993,
-            //"postswing":0.843348563,
-            //"timeDependence":0.171928167
-            //
-            //}
 
         }
 
@@ -1612,8 +1621,11 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
     #region Trackers
 
 
-    public class Play
-    {
+    public class Play //Play Class Containing OverView information.
+    {                 // When we deserialise a JSon object into a Play Class Instance,
+                      // Anything that appears inside of the Object with the matching <Tkey> gets
+                      // Placed in the matching Variable name of the Selected Class, in this case, Play. 
+                      // this theory remains the same for all Classes Created.
         public string playPath { get; set; }
         public int playLine { get; set; }
 
@@ -1627,9 +1639,11 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         public string songArtist { get; set; }
 
         public string songMapper { get; set; }
-        public Dictionary<string, object> trackers { get; set; }
+        public Dictionary<string, object> trackers { get; set; } 
         public Dictionary<string, object> deepTrackers { get; set; }
-
+        //Since it is a nested Dictionary, there are two Dictionarties whitch are both 
+        // string:Object Format. we use object becasue Object can be casted however, and since there is Varying types Within
+        // the file, we need to be able to manually decide for each varaible. 
         public Play(
             string newPlayPath,
             string newSongName,
@@ -1638,7 +1652,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             string newSongMapper,
             Dictionary<string, object> TheTrackers,
             Dictionary<string, object> TheDeepTrackers
-                   )
+                   ) //Constructor that Defines what gets added to the class instance. 
         {
             playPath = newPlayPath;
             songName = newSongName;
@@ -1648,15 +1662,17 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             trackers = TheTrackers;
             deepTrackers = TheDeepTrackers;
 
-
+            //Trackers refer to all of the Data trackers.
+            //Deeptrackers refers to the majority of each line, the Note tracker. 
         }
 
 
 
     }
 
-    public class hitTracker
-    {
+    public class hitTracker //Same Structure and theory behind this class as in the Play Class.
+    {   
+                       
         public int leftNoteHit { get; set; }
         public int rightNoteHit { get; set; }
 
@@ -1712,7 +1728,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
     }
 
-    public class accuracyTracker
+    public class accuracyTracker //Same Structure and theory behind this class as in the Play Class. 
     {
         public float accRight { get; set; }
         public float accLeft { get; set; }
@@ -1799,7 +1815,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
     }
 
-    public class scoreTracker
+    public class scoreTracker //Same Structure and theory behind this class as in the Play Class. 
     {
         public int rawScore { get; set; }
         public int score { get; set; }
@@ -1845,7 +1861,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
     }
 
-    public class winTracker
+    public class winTracker //Same Structure and theory behind this class as in the Play Class. 
     {
         public bool won { get; set; }
         public string rank { get; set; }
@@ -1877,7 +1893,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
     }
 
-    public class distanceTracker
+    public class distanceTracker //Same Structure and theory behind this class as in the Play Class. 
     {
         public float rightSaber { get; set; }
         public float leftSaber { get; set; }
@@ -1906,7 +1922,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
     }
 
-    public class scoreGraphTracker
+    public class scoreGraphTracker //Same Structure and theory behind this class as in the Play Class. 
     {
         public object graph { get; set; }
 
@@ -1923,8 +1939,8 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
     }
 
     public class noteTracker
-    {
-        public object[] notes { get; set; } // key notes's value, the dict itself.
+    { // Note tracker has all of the notes inside of the level in it. 
+        public object[] notes { get; set; } // the List of Dictionaries that refers to each note in the level.
 
         public noteTracker
                              (
@@ -1944,7 +1960,8 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
     }
 
     public class notesDictionary
-    {
+    { //For every notes in notesTracker class, there is all this information to deserialise. 
+        // other than that, its the same as the rest of the classes.
         public int noteType { get; set; }
         public int noteDirection { get; set; }
         public int index { get; set; }
