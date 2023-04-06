@@ -288,7 +288,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         }
         #endregion
 
-        l
+        
         #region SetPlaysData and Call the Data TransferEvent!
         public void SetPlaysData(string PlayPath, int PlayLine, string PlayName) 
         {
