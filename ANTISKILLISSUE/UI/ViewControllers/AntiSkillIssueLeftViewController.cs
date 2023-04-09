@@ -387,7 +387,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         {
             get
             {
-                if (endSliderMaximum == -1f) { endSliderMaximum = 60f; }
+                if (endSliderMaximum == -1f) { endSliderMaximum = 0f; }
                 return endSliderMaximum;
             }
             set
