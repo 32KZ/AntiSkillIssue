@@ -63,9 +63,9 @@ Great idea 🥶
 
 - the larger a session, the longer it takes to populate the right list on a session selected. (i need to make the method for it async.)
 
-- Score Graph on the right View is currently Not implemented. 
+- Deserialises notes until it finds start of selection instead of doing a binary Sort.(Performance issue, or even, a skill issue :0)
 
-- not all data from the play gets updated in the UI after A range Apply. (its not that i dont know how its that i havent implemented it 💀)
+- Score Graph on the right View is currently Not implemented. 
 
 ## Credits
 
