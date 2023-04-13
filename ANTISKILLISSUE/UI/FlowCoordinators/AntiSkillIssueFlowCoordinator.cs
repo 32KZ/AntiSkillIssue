@@ -115,6 +115,11 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.FlowCoordinators //Find Directory
 
         }
 
+        protected override void DidDeactivate(bool removedFromHierarchy, bool screenSystemDisabling) //Memory leak fix?
+        {
+            base.DidDeactivate(removedFromHierarchy, screenSystemDisabling);
+        }
+
         #endregion Close the FlowCoordinator.
 
     }

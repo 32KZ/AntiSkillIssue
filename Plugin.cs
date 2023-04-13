@@ -73,7 +73,7 @@ namespace AntiSkillIssue
             Log.Info("Started AntiSkillIssue");
         }
         #endregion Start the Mod
-
+        //---
         #region Whilst mod is Enabled. Akin to main.
         [OnEnable]
         public void OnEnable()
@@ -86,9 +86,10 @@ namespace AntiSkillIssue
             }
             catch
             {
-                Log.Info("Failed to instance a MenuButton in plugin.cs. Check yout IPA installation.");
+                Log.Info("Failed to instance a MenuButton in plugin.cs. Check your IPA installation.");
             } 
         }
+
         #endregion Whilst mod is Enabled. Akin to main.
 
         #region Disable the Mod

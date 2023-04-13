@@ -30,7 +30,6 @@ using TMPro;
 using static SliderController.Pool;
 using System.IO;
 using Newtonsoft.Json;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using System.Diagnostics.Eventing.Reader;
 using System.Collections;
 using IPA.Utilities;
