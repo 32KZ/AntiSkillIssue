@@ -1326,7 +1326,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
             #endregion
 
-            #region Create ArrayLists that will hold all occurances of data within range.
+y            #region Create ArrayLists that will hold all occurances of data within range.
 
             //left hand
             ArrayList leftAccuracyAverageList = new ArrayList();
