@@ -1,10 +1,8 @@
 ﻿<vertical child-control-height='false' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
 	<horizontal bg='panel-top' pad-left='0' pad-right='0' horizontal-fit='PreferredSize'>
-		<text text='PLUGIN.CS FAILURE' align='Center' font-size='8'/>
-		<text text ='REDACTED' align='Left' font-size='8'/>
-		<text text ='REDACTED' align='Right' font-size='8'/>
+		<text text='Code' align='Center' font-size='8'/>
 	</horizontal>
 	<horizontal bg='round-rect-panel' id='splash-background' pad='2'>
-		<text text='Add List Of Plays here'/>
+		<text text='Code'/>
 	</horizontal>
 </vertical>

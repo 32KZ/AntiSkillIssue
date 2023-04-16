@@ -36,6 +36,7 @@ namespace AntiSkillIssue
         private MainFlowCoordinator _mainFlowCoordinator;
         private ResultsFlowCoordinator _ResultsFlowCoordinator;
         
+        
         internal static Plugin Instance { get; private set; } 
         internal static IPALogger Log { get; private set; }
 
@@ -43,27 +44,12 @@ namespace AntiSkillIssue
         
 
 
-        [Init] //initialisation tag
-
-        /// <summary>
-        /// Called when the plugin is first loaded by IPA (either when the game starts or when the plugin is enabled if it starts disabled).
-        /// [Init] methods that use a Constructor or called before regular methods like InitWithConfig.
-        /// Only use [Init] with one Constructor.
-        /// </summary>
-        
-
+        [Init] 
         public void Init(IPALogger logger, IPA.Config.Config config) 
         {
             
             Instance = this;
             Log = logger;
-
-            //float _TempSongLength = _currentLevel.songDuration;
-            //string _SongLength = "6:30";//_TempSongLength.ToString();
-
-            //string _SongName = "test1"; //_currentLevel.songName;
-
-            //string _CoverImage = "Cover Image";
 
 
             Log.Info("AntiSkillIssue initialized.");
