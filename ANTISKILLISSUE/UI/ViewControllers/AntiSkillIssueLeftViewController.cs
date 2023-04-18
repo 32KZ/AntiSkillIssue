@@ -30,7 +30,6 @@ using TMPro;
 using static SliderController.Pool;
 using System.IO;
 using Newtonsoft.Json;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using System.Diagnostics.Eventing.Reader;
 using System.Collections;
 using IPA.Utilities;
@@ -1327,7 +1326,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
 
             #endregion
 
-            #region Create ArrayLists that will hold all occurances of data within range.
+y            #region Create ArrayLists that will hold all occurances of data within range.
 
             //left hand
             ArrayList leftAccuracyAverageList = new ArrayList();
