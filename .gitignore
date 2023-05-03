@@ -1,4 +1,5 @@
-
+bin/
+obj/
 *.csproj
 obj/AntiSkillIssue.csproj.nuget.dgspec.json
 obj/AntiSkillIssue.csproj.nuget.g.props
@@ -11,3 +12,4 @@ obj/project.nuget.cache
 obj/Debug/AntiSkillIssue.csproj.AssemblyReference.cache
 obj/Debug/AntiSkillIssue.dll
 obj/Debug/AntiSkillIssue.pdb
+

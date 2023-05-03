@@ -239,7 +239,6 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
         }
 
 
-
         #endregion UNIVERSAL UI ACTIONS
 
         #region TAB 1 : START AND END SLIDERS
@@ -709,7 +708,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             {
 
                 this.averageLeftPostSwing = (float)Math.Round(value, 4) * 100; //As a Percentage.
-                this.NotifyPropertyChanged();
+                this.NotifyPropertyChanged(nameof("average-left-post-swing"));
 
             }
 
@@ -731,7 +730,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             {
 
                 this.averageRightPreSwing = (float)Math.Round(value, 4) * 100; //Make Percentage
-                this.NotifyPropertyChanged();
+                this.NotifyPropertyChanged(nameof("average-right-pre-swing"));
 
             }
 
@@ -749,7 +748,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             {
 
                 this.averageRightPostSwing = (float)Math.Round(value, 4) * 100; //Make Percentage
-                this.NotifyPropertyChanged();
+                this.NotifyPropertyChanged(nameof("average-right-post-swing"));
 
             }
 
@@ -780,7 +779,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             {
 
                 this.averageLeftCut[1] = (float)Math.Round(value, 2); // We are looking for a 2dp float of Accuracy. eg, 13.43 or 10.23. (0.00 - 15.00)
-                this.NotifyPropertyChanged();
+                this.NotifyPropertyChanged(nameof("average-left-accuracy"));
 
             }
 
@@ -802,7 +801,7 @@ namespace AntiSkillIssue.ANTISKILLISSUE.UI.ViewControllers
             {
 
                 this.averageRightCut[1] = (float)Math.Round(value, 2); // 2dp
-                this.NotifyPropertyChanged();
+                this.NotifyPropertyChanged(nameof("average-right-accuracy"));
 
             }
 
