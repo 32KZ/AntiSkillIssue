@@ -13,3 +13,5 @@ obj/Debug/AntiSkillIssue.csproj.AssemblyReference.cache
 obj/Debug/AntiSkillIssue.dll
 obj/Debug/AntiSkillIssue.pdb
 
+*.vsidx
+.vs/AntiSkillIssue/v17/.suo
