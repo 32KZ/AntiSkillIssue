@@ -1,5 +1,5 @@
 # AntiSkillIssue
-My Discord is 32KZ#8255. Please message me 😭 😂
+My Discord is 32KZ.
 
 ## Current Features
 
